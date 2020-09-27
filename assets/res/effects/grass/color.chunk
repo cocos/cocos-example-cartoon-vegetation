@@ -17,7 +17,7 @@ vec3 BlendOverlay(vec3 a, vec3 b)
 
 
 //Shading (RGB=hue - A=brightness)
-vec4 ApplyVertexColor(in vec3 vertexPos, in vec3 wPos, in vec3 baseColor, in float mask, in float aoAmount, in float darkening, in vec4 hue, in float posOffset)
+vec4 applyVertexColor(in vec3 vertexPos, in vec3 wPos, in vec3 baseColor, in float mask, in float aoAmount, in float darkening, in vec4 hue, in float posOffset)
 {
 	vec4 col = vec4(baseColor, 1.);
 

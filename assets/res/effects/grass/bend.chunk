@@ -18,7 +18,7 @@ struct BendSettings
 
 
 //Bend map UV
-vec2 GetBendMapUV(in vec3 wPos) {
+vec2 getBendMapUV(in vec3 wPos) {
 	// vec2 uv = cc_grass_bend_uv.xy / cc_grass_bend_uv.z + wPos.xz / cc_grass_bend_uv.z;//(cc_grass_bend_uv.z / (cc_grass_bend_uv.z * cc_grass_bend_uv.z)) * wPos.xz;
 
     vec2 uv = (wPos.xz - cc_grass_bend_uv.xy) / cc_grass_bend_uv.z + 0.5;
@@ -31,13 +31,13 @@ vec2 GetBendMapUV(in vec3 wPos) {
 	return uv;			
 }
 
-vec4 GetBendVector(vec3 wPos) 
+vec4 getBendVector(vec3 wPos) 
 {
 	if (cc_grass_bend_uv.w == 0.) {
         return vec4(0.5, wPos.y, 0.5, 0.0);
     }
 
-	vec2 uv = GetBendMapUV(wPos);
+	vec2 uv = getBendMapUV(wPos);
 
 	vec4 v = texture(cc_grass_bend_map, uv);
 
@@ -49,8 +49,8 @@ vec4 GetBendVector(vec3 wPos)
 }
 
 
-vec4 GetBendOffset(vec3 wPos, BendSettings b) {
-	vec4 vec = GetBendVector(wPos);
+vec4 getBendOffset(vec3 wPos, BendSettings b) {
+	vec4 vec = getBendVector(wPos);
 
 	vec4 offset = vec4(wPos, vec.a);
 
