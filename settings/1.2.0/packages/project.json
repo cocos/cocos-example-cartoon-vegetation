@@ -1,0 +1,10 @@
+{
+  "__version__": "1.0.1",
+  "script": {
+    "useDefineForClassFields": false,
+    "allowDeclareFields": false
+  },
+  "general": {
+    "renderPipeline": "f004d135-eb1a-428f-bbff-81d511aff42f"
+  }
+}

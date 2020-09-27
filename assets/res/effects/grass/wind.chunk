@@ -1,0 +1,63 @@
+
+struct WindSettings
+{
+	float mask;
+	float ambientStrength;
+	float speed;
+	vec2 direction;
+	float swinging;
+
+	float randObject;
+	float randVertex;
+	float randObjectStrength;
+
+	float gustStrength;
+	float gustFrequency;
+};
+
+//World-align UV moving in wind direction
+vec2 GetGustingUV(vec3 wPos, WindSettings s) {
+	return (wPos.xz * s.gustFrequency * 0.01) + (cc_time.x * s.speed * s.gustFrequency * 0.01) * -s.direction.xy;
+}
+
+float SampleGustMap(vec3 wPos, WindSettings s, sampler2D windMap) {
+	vec2 gustUV = GetGustingUV(wPos, s);
+	float gust = texture(windMap, gustUV).r;
+
+	gust *= s.gustStrength * s.mask;
+
+	return gust;
+}
+
+vec4 GetWindOffset (in vec3 positionOS, in vec3 wPos, float yOffset, WindSettings s, sampler2D windMap) {
+  vec4 offset;
+
+	//Random offset per vertex
+	float f = length(positionOS.xz) * s.randVertex;
+	float strength = s.ambientStrength * 0.5 * mix(1., yOffset, s.randObjectStrength);
+	//Combine
+	float sine = sin(s.speed * (cc_time.x + (yOffset * s.randObject) + f));
+	//Remap from -1/1 to 0/1
+	sine = mix(sine * 0.5 + 0.5, sine, s.swinging);
+
+	//Apply gusting
+	float gust = SampleGustMap(wPos, s, windMap);
+
+	//Scale sine
+	sine = sine * s.mask * strength;
+
+	//Mask by direction vector + gusting push
+	offset.xz = vec2(sine + gust);
+	offset.y = s.mask;
+
+	//Summed offset strength
+	float windWeight = length(offset.xz) + 0.0001;
+	//Slightly negate the triangle-shape curve
+	windWeight = pow(windWeight, 1.5);
+	offset.y *= windWeight;
+
+	//Wind strength in alpha
+	offset.a = sine + gust;
+
+	return offset;
+}

@@ -1,0 +1,262 @@
+// Effect Syntax Guide: https://github.com/cocos-creator/docs-3d/blob/master/zh/material-system/effect-syntax.md
+
+CCEffect %{
+  techniques:
+  - name: opaque
+    passes:
+    - vert: vs:vert
+      frag: fs:frag
+      properties: &props
+        alphaTest:      { value: 0.5 }
+
+        windMap:        { value: white }
+        windDirection: { value: [1, 1] }
+        windSpeed: { value: 4 }
+        windStrength: { value: 0.2 }
+        windSwinging: { value: 0.17 }
+        windRandObject: { value: 1 }
+        windRandVertex: { value: 1 }
+        windRandObjectStrength: { value: 0.709 }
+        windGustStrength: { value: 0.196 }
+        windGustFrequency: { value: 2.27 }
+        windGustTint: { value: 2.27 }
+
+        mainTexture:    { value: white }
+        mainColor:      { value: [1, 1, 1, 1], editor: { type: color } }
+        hueColor:       { value: [1, 1, 1, 1], editor: { type: color } }
+        ambientOcclusion: { value: 0.704 }
+        randomDarken: { value: 0.287 }
+
+        specularHighlight: { value: 0 }
+        translucency: { value: 1 }
+  - name: transparent
+    passes:
+    - vert: vs:vert
+      frag: fs:frag
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendSrcAlpha: src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: *props
+}%
+
+CCProgram shared_ubo %{
+  #include <./wind>
+  #include <./bend>
+  
+  uniform sampler2D windMap;
+  uniform Wind {
+    vec2 windDirection;
+    float windStrength;
+    float windSpeed;
+    float windSwinging;
+    float windRandObject;
+    float windRandVertex;
+    float windRandObjectStrength;
+    float windGustStrength;
+    float windGustFrequency;
+    float windGustTint;
+  };
+
+
+  uniform sampler2D mainTexture;
+  uniform Color {
+    vec4 mainColor;
+    vec4 hueColor;
+    float ambientOcclusion;
+    float randomDarken;
+
+    float specularHighlight;
+    float translucency;
+
+    float alphaTest;
+  };
+
+  WindSettings getWinSettings (float mask) {
+    WindSettings s;
+
+    s.ambientStrength = windStrength;
+    s.speed = windSpeed;
+    s.direction = windDirection;
+    s.swinging = windSwinging;
+    s.mask = mask;
+    s.randObject = windRandObject;
+    s.randVertex = windRandVertex;
+    s.randObjectStrength = windRandObjectStrength;
+    s.gustStrength = windGustStrength;
+    s.gustFrequency = windGustFrequency;
+
+    return s;
+  }
+
+  BendSettings getBendSettings (float mask) {
+    BendSettings s;
+    s.mode = 0;
+    s.mask = mask;
+    s.pushStrength = 1.;
+	  s.flattenStrength = 1.;
+	  s.perspectiveCorrection = 1.;
+    return s;
+  }
+
+}%
+
+CCProgram vs %{
+  precision highp float;
+  #include <input-standard>
+  #include <cc-global>
+  #include <cc-local-batch>
+  #include <input-standard>
+  #include <cc-fog>
+  #include <cc-shadow-map-vs>
+
+  #include <./color>
+  #include <shared_ubo>
+
+  in vec3 a_color;
+  #if HAS_SECOND_UV
+    in vec2 a_texCoord1;
+  #endif
+
+  out vec3 v_wPos;
+  out vec3 v_normal;
+  out vec3 v_tangent;
+  out vec3 v_bitangent;
+  out vec2 v_uv;
+  out vec2 v_uv1;
+  out vec4 v_color;
+  out float factor_fog;
+
+  float randomRange (vec2 seed, float minv, float maxv) {
+    float randomno = fract(sin(dot(seed, vec2(12.9898, 78.233)))*43758.5453);
+    return mix(minv, maxv, randomno);
+  }
+
+  float ObjectPosRand01(mat4 mat) {
+    return fract(mat[3][0] + mat[3][1] + mat[3][2]);
+    // return fract(mat[0][3] + mat[1][3] + mat[2][3]);
+  }
+
+  void calcGrassOffset (in vec4 lPos, inout vec4 wPos, float rand) {
+    float mask = a_color.r;
+    vec4 windOffset = GetWindOffset(lPos.xyz, wPos.xyz, rand, getWinSettings(mask), windMap);
+    vec4 bendOffset = GetBendOffset(wPos.xyz, getBendSettings(mask));
+
+    vec3 offsets = mix(windOffset.xyz, bendOffset.xyz, bendOffset.a).xyz;
+  
+    //Apply bend offset
+    wPos.xz += offsets.xz;
+    wPos.y -= offsets.y;
+  }
+
+  vec4 calcGrassVertexColor(in vec4 lPos, in vec4 wPos, float rand) {
+    return ApplyVertexColor(lPos.xyz, wPos.xyz, mainColor.xyz, a_color.r, ambientOcclusion, randomDarken, hueColor, rand);
+  }
+
+  vec4 vert () {
+    StandardVertInput In;
+    CCVertInput(In);
+
+    mat4 matWorld, matWorldIT;
+    CCGetWorldMatrixFull(matWorld, matWorldIT);
+
+    vec4 lPos = In.position;
+    vec4 wPos = matWorld * lPos;
+
+    // float rand = lPos.y; // should be 0 - 1;
+    float rand = ObjectPosRand01(matWorld); // should be 0 - 1;
+    calcGrassOffset(lPos, wPos, rand);
+
+    // vec2 uv = GetBendMapUV(wPos.xyz);
+    // vec4 bendCol = texture(cc_grass_bend_map, uv);
+    // v_color = bendCol;
+
+    v_color = calcGrassVertexColor(lPos, wPos, rand);
+
+    v_wPos = wPos.xyz;
+    v_normal = normalize((matWorldIT * vec4(In.normal, 0.0)).xyz);
+    v_tangent = normalize((matWorld * vec4(In.tangent.xyz, 0.0)).xyz);
+    v_bitangent = cross(v_normal, v_tangent) * In.tangent.w; // note the cross order
+
+    v_uv = a_texCoord;
+    #if HAS_SECOND_UV
+      v_uv1 = a_texCoord1;
+    #endif
+    factor_fog = CC_TRANSFER_FOG(wPos);
+
+    CCPassShadowParams(wPos);
+
+    return cc_matProj * cc_matView * wPos;
+  }
+
+}%
+
+CCProgram fs %{
+  precision highp float;
+  #include <output>
+  #include <cc-fog>
+  #include <shared_ubo>
+  #include <gamma>
+
+  #include <./color>
+
+  in vec2 v_uv;
+  in vec4 v_color;
+  in float factor_fog;
+
+  in vec3 v_wPos;
+
+  vec3 Translucency(vec3 viewDirectionWS, float amount) {
+    vec3 ld = normalize(cc_mainLitDir.xyz);
+    float VdotL = max(0., dot(viewDirectionWS, ld)) * amount;
+
+    //TODO: Incorperate size parameter
+    VdotL = pow(VdotL, 4.) * 8.;
+
+    //Translucency masked by shadows and grass mesh bottom
+    float tMask = VdotL;// * light.shadowAttenuation * light.distanceAttenuation;
+
+    //Fade the effect out as the sun approaches the horizon (75 to 90 degrees)
+    // float sunAngle = dot(vec3(0., 1., 0.), ld);
+    // float angleMask = clamp(sunAngle * 6.666, 0., 1.); /* 1.0/0.15 = 6.666 */
+
+    // tMask *= angleMask;
+
+    return clamp(tMask * cc_mainLitColor.rgb * cc_mainLitColor.w, 0., 1.);
+  }
+
+  vec4 frag () {
+    vec4 col = texture(mainTexture, v_uv);
+    // col.rgb = SRGBToLinear(col.rgb);
+
+    float alpha = col.a;
+    vec3 albedo = col.rgb;
+
+    if (alpha < alphaTest) {
+      discard;
+    }
+
+    // apply vertex color
+    albedo *= v_color.rgb;
+
+    // wind gust color
+	  WindSettings wind = getWinSettings(v_color.r);
+    wind.gustStrength = 1.;
+    float gust = SampleGustMap(v_wPos, wind, windMap);
+	  albedo += min(vec3(gust * 10. * v_color.a), windGustTint);
+
+    // translucency
+    vec3 viewDirection = normalize(cc_cameraPos.xyz - v_wPos);
+    vec3 transmissionColor = Translucency(viewDirection, translucency);
+
+	  albedo += BlendOverlay(transmissionColor * 2.0, albedo);
+
+    vec4 final = vec4(albedo, alpha);
+    final = CC_APPLY_FOG(final, factor_fog);
+
+    return final;
+  }
+}%
