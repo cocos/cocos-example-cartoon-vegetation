@@ -63,6 +63,7 @@ export class GrassBenderRenderer extends Component {
             camera.clearColor = neutralVector;
             camera.clearFlags = GFXClearFlag.NONE;
             camera.visibility = 0;
+            camera.priority = -100;
 
             this._renderCamera = camera;
         }

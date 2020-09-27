@@ -33,7 +33,7 @@
   {
     "__type__": "GrassBendRenderStage",
     "_name": "GrassBendRenderStage",
-    "_priority": 1,
+    "_priority": 0,
     "_tag": 0,
     "_material": {
       "__uuid__": "f0835bbd-0ebb-4cde-a698-137cbcf146fe"

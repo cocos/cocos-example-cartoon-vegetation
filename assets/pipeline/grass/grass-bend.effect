@@ -80,7 +80,7 @@ CCProgram grass-bend-fs %{
     //Bottom-facing normals
 		float mask = -v_normal.y * params.x;// * v_color.r;
 
-		float height = -1.;//((v_position.y) + params.y);
+		float height = ((v_position.y) + params.y);
 		vec2 dir = (v_normal.xz * params.z) * 0.5 + 0.5;
 
     return vec4(dir.x, height, dir.y, mask);

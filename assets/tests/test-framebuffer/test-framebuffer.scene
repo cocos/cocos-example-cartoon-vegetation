@@ -23,9 +23,6 @@
       },
       {
         "__id__": 7
-      },
-      {
-        "__id__": 10
       }
     ],
     "_active": true,
@@ -33,9 +30,9 @@
     "_prefab": null,
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 13
+      "__id__": 10
     },
-    "_id": "f987b2aa-e4ea-44f9-a395-1886c0d38c97"
+    "_id": "e036f95f-3413-4b7c-8244-865df49c09ea"
   },
   {
     "__type__": "cc.Node",
@@ -126,9 +123,9 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -10,
-      "y": 10,
-      "z": 10
+      "x": -1.87,
+      "y": 1.949,
+      "z": 1.87
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -189,7 +186,9 @@
     "_iso": 0,
     "_screenScale": 1,
     "_visibility": 1822425087,
-    "_targetTexture": null,
+    "_targetTexture": {
+      "__uuid__": "025340a1-e31b-4670-a560-59c36e2030e6"
+    },
     "_id": "7dWQTpwS5LrIHnc1zAPUtf"
   },
   {
@@ -210,92 +209,8 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -1.254,
-      "z": -1.437
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 3,
-      "y": 3,
-      "z": 3
-    },
-    "_layer": 1073741824,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
       "y": 0,
       "z": 0
-    },
-    "_id": "40tkWpL0ZKN4rd8l+zBMgm"
-  },
-  {
-    "__type__": "cc.MeshRenderer",
-    "_name": "Cube<ModelComponent>",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 7
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "d3c7820c-2a98-4429-8bc7-b8453bc9ac41"
-      }
-    ],
-    "_visFlags": 0,
-    "lightmapSettings": {
-      "__id__": 9
-    },
-    "_mesh": {
-      "__uuid__": "1263d74c-8167-4928-91a6-4e2672411f47@a804a"
-    },
-    "_shadowCastingMode": 1,
-    "_shadowReceivingMode": 1,
-    "_enableMorph": true,
-    "_id": "be2sRySGZGdYNGFHAn4tmW"
-  },
-  {
-    "__type__": "cc.ModelLightmapSettings",
-    "texture": null,
-    "uvParam": {
-      "__type__": "cc.Vec4",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 0
-    },
-    "_bakeable": false,
-    "_castShadow": false,
-    "_receiveShadow": false,
-    "_recieveShadow": false,
-    "_lightmapSize": 64
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Cube-001",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 11
-      }
-    ],
-    "_prefab": null,
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": -0.558,
-      "y": 0.717,
-      "z": 1.017
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -317,14 +232,14 @@
       "y": 0,
       "z": 0
     },
-    "_id": "49JprIBMZD/rbQKTA5abY3"
+    "_id": "4cltoCXPdInqa/2dhJ64Kx"
   },
   {
     "__type__": "cc.MeshRenderer",
     "_name": "Cube<ModelComponent>",
     "_objFlags": 0,
     "node": {
-      "__id__": 10
+      "__id__": 7
     },
     "_enabled": true,
     "_materials": [
@@ -334,15 +249,15 @@
     ],
     "_visFlags": 0,
     "lightmapSettings": {
-      "__id__": 12
+      "__id__": 9
     },
     "_mesh": {
       "__uuid__": "1263d74c-8167-4928-91a6-4e2672411f47@a804a"
     },
-    "_shadowCastingMode": 1,
+    "_shadowCastingMode": 0,
     "_shadowReceivingMode": 1,
     "_enableMorph": true,
-    "_id": "9d5kL7gQlCoLtb0B3rKvPo"
+    "_id": "78xhvrPQ1Aw4th3JpgWgnL"
   },
   {
     "__type__": "cc.ModelLightmapSettings",
@@ -363,16 +278,16 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 14
+      "__id__": 11
     },
     "shadows": {
-      "__id__": 15
+      "__id__": 12
     },
     "_skybox": {
-      "__id__": 16
+      "__id__": 13
     },
     "fog": {
-      "__id__": 17
+      "__id__": 14
     }
   },
   {
@@ -395,8 +310,8 @@
   },
   {
     "__type__": "cc.ShadowsInfo",
-    "_type": 1,
-    "_enabled": true,
+    "_type": 0,
+    "_enabled": false,
     "_normal": {
       "__type__": "cc.Vec3",
       "x": 0,
@@ -406,9 +321,9 @@
     "_distance": 0,
     "_shadowColor": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 76,
+      "g": 76,
+      "b": 76,
       "a": 255
     },
     "_pcf": 0,
