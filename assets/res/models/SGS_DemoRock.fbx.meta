@@ -1,0 +1,75 @@
+{
+  "ver": "1.3.24",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a",
+  "files": [],
+  "subMetas": {
+    "0893a": {
+      "importer": "gltf-mesh",
+      "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a@0893a",
+      "displayName": "",
+      "id": "0893a",
+      "name": "SGS_DemoRock.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "7a3ca": {
+      "importer": "gltf-material",
+      "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a@7a3ca",
+      "displayName": "",
+      "id": "7a3ca",
+      "name": "lambert2.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "23bbf": {
+      "importer": "gltf-scene",
+      "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a@23bbf",
+      "displayName": "",
+      "id": "23bbf",
+      "name": "SGS_DemoRock.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "redirect": "2e347903-e768-4bc9-af84-ffd45a50d30a@23bbf",
+    "assetFinder": {
+      "meshes": [
+        "2e347903-e768-4bc9-af84-ffd45a50d30a@0893a"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "2e347903-e768-4bc9-af84-ffd45a50d30a@7a3ca"
+      ],
+      "scenes": [
+        "2e347903-e768-4bc9-af84-ffd45a50d30a@23bbf"
+      ]
+    }
+  }
+}

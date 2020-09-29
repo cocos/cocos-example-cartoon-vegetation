@@ -103,7 +103,7 @@
     "_staticSettings": {
       "__id__": 4
     },
-    "_illuminance": 65000,
+    "_illuminance": 40000,
     "_id": "597uMYCbhEtJQc0ffJlcgA"
   },
   {
@@ -212,9 +212,9 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 3.946,
+      "x": 0.19,
       "y": 2.544,
-      "z": 2.699
+      "z": 0.907
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -6239,7 +6239,7 @@
     },
     "fileId": "31U3kbvD5LBLyK0uYAsRzw",
     "sync": false,
-    "_synced": true
+    "_synced": {}
   },
   {
     "__type__": "cc.SceneGlobals",
@@ -6290,7 +6290,7 @@
       "r": 0,
       "g": 0,
       "b": 0,
-      "a": 112
+      "a": 57
     },
     "_pcf": 3,
     "_near": 1,

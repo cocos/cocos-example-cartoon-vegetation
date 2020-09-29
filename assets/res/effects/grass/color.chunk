@@ -1,3 +1,11 @@
+uniform Color {
+    vec4 hueColor;
+    float ambientOcclusion;
+    float randomDarken;
+
+    float specularHighlight;
+    float translucency;
+};
 
 //Single channel overlay
 float BlendOverlay(float a, float b)
@@ -31,15 +39,6 @@ vec4 applyVertexColor(in vec3 vertexPos, in vec3 wPos, in vec3 baseColor, in flo
 	float ambientOcclusion = mix(col.a, col.a * mask, aoAmount);
 
 	col.rgb *= vertexDarkening * ambientOcclusion;
-
-// #if !_ADVANCED_LIGHTING //Simple lighting samples color map in vertex stage
-// 	vec4 colormap = mix(col, SampleColorMapTexture(wPos, colorMap), colorMapStrength);
-
-// 	if (_ColorMapUV.w == 1) {
-// 		float colormask = smoothstep(colorMapHeight, 1.0 + colorMapHeight, sqrt(mask));
-// 		col.rgb = mix(colormap.rgb, col.rgb, colormask);
-// 	}
-// #endif
 
 	//Pass vertex color alpha-channel to fragment stage. Used in some shading functions such as translucency
 	col.a = mask;

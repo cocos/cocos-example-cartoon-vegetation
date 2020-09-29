@@ -2,7 +2,7 @@
   "ver": "1.0.21",
   "importer": "image",
   "imported": true,
-  "uuid": "3451b062-155d-433f-afb1-18ed5ea07366",
+  "uuid": "bfa45918-37e9-45bd-bf17-8256863213fd",
   "files": [
     ".png",
     ".json"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "3451b062-155d-433f-afb1-18ed5ea07366@6c48a",
-      "displayName": "GustNoise",
+      "uuid": "bfa45918-37e9-45bd-bf17-8256863213fd@6c48a",
+      "displayName": "SGS_Rocks_diffuse",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 1,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "3451b062-155d-433f-afb1-18ed5ea07366"
+        "imageUuidOrDatabaseUri": "bfa45918-37e9-45bd-bf17-8256863213fd"
       },
       "ver": "1.0.20",
       "imported": true,
@@ -33,8 +33,8 @@
     }
   },
   "userData": {
-    "hasAlpha": false,
+    "hasAlpha": true,
     "type": "texture",
-    "redirect": "3451b062-155d-433f-afb1-18ed5ea07366@6c48a"
+    "redirect": "bfa45918-37e9-45bd-bf17-8256863213fd@6c48a"
   }
 }

@@ -1,0 +1,184 @@
+{
+  "ver": "1.3.24",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b",
+  "files": [],
+  "subMetas": {
+    "52a8e": {
+      "importer": "gltf-mesh",
+      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@52a8e",
+      "displayName": "",
+      "id": "52a8e",
+      "name": "SGS_Tree.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "4e669": {
+      "importer": "gltf-embeded-image",
+      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@4e669",
+      "displayName": "",
+      "id": "4e669",
+      "name": "SGS_Tree_Branch_Normal.image",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.3",
+      "imported": true,
+      "files": [
+        ".png",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "45a98": {
+      "importer": "gltf-embeded-image",
+      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@45a98",
+      "displayName": "",
+      "id": "45a98",
+      "name": "SGS_Tree_Branch_Diffuse.image",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.3",
+      "imported": true,
+      "files": [
+        ".png",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "39afa": {
+      "importer": "texture",
+      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@39afa",
+      "displayName": "",
+      "id": "39afa",
+      "name": "SGS_Tree_Branch_Normal.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@4e669"
+      },
+      "ver": "1.0.20",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "77b00": {
+      "importer": "texture",
+      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@77b00",
+      "displayName": "",
+      "id": "77b00",
+      "name": "SGS_Tree_Branch_Diffuse.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@45a98"
+      },
+      "ver": "1.0.20",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "91de9": {
+      "importer": "gltf-material",
+      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@91de9",
+      "displayName": "",
+      "id": "91de9",
+      "name": "SGS_Tree_Branch.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d54d8": {
+      "importer": "gltf-material",
+      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@d54d8",
+      "displayName": "",
+      "id": "d54d8",
+      "name": "Default.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "8b50d": {
+      "importer": "gltf-scene",
+      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@8b50d",
+      "displayName": "",
+      "id": "8b50d",
+      "name": "SGS_Tree.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [
+      {
+        "name": "SGS_Tree_Branch_Normal",
+        "uri": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@4e669"
+      },
+      {
+        "name": "SGS_Tree_Branch_Diffuse",
+        "uri": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@45a98"
+      }
+    ],
+    "redirect": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@8b50d",
+    "assetFinder": {
+      "meshes": [
+        "7d07b7ab-d9e6-4895-b204-4826d1ab112b@52a8e"
+      ],
+      "skeletons": [],
+      "textures": [
+        "7d07b7ab-d9e6-4895-b204-4826d1ab112b@39afa",
+        "7d07b7ab-d9e6-4895-b204-4826d1ab112b@77b00"
+      ],
+      "materials": [
+        "7d07b7ab-d9e6-4895-b204-4826d1ab112b@91de9",
+        "7d07b7ab-d9e6-4895-b204-4826d1ab112b@d54d8"
+      ],
+      "scenes": [
+        "7d07b7ab-d9e6-4895-b204-4826d1ab112b@8b50d"
+      ]
+    }
+  }
+}

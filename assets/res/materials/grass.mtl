@@ -9,10 +9,26 @@
   "_techIdx": 0,
   "_defines": [
     {
-      "USE_INSTANCING": true
+      "USE_INSTANCING": true,
+      "USE_MAIN_TXTURE": true
+    },
+    {
+      "USE_INSTANCING": true,
+      "USE_MAIN_TXTURE": true
     }
   ],
   "_states": [
+    {
+      "blendState": {
+        "targets": [
+          {}
+        ]
+      },
+      "depthStencilState": {},
+      "rasterizerState": {
+        "cullMode": 0
+      }
+    },
     {
       "blendState": {
         "targets": [
@@ -29,7 +45,7 @@
     {
       "alphaTest": 0.8,
       "windMap": {
-        "__uuid__": "3451b062-155d-433f-afb1-18ed5ea07366@6c48a"
+        "__uuid__": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022@6c48a"
       },
       "windDirection": {
         "__type__": "cc.Vec2",
@@ -58,7 +74,9 @@
         "b": 78,
         "a": 255
       },
-      "translucency": 0.55
-    }
+      "randomDarken": 0.5,
+      "translucency": 0.65
+    },
+    {}
   ]
 }
