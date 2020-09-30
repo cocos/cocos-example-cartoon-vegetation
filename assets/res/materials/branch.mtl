@@ -61,7 +61,8 @@
         "a": 255
       },
       "ambientOcclusion": 1,
-      "translucency": 0.45
+      "translucency": 0.45,
+      "shadowIntensity": 0.3
     },
     {}
   ]

@@ -1,16 +1,9 @@
-import { _decorator, Component, Node, Material, ModelComponent } from 'cc';
+import { _decorator, Component, Node, Material, ModelComponent, Prefab, instantiate } from 'cc';
 const { ccclass, property, executeInEditMode, type } = _decorator;
 
 @ccclass('DistributeGrid')
 @executeInEditMode
 export class DistributeGrid extends Component {
-    /* class member could be defined like this */
-    // dummy = '';
-
-    /* use `property` decorator if your want the member to be serializable */
-    // @property
-    // serializableDummy = 0;
-
     @type(Material)
     _material: Material = null;
     @type(Material)
@@ -33,6 +26,28 @@ export class DistributeGrid extends Component {
         this.distribute();
     }
 
+    @type(Prefab)
+    _template: Prefab = null;
+    @type(Prefab)
+    get template () {
+        return this._template;
+    }
+    set template (v) {
+        this._template = v;
+        this.distribute();
+    }
+
+    @property
+    _count = 10;
+    @property
+    get count () {
+        return this._count;
+    }
+    set count (v) {
+        this._count = v;
+        this.distribute();
+    }
+
 
     onEnable () {
         this.distribute();
@@ -40,10 +55,16 @@ export class DistributeGrid extends Component {
     }
 
     distribute () {
-        let children = this.node.children;
-        let rowLength = Math.pow(children.length, 0.5) | 0;
-        for (let i = 0; i < children.length; i++) {
-            children[i].setPosition( i % rowLength * this.space, 0, Math.floor(i / rowLength) * this.space)
+        if (!this.template) {
+            return;
+        }
+
+        let rowLength = Math.pow(this.count, 0.5) | 0;
+        this.node.removeAllChildren();
+        for (let i = 0; i < this.count; i++) {
+            let c = instantiate(this.template);
+            c.setPosition( i % rowLength * this.space, 0, Math.floor(i / rowLength) * this.space);
+            c.parent = this.node;
         }
     }
 
@@ -56,8 +77,4 @@ export class DistributeGrid extends Component {
             m.setMaterial(this.material, 0);
         }
     }
-
-    // update (deltaTime: number) {
-    //     // Your update function goes here.
-    // }
 }

@@ -33,6 +33,7 @@ CCEffect %{
 
         specularHighlight: { value: 0 }
         translucency: { value: 1 }
+        shadowIntensity: { value: 0.4 }
     - vert: shadow-caster-vs:vert
       frag: shadow-caster-fs:frag
       phase: shadow-add
@@ -68,6 +69,7 @@ CCProgram shared-ubos %{
   uniform Shared {
     vec4 mainColor;
     float alphaTest;
+    float shadowIntensity;
   };
 
   #include <./wind>
@@ -107,7 +109,7 @@ CCProgram shared-funcs %{
     BendSettings b = getBendSettings(mask);
     vec4 bendOffset = getBendOffset(wPos.xyz, b);
 
-    vec3 offsets = windOffset.xyz;//mix(windOffset.xyz, bendOffset.xyz, bendOffset.a).xyz;
+    vec3 offsets = mix(windOffset.xyz, bendOffset.xyz, bendOffset.a).xyz;
 
     vec3 viewDirectionWS = normalize(cc_cameraPos.xyz - wPos.xyz);
     float NdotV = dot(vec3(0, 1, 0), viewDirectionWS);
@@ -167,6 +169,10 @@ CCProgram vs %{
     calcGrassOffset(lPos, wPos, rand, a_color);
 
     v_color = calcGrassVertexColor(lPos, wPos, rand, a_color);
+
+    // debug bend map
+    // vec2 uv = getBendMapUV(wPos.xyz);
+	  // v_color = texture(cc_grass_bend_map, uv);
 
     v_wPos = wPos.xyz;
     // v_normal = normalize((matWorldIT * vec4(In.normal, 0.0)).xyz);
@@ -263,7 +269,7 @@ CCProgram fs %{
 
     // shadow
     float shadowAttenuation = getShadowAttenuation();
-    shadowAttenuation = 1. - min(shadowAttenuation, 0.3);
+    shadowAttenuation = 1. - min(shadowAttenuation, shadowIntensity);
 
     // lighting
     vec3 viewDirection = normalize(cc_cameraPos.xyz - v_wPos);

@@ -1,4 +1,4 @@
-import { _decorator, RenderStage, GFXRect, GFXFramebuffer, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag } from "cc";
+import { _decorator, RenderStage, GFXRect, GFXFramebuffer, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture } from "cc";
 import { GrassBender } from "../../src/grass/grass-bender";
 import { createFrameBuffer } from "../utils/frame-buffer";
 import { GrassBenderRenderer } from "../../src/grass/grass-bender-renderer";
@@ -46,6 +46,28 @@ const _samplerInfo = [
 ];
 
 
+const _renderPassInfo = {
+    colorAttachments: [{
+        format: GFXFormat.RGBA32F,
+        loadOp: GFXLoadOp.CLEAR, // should clear color attachment
+        storeOp: GFXStoreOp.STORE,
+        sampleCount: 1,
+        beginLayout: GFXTextureLayout.UNDEFINED,
+        endLayout: GFXTextureLayout.PRESENT_SRC,
+    }],
+    depthStencilAttachment: {
+        format: GFXFormat.UNKNOWN,
+        depthLoadOp: GFXLoadOp.CLEAR,
+        depthStoreOp: GFXStoreOp.STORE,
+        stencilLoadOp: GFXLoadOp.CLEAR,
+        stencilStoreOp: GFXStoreOp.STORE,
+        sampleCount: 1,
+        beginLayout: GFXTextureLayout.UNDEFINED,
+        endLayout: GFXTextureLayout.DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
+    },
+}
+
+
 @ccclass("GrassBendRenderStage")
 export class GrassBendRenderStage extends RenderStage {
     static get instance (): GrassBendRenderStage {
@@ -56,14 +78,15 @@ export class GrassBendRenderStage extends RenderStage {
 
     _name = 'GrassBendRenderStage'
 
-    private _frameBuffer: GFXFramebuffer | null = null;
+    private _renderTexture: RenderTexture = null;
     private _renderArea: GFXRect = { x: 0, y: 0, width: 0, height: 0 };
-
-    private _renderPass: GFXRenderPass = null;
 
     private _grassBendRenderer: GrassBenderRenderer = null;
 
     protected _bendUBO = new Float32Array(UBOGrassBend.COUNT);
+
+    protected _pipelineStates = { rasterizerState: { cullMode: GFXCullMode.BACK } };
+
 
     @type(Material)
     _material: Material = null;
@@ -101,47 +124,27 @@ export class GrassBendRenderStage extends RenderStage {
         const pipeline = this._pipeline as ForwardPipeline;
         const device = pipeline.device;
 
-        if (!this._frameBuffer) {
-            if (!this._renderPass) {
-                if (!this._renderPass) {
-                    this._renderPass = device.createRenderPass({
-                        colorAttachments: [{
-                            format: GFXFormat.RGBA32F,
-                            loadOp: GFXLoadOp.CLEAR, // should clear color attachment
-                            storeOp: GFXStoreOp.STORE,
-                            sampleCount: 1,
-                            beginLayout: GFXTextureLayout.UNDEFINED,
-                            endLayout: GFXTextureLayout.PRESENT_SRC,
-                        }],
-                        depthStencilAttachment: {
-                            format: device.depthStencilFormat,
-                            depthLoadOp: GFXLoadOp.CLEAR,
-                            depthStoreOp: GFXStoreOp.STORE,
-                            stencilLoadOp: GFXLoadOp.CLEAR,
-                            stencilStoreOp: GFXStoreOp.STORE,
-                            sampleCount: 1,
-                            beginLayout: GFXTextureLayout.UNDEFINED,
-                            endLayout: GFXTextureLayout.DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
-                        },
-                    });
-                }
-            }
+        let width = 512, height = 512;
+        if (this._grassBendRenderer) {
+            width = height = this._grassBendRenderer.resolution;
+        }
 
-            this._frameBuffer = createFrameBuffer(this._renderPass, this._pipeline, device, true, 512, 512);
-            const shadowMapSamplerHash = renderer.genSamplerHash(_samplerInfo);
-            const shadowMapSampler = renderer.samplerLib.getSampler(device, shadowMapSamplerHash);
-            pipeline.descriptorSet.bindSampler(UNIFORM_GRASS_BEND_MAP.binding, shadowMapSampler);
-            pipeline.descriptorSet.bindTexture(UNIFORM_GRASS_BEND_MAP.binding, this._frameBuffer.colorTextures[0]);
+        let renderTexture = this._renderTexture;
+        if (!renderTexture) {
+            renderTexture = new RenderTexture();
+            renderTexture.reset({ width, height, passInfo: _renderPassInfo })
+            this._renderTexture = renderTexture;
+
+            const samplerHash = renderer.genSamplerHash(_samplerInfo);
+            const sampler = renderer.samplerLib.getSampler(device, samplerHash);
+            pipeline.descriptorSet.bindSampler(UNIFORM_GRASS_BEND_MAP.binding, sampler);
+            pipeline.descriptorSet.bindTexture(UNIFORM_GRASS_BEND_MAP.binding, renderTexture.getGFXTexture());
+        }
+        else if (renderTexture.width !== width || renderTexture.height !== height) {
+            renderTexture.resize(width, height);
         }
 
         if (this._grassBendRenderer) {
-            let texture = this._frameBuffer.colorTextures[0]
-            let resolution = this._grassBendRenderer.resolution;
-            if (texture.width !== resolution || texture.height !== resolution) {
-                texture.resize(resolution, resolution);
-                this._frameBuffer.depthStencilTexture.resize(resolution, resolution);
-            }
-
             let bendRenderer = this._grassBendRenderer;
             let pos = this._grassBendRenderer.renderCamera.node.worldPosition;
             tempVec4.set(
@@ -175,8 +178,10 @@ export class GrassBendRenderStage extends RenderStage {
 
         this.updateUBO();
 
+        let renderTexture = this._renderTexture;
+        this._grassBendRenderer.renderCamera.targetTexture = renderTexture;
+        
         const pipeline = this._pipeline as ForwardPipeline;
-        const shadowInfo = pipeline.shadows;
         const device = pipeline.device;
         const camera = view.camera;
 
@@ -184,13 +189,13 @@ export class GrassBendRenderStage extends RenderStage {
         const cmdBuff = pipeline.commandBuffers[0];
 
         const vp = camera.viewport;
-        const shadowMapSize = shadowInfo.size;
-        this._renderArea!.x = vp.x * shadowMapSize.x;
-        this._renderArea!.y = vp.y * shadowMapSize.y;
-        this._renderArea!.width = vp.width * shadowMapSize.x * pipeline.shadingScale;
-        this._renderArea!.height = vp.height * shadowMapSize.y * pipeline.shadingScale;
+        this._renderArea!.x = vp.x * renderTexture.width;
+        this._renderArea!.y = vp.y * renderTexture.height;
+        this._renderArea!.width = vp.width * renderTexture.width * pipeline.shadingScale;
+        this._renderArea!.height = vp.height * renderTexture.height * pipeline.shadingScale;
 
-        const renderPass = this._frameBuffer!.renderPass;
+        const frameBuffer = renderTexture.window.framebuffer;
+        const renderPass = frameBuffer.renderPass;
 
         colors[0].r = camera.clearColor.r;
         colors[0].g = camera.clearColor.g;
@@ -198,7 +203,7 @@ export class GrassBendRenderStage extends RenderStage {
         colors[0].a = camera.clearColor.a;
 
         cmdBuff.begin();
-        cmdBuff.beginRenderPass(renderPass, this._frameBuffer!, this._renderArea!,
+        cmdBuff.beginRenderPass(renderPass, frameBuffer, this._renderArea!,
             colors, camera.clearDepth, camera.clearStencil);
 
         cmdBuff.bindDescriptorSet(SetIndex.GLOBAL, pipeline.descriptorSet);
@@ -247,14 +252,17 @@ export class GrassBendRenderStage extends RenderStage {
     }
 
     rebuild () {
-        if (this._frameBuffer) {
-            this._frameBuffer.destroy();
-        }
-        this._frameBuffer = null;
+        this.clear();
     }
     resize () {
     }
     destroy () {
-        this.rebuild();
+        this.clear();
+    }
+    clear () {
+        if (this._renderTexture) {
+            this._renderTexture.destroy();
+        }
+        this._renderTexture = null;
     }
 }
