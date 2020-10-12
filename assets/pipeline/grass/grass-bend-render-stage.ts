@@ -1,4 +1,4 @@
-import { _decorator, RenderStage, GFXRect, GFXFramebuffer, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture } from "cc";
+import { _decorator, RenderStage, GFXRect, GFXFramebuffer, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo } from "cc";
 import { GrassBender } from "../../src/grass/grass-bender";
 import { createFrameBuffer } from "../utils/frame-buffer";
 import { GrassBenderRenderer } from "../../src/grass/grass-bender-renderer";
@@ -8,30 +8,32 @@ const { SetIndex } = pipeline;
 
 const tempVec4 = new Vec4;
 
-const colors: GFXColor[] = [{ r: 1, g: 1, b: 1, a: 1 }];
+const colors: GFXColor[] = [{ x: 1, y: 1, z: 1, w: 1 }];
 const bufs: GFXCommandBuffer[] = [];
 
-const UNIFORM_GRASS_BEND_MAP = {
-    stageFlags: GFXShaderStageFlagBit.FRAGMENT, descriptorType: GFXDescriptorType.SAMPLER, count: 1,
-    set: SetIndex.GLOBAL, binding: 4, name: 'cc_grass_bend_map', type: GFXType.SAMPLER2D,
-};
-pipeline.globalDescriptorSetLayout.record[UNIFORM_GRASS_BEND_MAP.name] = UNIFORM_GRASS_BEND_MAP;
-pipeline.globalDescriptorSetLayout.bindings[UNIFORM_GRASS_BEND_MAP.binding] = UNIFORM_GRASS_BEND_MAP;
+
+const UNIFORM_GRASS_BEND_MAP_BINDING = 4;
+const UNIFORM_GRASS_BEND_MAP_NAME = 'cc_grass_bend_map'
+const UNIFORM_GRASS_BEND_MAP_LAYOUT = new GFXUniformSampler(SetIndex.GLOBAL, UNIFORM_GRASS_BEND_MAP_BINDING, UNIFORM_GRASS_BEND_MAP_NAME, GFXType.SAMPLER2D, 1);
+const UNIFORM_GRASS_BEND_MAP_DESCRIPTOR = new GFXDescriptorSetLayoutBinding(GFXDescriptorType.SAMPLER, 1, GFXShaderStageFlagBit.FRAGMENT);
+pipeline.globalDescriptorSetLayout.layouts[UNIFORM_GRASS_BEND_MAP_NAME] = UNIFORM_GRASS_BEND_MAP_LAYOUT;
+pipeline.globalDescriptorSetLayout.bindings[UNIFORM_GRASS_BEND_MAP_BINDING] = UNIFORM_GRASS_BEND_MAP_DESCRIPTOR;
 
 export class UBOGrassBend {
     public static GrassBendUVOffset: number = 0;
     public static COUNT: number = UBOGrassBend.GrassBendUVOffset + 4;
     public static SIZE: number = UBOGrassBend.COUNT * 4;
 
-    public static BLOCK = {
-        stageFlags: GFXShaderStageFlagBit.ALL, descriptorType: GFXDescriptorType.UNIFORM_BUFFER, count: 1,
-        set: SetIndex.GLOBAL, binding: 5, name: 'CCGrassBend', members: [
-            { name: 'cc_grass_bend_uv', type: GFXType.FLOAT4, count: 1 },
-        ],
-    };
+    public static readonly NAME = 'CCGrassBend';
+    public static readonly BINDING = 5;
+    public static readonly DESCRIPTOR = new GFXDescriptorSetLayoutBinding(GFXDescriptorType.UNIFORM_BUFFER, 1, GFXShaderStageFlagBit.ALL);
+
+    public static readonly LAYOUT = new GFXUniformBlock(SetIndex.GLOBAL, UBOGrassBend.BINDING, UBOGrassBend.NAME, [
+        new GFXUniform('cc_grass_bend_uv', GFXType.FLOAT4, 1),
+    ])
 }
-pipeline.globalDescriptorSetLayout.record[UBOGrassBend.BLOCK.name] = UBOGrassBend.BLOCK;
-pipeline.globalDescriptorSetLayout.bindings[UBOGrassBend.BLOCK.binding] = UBOGrassBend.BLOCK;
+pipeline.globalDescriptorSetLayout.layouts[UBOGrassBend.NAME] = UBOGrassBend.LAYOUT;
+pipeline.globalDescriptorSetLayout.bindings[UBOGrassBend.BINDING] = UBOGrassBend.DESCRIPTOR;
 
 pipeline.bindingMappingInfo.samplerOffsets[1] += 2;
 pipeline.bindingMappingInfo.samplerOffsets[2] += 2;
@@ -137,8 +139,8 @@ export class GrassBendRenderStage extends RenderStage {
 
             const samplerHash = renderer.genSamplerHash(_samplerInfo);
             const sampler = renderer.samplerLib.getSampler(device, samplerHash);
-            pipeline.descriptorSet.bindSampler(UNIFORM_GRASS_BEND_MAP.binding, sampler);
-            pipeline.descriptorSet.bindTexture(UNIFORM_GRASS_BEND_MAP.binding, renderTexture.getGFXTexture());
+            pipeline.descriptorSet.bindSampler(UNIFORM_GRASS_BEND_MAP_BINDING, sampler);
+            pipeline.descriptorSet.bindTexture(UNIFORM_GRASS_BEND_MAP_BINDING, renderTexture.getGFXTexture());
         }
         else if (renderTexture.width !== width || renderTexture.height !== height) {
             renderTexture.resize(width, height);
@@ -156,14 +158,14 @@ export class GrassBendRenderStage extends RenderStage {
             Vec4.toArray(this._bendUBO, tempVec4, UBOGrassBend.GrassBendUVOffset);
         }
 
-        let buffer = pipeline.descriptorSet.getBuffer(UBOGrassBend.BLOCK.binding);
+        let buffer = pipeline.descriptorSet.getBuffer(UBOGrassBend.BINDING);
         if (!buffer) {
-            buffer = pipeline.device.createBuffer({
-                usage: GFXBufferUsageBit.UNIFORM | GFXBufferUsageBit.TRANSFER_DST,
-                memUsage: GFXMemoryUsageBit.HOST | GFXMemoryUsageBit.DEVICE,
-                size: UBOGrassBend.SIZE,
-            });
-            pipeline.descriptorSet.bindBuffer(UBOGrassBend.BLOCK.binding, buffer);
+            buffer = pipeline.device.createBuffer(new GFXBufferInfo(
+                GFXBufferUsageBit.UNIFORM | GFXBufferUsageBit.TRANSFER_DST,
+                GFXMemoryUsageBit.HOST | GFXMemoryUsageBit.DEVICE,
+                UBOGrassBend.SIZE,
+            ));
+            pipeline.descriptorSet.bindBuffer(UBOGrassBend.BINDING, buffer);
         }
         buffer.update(this._bendUBO);
     }
@@ -197,10 +199,10 @@ export class GrassBendRenderStage extends RenderStage {
         const frameBuffer = renderTexture.window.framebuffer;
         const renderPass = frameBuffer.renderPass;
 
-        colors[0].r = camera.clearColor.r;
-        colors[0].g = camera.clearColor.g;
-        colors[0].b = camera.clearColor.b;
-        colors[0].a = camera.clearColor.a;
+        colors[0].x = camera.clearColor.x;
+        colors[0].y = camera.clearColor.y;
+        colors[0].z = camera.clearColor.z;
+        colors[0].w = camera.clearColor.w;
 
         cmdBuff.begin();
         cmdBuff.beginRenderPass(renderPass, frameBuffer, this._renderArea!,

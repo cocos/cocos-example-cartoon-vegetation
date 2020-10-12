@@ -215,7 +215,7 @@ CCProgram fs %{
     float shadowAttenuation = 0.0;
 
     #if CC_RECEIVE_SHADOW
-      float pcf = cc_shadowPCF.x + 0.001;
+      float pcf = cc_shadowInfo.x + 0.001;
       if (pcf > 3.0) {shadowAttenuation = CCGetShadowFactorX25();}
       else if (3.0 > pcf && pcf > 2.0) {shadowAttenuation = CCGetShadowFactorX9();}
       else if (2.0 > pcf && pcf > 1.0) {shadowAttenuation = CCGetShadowFactorX5();}
