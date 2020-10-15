@@ -1,4 +1,4 @@
-import { _decorator, RenderStage, GFXRect, GFXFramebuffer, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo } from "cc";
+import { _decorator, RenderStage, GFXRect, GFXFramebuffer, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo, GFXRenderPassInfo, GFXColorAttachment, GFXDepthStencilAttachment } from "cc";
 import { GrassBender } from "../../src/grass/grass-bender";
 import { createFrameBuffer } from "../utils/frame-buffer";
 import { GrassBenderRenderer } from "../../src/grass/grass-bender-renderer";
@@ -48,26 +48,11 @@ const _samplerInfo = [
 ];
 
 
-const _renderPassInfo = {
-    colorAttachments: [{
-        format: GFXFormat.RGBA32F,
-        loadOp: GFXLoadOp.CLEAR, // should clear color attachment
-        storeOp: GFXStoreOp.STORE,
-        sampleCount: 1,
-        beginLayout: GFXTextureLayout.UNDEFINED,
-        endLayout: GFXTextureLayout.PRESENT_SRC,
-    }],
-    depthStencilAttachment: {
-        format: GFXFormat.UNKNOWN,
-        depthLoadOp: GFXLoadOp.CLEAR,
-        depthStoreOp: GFXStoreOp.STORE,
-        stencilLoadOp: GFXLoadOp.CLEAR,
-        stencilStoreOp: GFXStoreOp.STORE,
-        sampleCount: 1,
-        beginLayout: GFXTextureLayout.UNDEFINED,
-        endLayout: GFXTextureLayout.DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
-    },
-}
+const _colorAttachment = new GFXColorAttachment();
+_colorAttachment.endLayout = GFXTextureLayout.SHADER_READONLY_OPTIMAL;
+_colorAttachment.format = GFXFormat.RGBA32F;
+const _depthStencilAttachment = new GFXDepthStencilAttachment();
+const _renderPassInfo = new GFXRenderPassInfo([_colorAttachment], _depthStencilAttachment);
 
 
 @ccclass("GrassBendRenderStage")
@@ -204,14 +189,12 @@ export class GrassBendRenderStage extends RenderStage {
         colors[0].z = camera.clearColor.z;
         colors[0].w = camera.clearColor.w;
 
-        cmdBuff.begin();
+        _colorAttachment.loadOp = GFXLoadOp.CLEAR;
+
         cmdBuff.beginRenderPass(renderPass, frameBuffer, this._renderArea!,
             colors, camera.clearDepth, camera.clearStencil);
 
         cmdBuff.bindDescriptorSet(SetIndex.GLOBAL, pipeline.descriptorSet);
-
-        let pass = this._material.passes[0];
-        let hPass = pass.handle;
 
         const grassBenders = this.grassBenders;
         let m = 0; let p = 0;
@@ -221,12 +204,7 @@ export class GrassBendRenderStage extends RenderStage {
             for (m = 0; m < subModels.length; m++) {
                 const subModel = subModels[m];
                 
-                let grassBendStartIdx = subModel.passes.indexOf(pass);
-                if (grassBendStartIdx === -1) {
-                    grassBendStartIdx = subModel.passes.length;
-                    subModel.passes.push(pass);
-                    (subModel as any)._flushPassInfo();
-                }
+                let grassBendStartIdx = 0;
 
                 const shaderHandle = renderer.SubModelPool.get(subModel.handle, renderer.SubModelView.SHADER_0 + grassBendStartIdx);
                 const shader = renderer.ShaderPool.get(shaderHandle as any);
@@ -234,6 +212,7 @@ export class GrassBendRenderStage extends RenderStage {
                     continue;
                 }
                 
+                const hPass = subModel.passes[grassBendStartIdx].handle;
                 const ia = subModel.inputAssembler;
                 const pso = PipelineStateManager.getOrCreatePipelineState(device, hPass, shader, renderPass, ia);
 
@@ -247,10 +226,8 @@ export class GrassBendRenderStage extends RenderStage {
         }
 
         cmdBuff.endRenderPass();
-        cmdBuff.end();
 
-        bufs[0] = cmdBuff;
-        device.queue.submit(bufs);
+        _colorAttachment.loadOp = GFXLoadOp.LOAD;
     }
 
     rebuild () {

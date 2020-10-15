@@ -8,7 +8,10 @@ CCEffect %{
       frag: grass-bend-fs:frag
       phase: grass-bend
       properties: &props
-        params:      { value: [1, 0, 1, 1] }
+        boundScale:            { value: 1, target: params.x }
+        heightOffset:     { value: 0, target: params.y }
+        heightStrength:        { value: 1, target: params.z }
+        extendStrength:       { value: 1, target: params.w }
       rasterizerState:
         cullMode: front
 }%
@@ -47,7 +50,7 @@ vec4 vert () {
 
   vec4 lPos = In.position;;
 
-  lPos.xyz *= params.w;
+  lPos.xyz *= params.x;
 
   vec4 wPos = matWorld * lPos;
 
@@ -78,10 +81,10 @@ CCProgram grass-bend-fs %{
     vec4 col = vec4(1.);
 
     //Bottom-facing normals
-		float mask = -v_normal.y * params.x;// * v_color.r;
+		float mask = -v_normal.y * params.z;// * v_color.r;
 
 		float height = ((v_position.y) + params.y);
-		vec2 dir = (v_normal.xz * params.z) * 0.5 + 0.5;
+		vec2 dir = (v_normal.xz * params.w) * 0.5 + 0.5;
 
     return vec4(dir.x, height, dir.y, mask);
 

@@ -7,12 +7,6 @@ const neutralVector = new Color(0.5*255, 0, 0.5*255, 0);
 @ccclass('GrassBenderRenderer')
 @executeInEditMode
 export class GrassBenderRenderer extends Component {
-    /* class member could be defined like this */
-    // dummy = '';
-
-    /* use `property` decorator if your want the member to be serializable */
-    // @property
-    // serializableDummy = 0;
 
     @type(Node)
     followTarget: Node = null;
@@ -83,7 +77,10 @@ export class GrassBenderRenderer extends Component {
     update (deltaTime: number) {
         if (this.followTarget) {
             let followPosition = this.followTarget.worldPosition;
-            this._renderCamera.node.setWorldPosition(followPosition.x, followPosition.y + this.range, followPosition.z);
+            let worldPosition = this._renderCamera.node.worldPosition;
+            if (followPosition.x !== worldPosition.x || followPosition.y + this.range !== worldPosition.y || followPosition.z !== worldPosition.z) {
+                this._renderCamera.node.setWorldPosition(followPosition.x, followPosition.y + this.range, followPosition.z);
+            }
         }
     }
 }
