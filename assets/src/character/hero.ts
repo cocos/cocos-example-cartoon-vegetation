@@ -5,7 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
-import { _decorator, Component, Node, Vec3, Vec2, Animation, lerp, AnimationClip, AnimationState, animation, AnimationComponent } from 'cc';
+import { _decorator, Component, Node, Vec3, Vec2, Animation, lerp, AnimationClip, AnimationState, animation, AnimationComponent, RigidBody } from 'cc';
 import input from '../utils/input';
 const { ccclass, property, type } = _decorator;
 
@@ -21,6 +21,9 @@ export class Hero extends Component {
 
     @type(Animation)
     animation: Animation = null;
+
+    @type(RigidBody)
+    rigidBody: RigidBody = null;
 
     jumping = false;
 
@@ -115,8 +118,17 @@ export class Hero extends Component {
 
         this.rotation = this.targetRotation;//lerp(this.rotation, this.targetRotation, deltaTime * 5);
 
-        let position = this.node.position;
-        this.node.setPosition(position.x + speed.x * deltaTime, position.y, position.z + speed.y * deltaTime);
-        this.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
+        this.rigidBody.getLinearVelocity(tempVec3);
+        tempVec3.x = speed.x;
+        tempVec3.z = speed.y;
+        this.rigidBody.setLinearVelocity(tempVec3);
+
+        // model
+        this.animation.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
+
+
+        // let position = this.node.position;
+        // this.node.setPosition(position.x + speed.x * deltaTime, position.y, position.z + speed.y * deltaTime);
+        // this.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
     }
 }

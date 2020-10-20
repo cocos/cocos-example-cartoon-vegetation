@@ -38,6 +38,8 @@
       "windStrength": 0,
       "windGustStrength": 0,
       "windGustTint": 0,
+      "bendPushStrength": 0.1,
+      "bendFlattenStrength": 0.1,
       "mainColor": {
         "__type__": "cc.Color",
         "r": 112,
