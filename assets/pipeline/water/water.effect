@@ -1,0 +1,424 @@
+// Copyright (c) 2017-2019 Xiamen Yaji Software Co., Ltd.
+
+CCEffect %{
+  techniques:
+  - name: opaque
+    passes:
+    - vert: water-vs:vert
+      frag: water-fs:frag
+      properties: &props
+        mainColor:      { value: [1.0, 1.0, 1.0, 1.0], target: albedo, editor: { displayName: Albedo, type: color } }
+        
+        occlusion:      { value: 1.0, target: pbrParams.x }
+        roughness:      { value: 0.1, target: pbrParams.y }
+        metallic:       { value: 0, target: pbrParams.z }
+        
+        normalStrenth:  { value: 0.5, target: normalParams.x, editor: { parent: USE_NORMAL_MAP } }
+        normalTile:     { value: 1, target: normalParams.y, editor: { parent: USE_NORMAL_MAP } }
+        normalSpeed:    { value: [ 1, 0 ], target: normalParams.zw , editor: { parent: USE_NORMAL_MAP } }
+        normalMap:      { value: normal, editor: { parent: USE_NORMAL_MAP } }
+
+        depthDistance:  { value: 1. }
+        shallowColor:   { value: [1, 1, 1, 1], editor: { type: color }  }
+        deepColor:      { value: [0, 0, 0, 0] , editor: { type: color } }
+
+        foamScale1:     { value: [1, 1], target: foamParams2.xy, editor: { parent: USE_FOAM_1 } }
+        foamColor1:     { value: [1, 1, 1, 1], editor: { parent: USE_FOAM_1, type: color } }
+
+        foamScale2:     { value: [1, 1], target: foamParams2.zw, editor: { parent: USE_FOAM_2 } }
+        foamColor2:     { value: [1, 1, 1, 1], editor: { parent: USE_FOAM_2, type: color } }
+
+        foamCutOff:     { value: 0.5, target: foamParams.x, editor: { parent: USE_FOAM } }
+        foamDepth:      { value: 0.3, target: foamParams.y, editor: { parent: USE_FOAM } }
+        foamDistortion: { value: 1.222, target: foamParams.z, editor: { parent: USE_FOAM } }
+        foamFade:       { value: 1, target: foamParams.w, editor: { parent: USE_FOAM } }
+        foamTexture:    { value: white, editor: { parent: USE_FOAM } }
+
+        waveVisuals:    { value: [ 0.167, 7, 0.54, 1 ], editor: { parent: USE_WAVE } }
+        waveDirections: { value: [ 0, 0.3, 0.6, 0.67 ], editor: { parent: USE_WAVE } }
+
+        causticStrength:    { value: 0.98,  target: causticParams1.x, editor: { parent: USE_CAUSTIC } }
+        causticScale:       { value: 2.33,  target: causticParams1.y, editor: { parent: USE_CAUSTIC } }
+        causticSpeed:       { value: 0.1,   target: causticParams1.z, editor: { parent: USE_CAUSTIC } }
+        causticRGBSplit:    { value: 0.35,  target: causticParams1.w, editor: { parent: USE_CAUSTIC } }
+        causticMinStrength: { value: 0.05,  target: causticParams2.x, editor: { parent: USE_CAUSTIC } }
+        causticColor:       { value: [1, 1, 1],   target: causticParams2.yzw, editor: { parent: USE_CAUSTIC, type: color } }
+        causticTexture:     { value: white, editor: { parent: USE_CAUSTIC } }
+
+  - name: transparent
+    passes:
+    - vert: water-vs:vert
+      frag: water-fs:frag
+      depthStencilState:
+        depthTest: true
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: *props
+}%
+
+CCProgram shared-ubos %{
+  #define pi 3.14
+
+  uniform Constants {
+    vec4 albedo;
+    vec4 pbrParams;
+    vec4 emissive;
+    vec4 emissiveScaleParam;
+  };
+
+  uniform Water {
+    vec4 normalParams;
+    vec4 shallowColor;
+    vec4 deepColor;
+    vec4 waveVisuals;
+    vec4 waveDirections;
+    vec4 foamParams;
+    vec4 foamParams2;
+    vec4 foamColor1;
+    vec4 foamColor2;
+    vec4 causticParams1;
+    vec4 causticParams2;
+    float depthDistance;
+  };
+}%
+
+CCProgram water-vs %{
+  precision highp float;
+  #include <input-standard>
+  #include <cc-global>
+  #include <cc-local-batch>
+  #include <shared-ubos>
+
+  // #if USE_VERTEX_COLOR
+  //   in vec3 a_color;
+  //   out vec3 v_color;
+  // #endif
+
+  out vec3 v_position;
+  out vec4 v_projPos;
+  out vec3 v_normal;
+
+  out vec3 v_tangent;
+  out vec3 v_bitangent;
+
+  out vec2 v_uv;
+  in vec2 a_texCoord1;
+
+  vec3 gerstner(vec3 position, float steepness, float wavelength, float speed, float direction, inout vec3 tangent, inout vec3 binormal)
+  {
+    direction = direction * 2. - 1.;
+    vec2 d = normalize(vec2(cos(pi * direction), sin(pi * direction)));
+    float s = steepness;
+    float k = 2. * pi / wavelength;                                                      
+    float f = k * (dot(d, position.xz) - speed * cc_time.x);
+    float a = s / k;
+
+    tangent += vec3(
+      -d.x * d.x * s * sin(f),
+      d.x * s * cos(f), 
+      -d.x * d.y * s * sin(f)
+    );
+
+    binormal += vec3(
+      -d.x * d.y * s * sin(f),
+      d.y * s * cos(f),
+      -d.y * d.y * s * sin(f)
+    );
+
+    return vec3(
+      d.x * a * cos(f),
+      a * sin(f),
+      d.y * a * cos(f)
+    );
+  }
+
+
+  void gerstnerWaves(vec3 p, vec3 visuals, vec4 directions, out vec3 offset, out vec3 normal, out vec3 T, out vec3 B)
+  {
+      float steepness = visuals.x ;
+      float wavelength = visuals.y;
+      float speed = visuals.z;
+
+      offset = vec3(0,0,0);
+      vec3 tangent = vec3(1, 0, 0);
+      vec3 binormal = vec3(0, 0, 1);
+
+      offset += gerstner(p, steepness, wavelength, speed, directions.x, tangent, binormal);
+      offset += gerstner(p, steepness, wavelength, speed, directions.y, tangent, binormal);
+      offset += gerstner(p, steepness, wavelength, speed, directions.z, tangent, binormal);
+      offset += gerstner(p, steepness, wavelength, speed, directions.w, tangent, binormal);
+
+      normal = normalize(cross(binormal, tangent));
+      T = tangent;
+      B = binormal;
+  }
+
+  vec4 vert () {
+    StandardVertInput In;
+    CCVertInput(In);
+
+    mat4 matWorld, matWorldIT;
+    CCGetWorldMatrixFull(matWorld, matWorldIT);
+
+    vec4 worldPos = matWorld * In.position;
+
+    #if USE_WAVE
+      vec3 offset;
+      gerstnerWaves(worldPos.xyz, waveVisuals.xyz, waveDirections, offset, v_normal, v_tangent, v_bitangent);
+      worldPos.xyz += offset;
+    #endif
+
+    v_position = worldPos.xyz;
+    v_projPos = cc_matProj * cc_matView * worldPos;
+
+    #if !USE_WAVE
+      v_normal = normalize((matWorldIT * vec4(In.normal, 0.0)).xyz);
+      #if USE_NORMAL_MAP
+        v_tangent = normalize((matWorld * vec4(In.tangent.xyz, 0.0)).xyz);
+        v_bitangent = cross(v_normal, v_tangent) * In.tangent.w; // note the cross order
+      #endif
+    #endif
+
+    v_uv = a_texCoord;
+    
+    // #if USE_VERTEX_COLOR
+    //   v_color = a_color;
+    // #endif
+
+    return v_projPos;
+  }
+}%
+
+CCProgram water-fs %{
+  precision highp float;
+  #include <cc-global>
+  #include <shading-standard>
+  #include <output-standard>
+  #include <gamma>
+  #include <shared-ubos>
+
+  #include <packing>
+
+  in vec3 v_position;
+  in vec4 v_projPos;
+  in vec2 v_uv;
+  in vec3 v_normal;
+
+  #pragma builtin(global)
+  layout(set = 0, binding = 6) uniform sampler2D cc_depth_buffer_map;
+
+  #if USE_FOAM
+  uniform sampler2D foamTexture;
+  #endif
+
+  #if USE_CAUSTIC
+  uniform sampler2D causticTexture;
+  #endif
+
+  // #if USE_VERTEX_COLOR
+  //   in vec3 v_color;
+  // #endif
+
+  #if USE_NORMAL_MAP
+    in vec3 v_tangent;
+    in vec3 v_bitangent;
+    uniform sampler2D normalMap;
+  #endif
+
+  vec3 normalBlend(vec3 A, vec3 B)
+  {
+    return normalize(vec3(A.rg + B.rg, A.b * B.b));
+    // return normalize(A + B);
+    // return B;
+  }
+
+  vec2 distort(vec2 uv, float amount)
+  {
+      float time = cc_time.x;
+      
+      uv.y += amount * 0.01 * (sin(uv.x * 3.5 + time * 0.35) + sin(uv.x * 4.8 + time * 1.05) + sin(uv.x * 7.3 + time * 0.45)) / 3.0;
+      uv.x += amount * 0.12 * (sin(uv.y * 4.0 + time * 0.5) + sin(uv.y * 6.8 + time * 0.75) + sin(uv.y * 11.3 + time * 0.2)) / 3.0;
+      uv.y += amount * 0.12 * (sin(uv.x * 4.2 + time * 0.64) + sin(uv.x * 6.3 + time * 1.65) + sin(uv.x * 8.2 + time * 0.45)) / 3.0;
+
+      return uv;
+  }
+
+
+  //  foam
+  void foamUVs(vec2 uv, vec4 movement, vec2 offset, vec2 scale, float depth, out vec4 shoreline, out vec4 custom)
+  {
+      float direction1 = movement.x;
+      float direction2 = movement.z;
+      float speed1 = movement.y;
+      float speed2 = movement.w;
+      float scale1 = scale.x;
+      float scale2 = scale.y;
+
+      vec2 shoreline_uv = vec2(uv.x * 0.2, depth);
+      shoreline.xy = Panner(shoreline_uv, 0.5, speed1, vec2(0.,0.), 1/scale1);
+      shoreline.zw = Panner(shoreline_uv, 0.5, speed2, vec2(0.,0.), 1/scale2);
+
+      custom.xy = Panner(uv, direction1, speed1, vec2(0.,0.), 1/scale1);
+      custom.zw = Panner(uv, direction2, speed2, offset, 1/scale2);
+  }
+
+  void foamSampling(vec4 uvs, float cutoff, float distortion, sampler2D tex, out float primary, out float secondary)
+  {
+      primary   = clamp(step(cutoff, texture(tex, distort(uvs.xy, distortion)).r), 0., 1.);
+      secondary = clamp(step(cutoff, texture(tex, distort(uvs.zw, distortion)).g), 0., 1.);
+  }
+
+  vec4 foam (vec2 foamScale, vec4 foamColor) {
+    #if USE_FOAM
+      float foamCutOff = foamParams.x;
+      float foamDistortion = foamParams.z;
+
+      vec2 foamUv = distort(v_position.xz, foamDistortion);
+      foamUv.x += cc_time.x * 0.1;
+      float foamValue = texture(foamTexture, foamUv * foamScale ).r;
+      foamValue = clamp(step(foamCutOff, foamValue), 0., 1.);
+      return vec4(foamValue) * foamColor;
+    #else
+      return vec4(0.);
+    #endif
+  }
+
+
+  // caustics
+
+  #if USE_CAUSTIC
+  vec2 panner(vec2 uv, float direction, float speed, vec2 offset, float tiling)
+  {
+      direction = direction * 2. - 1.;
+      vec2 dir = normalize(vec2(cos(pi * direction), sin(pi * direction)));
+      return  (dir * cc_time.x * speed) + offset + (uv * tiling);
+  }
+
+  vec3 rgbSplit(float split, sampler2D tex, vec2 uv)
+  {
+      vec2 UVR = uv + vec2(split, split);
+      vec2 UVG = uv + vec2(split, -split);
+      vec2 UVB = uv + vec2(-split, -split);
+
+      float r = texture(tex, UVR).r;
+      float g = texture(tex, UVG).g;
+      float b = texture(tex, UVB).b;
+
+      return vec3(r,g,b);
+  }
+
+  vec3 caustic()
+  {
+    vec2 uv = v_position.xz;
+
+    float strength = causticParams1.x;
+    float split = causticParams1.w * 0.01;
+    float speed = causticParams1.z;
+    float scale = causticParams1.y;
+
+    vec3 texture1 = rgbSplit(split, causticTexture, panner(uv, 1., speed, vec2(0., 0.), 1./scale));
+    vec3 texture2 = rgbSplit(split, causticTexture, panner(uv, 1., speed, vec2(0., 0.), -1./scale));
+    vec3 textureCombined = min(texture1, texture2);
+
+    return strength * 10. * textureCombined;
+  }
+  #endif
+
+  void surf (out StandardSurface s) {
+    vec4 baseColor = albedo;
+
+    // depth
+    vec2 depthUv = (v_projPos.xy / v_projPos.w) * 0.5 + 0.5;
+    // #if USE_FLOAT_TEXTURE
+    //   float sceneDepth = texture(cc_depth_buffer_map, depthUv).r;
+    // #else
+      float sceneDepth = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
+      // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
+    // #endif
+    float waterDepth = v_projPos.z;
+    float depth = clamp((sceneDepth - waterDepth) / depthDistance, 0., 1.);
+    baseColor += mix(shallowColor, deepColor, depth);
+    
+    // foam
+
+    #if USE_FOAM && (USE_FOAM_1 || USE_FOAM_2)
+      vec4 finalFoamColor = vec4(0.);
+      
+      float foamDepth = foamParams.y;
+      float foamFade = foamParams.w;
+
+      #if USE_FOAM_1
+      finalFoamColor += foam(foamParams2.xy, foamColor1);
+      #endif
+      #if USE_FOAM_2
+      finalFoamColor += foam(foamParams2.zw, foamColor2);
+      #endif
+      
+      finalFoamColor *= (1. - depth / foamDepth) * foamFade;
+
+      // baseColor = mix(baseColor, finalFoamColor,  step(0., foamDepth - depth));
+      baseColor += step(0., foamDepth - depth) * finalFoamColor;
+    #endif
+
+
+    // caustic
+
+    #if USE_CAUSTIC
+      vec3 finalCausticColor = caustic();
+     
+      float causticMinStrength = causticParams2.x;
+      vec3 causticColor = causticParams2.xyz;
+
+      finalCausticColor *= clamp((1.- depth), 0., 1.) + causticMinStrength;
+      finalCausticColor *= causticColor;
+
+      baseColor.rgb += finalCausticColor;
+    #endif
+
+    // #if USE_VERTEX_COLOR
+    //   baseColor.rgb *= v_color;
+    // #endif
+
+    s.albedo = baseColor;
+
+    s.normal = v_normal;
+    #if USE_NORMAL_MAP
+      float normalStrenth = normalParams.x;
+      vec2 normalUV = v_uv * normalParams.y;
+      vec2 moveUV = normalUV + normalParams.zw * cc_time.x / 40.;
+      vec3 nmmp = normalBlend(texture(normalMap, moveUV).xyz - vec3(.5), texture(normalMap, normalUV).xyz - vec3(.5));
+      s.normal =
+        (nmmp.x * normalStrenth) * normalize(v_tangent) +
+        (nmmp.y * normalStrenth) * normalize(v_bitangent) +
+        nmmp.z * normalize(s.normal);
+    #endif
+
+    s.position = v_position;
+
+    vec4 pbr = pbrParams;
+    s.occlusion = clamp(pbr.x, 0.0, 0.96);
+    s.roughness = clamp(pbr.y, 0.04, 1.0);
+    s.metallic = pbr.z;
+  }
+
+  vec4 frag () {
+    // StandardSurface s; surf(s);
+    // vec4 color = CCStandardShading(s);
+
+    // return CCFragOutput(color);
+
+    vec2 depthUv = (v_projPos.xy / v_projPos.w) * 0.5 + 0.5 - vec2(0.2, 0.);
+    // #if USE_FLOAT_TEXTURE
+    //   float sceneDepth = texture(cc_depth_buffer_map, depthUv).r;
+    // #else
+    //   float sceneDepth = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
+    //   // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
+    // return vec4(0., 0., 0., sceneDepth/2.);
+    return texture(cc_depth_buffer_map, depthUv);
+  }
+}%

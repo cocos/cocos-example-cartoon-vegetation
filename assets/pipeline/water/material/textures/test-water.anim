@@ -1,0 +1,149 @@
+[
+  {
+    "__type__": "cc.AnimationClip",
+    "_name": "test-water",
+    "_objFlags": 0,
+    "_native": "",
+    "sample": 60,
+    "speed": 0.1,
+    "wrapMode": 2,
+    "events": [],
+    "_duration": 5.016666666666667,
+    "_keys": [
+      [
+        0,
+        1.0166666666666666,
+        2,
+        3,
+        4,
+        5.016666666666667
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        0,
+        2.5166666666666666,
+        5.016666666666667
+      ]
+    ],
+    "_stepness": 0,
+    "_curves": [
+      {
+        "modifiers": [
+          {
+            "__id__": 1
+          },
+          "position"
+        ],
+        "data": {
+          "keys": 0,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": -9.079,
+              "y": -3.211,
+              "z": -6.218
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": -6.173,
+              "y": -6.088,
+              "z": -6.218
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.13,
+              "y": -6.088,
+              "z": -6.218
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.13,
+              "y": -2.177,
+              "z": -3.421
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": -8.505,
+              "y": -5.267,
+              "z": -3.14
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": -9.079,
+              "y": -3.211,
+              "z": -6.218
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 2
+          },
+          "eulerAngles"
+        ],
+        "data": {
+          "keys": 1,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 360,
+              "z": 0
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 3
+          },
+          {
+            "__id__": 4
+          },
+          "skyIllum"
+        ],
+        "data": {
+          "keys": 2,
+          "values": [
+            40000,
+            10000,
+            40000
+          ],
+          "easingMethods": {}
+        }
+      }
+    ],
+    "_commonTargets": [],
+    "_hash": 3081188008
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "objects/Sphere3"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "objects/Sphere3"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "settings"
+  },
+  {
+    "__type__": "cc.animation.ComponentPath",
+    "component": "TestWater"
+  }
+]

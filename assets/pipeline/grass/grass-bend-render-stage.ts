@@ -1,42 +1,14 @@
-import { _decorator, RenderStage, GFXRect, GFXFramebuffer, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo, GFXRenderPassInfo, GFXColorAttachment, GFXDepthStencilAttachment } from "cc";
-import { GrassBender } from "../../src/grass/grass-bender";
-import { createFrameBuffer } from "../utils/frame-buffer";
-import { GrassBenderRenderer } from "../../src/grass/grass-bender-renderer";
-const { ccclass, type } = _decorator;
+import { _decorator, RenderStage, GFXRect, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo, GFXRenderPassInfo, GFXColorAttachment, GFXDepthStencilAttachment } from "cc";
 const { SetIndex } = pipeline;
+const { ccclass, type } = _decorator;
 
+import { GrassBender } from "./src/grass-bender";
+import { GrassBenderRenderer } from "./src/grass-bender-renderer";
+import { UBOGrassBend, UNIFORM_GRASS_BEND_MAP_BINDING } from '../ubo';
 
 const tempVec4 = new Vec4;
 
 const colors: GFXColor[] = [{ x: 1, y: 1, z: 1, w: 1 }];
-const bufs: GFXCommandBuffer[] = [];
-
-
-const UNIFORM_GRASS_BEND_MAP_BINDING = 4;
-const UNIFORM_GRASS_BEND_MAP_NAME = 'cc_grass_bend_map'
-const UNIFORM_GRASS_BEND_MAP_LAYOUT = new GFXUniformSampler(SetIndex.GLOBAL, UNIFORM_GRASS_BEND_MAP_BINDING, UNIFORM_GRASS_BEND_MAP_NAME, GFXType.SAMPLER2D, 1);
-const UNIFORM_GRASS_BEND_MAP_DESCRIPTOR = new GFXDescriptorSetLayoutBinding(GFXDescriptorType.SAMPLER, 1, GFXShaderStageFlagBit.FRAGMENT);
-pipeline.globalDescriptorSetLayout.layouts[UNIFORM_GRASS_BEND_MAP_NAME] = UNIFORM_GRASS_BEND_MAP_LAYOUT;
-pipeline.globalDescriptorSetLayout.bindings[UNIFORM_GRASS_BEND_MAP_BINDING] = UNIFORM_GRASS_BEND_MAP_DESCRIPTOR;
-
-export class UBOGrassBend {
-    public static GrassBendUVOffset: number = 0;
-    public static COUNT: number = UBOGrassBend.GrassBendUVOffset + 4;
-    public static SIZE: number = UBOGrassBend.COUNT * 4;
-
-    public static readonly NAME = 'CCGrassBend';
-    public static readonly BINDING = 5;
-    public static readonly DESCRIPTOR = new GFXDescriptorSetLayoutBinding(GFXDescriptorType.UNIFORM_BUFFER, 1, GFXShaderStageFlagBit.ALL);
-
-    public static readonly LAYOUT = new GFXUniformBlock(SetIndex.GLOBAL, UBOGrassBend.BINDING, UBOGrassBend.NAME, [
-        new GFXUniform('cc_grass_bend_uv', GFXType.FLOAT4, 1),
-    ])
-}
-pipeline.globalDescriptorSetLayout.layouts[UBOGrassBend.NAME] = UBOGrassBend.LAYOUT;
-pipeline.globalDescriptorSetLayout.bindings[UBOGrassBend.BINDING] = UBOGrassBend.DESCRIPTOR;
-
-pipeline.bindingMappingInfo.samplerOffsets[1] += 2;
-pipeline.bindingMappingInfo.samplerOffsets[2] += 2;
 
 const _samplerInfo = [
     GFXFilter.LINEAR,
@@ -74,16 +46,6 @@ export class GrassBendRenderStage extends RenderStage {
 
     protected _pipelineStates = { rasterizerState: { cullMode: GFXCullMode.BACK } };
 
-
-    @type(Material)
-    _material: Material = null;
-    @type(Material)
-    get material () {
-        return this._material;
-    }
-    set material (v) {
-        this._material = v;
-    }
 
     grassBenders: GrassBender[] = [];
 
@@ -156,7 +118,7 @@ export class GrassBendRenderStage extends RenderStage {
     }
 
     render (view: RenderView) {
-        if (!this._material || !this._grassBendRenderer) {
+        if (!this._grassBendRenderer) {
             return;
         }
         if (view.camera.node !== this._grassBendRenderer.renderCamera.node) {
