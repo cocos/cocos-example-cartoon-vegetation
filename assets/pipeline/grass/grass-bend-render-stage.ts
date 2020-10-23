@@ -102,7 +102,7 @@ export class GrassBendRenderStage extends RenderStage {
                 bendRenderer.range * 2,
                 1
             )
-            Vec4.toArray(this._bendUBO, tempVec4, UBOGrassBend.GrassBendUVOffset);
+            Vec4.toArray(this._bendUBO, tempVec4, UBOGrassBend.UVOffset);
         }
 
         let buffer = pipeline.descriptorSet.getBuffer(UBOGrassBend.BINDING);

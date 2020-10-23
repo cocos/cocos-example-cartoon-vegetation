@@ -94,20 +94,16 @@ CCProgram water-vs %{
   #include <cc-local-batch>
   #include <shared-ubos>
 
-  // #if USE_VERTEX_COLOR
-  //   in vec3 a_color;
-  //   out vec3 v_color;
-  // #endif
-
   out vec3 v_position;
   out vec4 v_projPos;
+  out vec2 v_uv;
   out vec3 v_normal;
 
-  out vec3 v_tangent;
-  out vec3 v_bitangent;
+  #if USE_NORMAL_MAP
+    out vec3 v_tangent;
+    out vec3 v_bitangent;
+  #endif
 
-  out vec2 v_uv;
-  in vec2 a_texCoord1;
 
   vec3 gerstner(vec3 position, float steepness, float wavelength, float speed, float direction, inout vec3 tangent, inout vec3 binormal)
   {
@@ -169,8 +165,15 @@ CCProgram water-vs %{
 
     #if USE_WAVE
       vec3 offset;
-      gerstnerWaves(worldPos.xyz, waveVisuals.xyz, waveDirections, offset, v_normal, v_tangent, v_bitangent);
+      vec3 tangent;
+      vec3 bitangent;
+      gerstnerWaves(worldPos.xyz, waveVisuals.xyz, waveDirections, offset, v_normal, tangent, bitangent);
       worldPos.xyz += offset;
+
+      #if USE_NORMAL_MAP
+        v_tangent = tangent;
+        v_bitangent = bitangent;
+      #endif
     #endif
 
     v_position = worldPos.xyz;
@@ -197,8 +200,8 @@ CCProgram water-vs %{
 CCProgram water-fs %{
   precision highp float;
   #include <cc-global>
-  #include <shading-standard>
-  #include <output-standard>
+  // #include <shading-standard>
+  // #include <output-standard>
   #include <gamma>
   #include <shared-ubos>
 
@@ -210,7 +213,7 @@ CCProgram water-fs %{
   in vec3 v_normal;
 
   #pragma builtin(global)
-  layout(set = 0, binding = 6) uniform sampler2D cc_depth_buffer_map;
+  layout(set = 0, binding = 7) uniform sampler2D cc_depth_buffer_map;
 
   #if USE_FOAM
   uniform sampler2D foamTexture;
@@ -219,10 +222,6 @@ CCProgram water-fs %{
   #if USE_CAUSTIC
   uniform sampler2D causticTexture;
   #endif
-
-  // #if USE_VERTEX_COLOR
-  //   in vec3 v_color;
-  // #endif
 
   #if USE_NORMAL_MAP
     in vec3 v_tangent;
@@ -329,96 +328,101 @@ CCProgram water-fs %{
   }
   #endif
 
-  void surf (out StandardSurface s) {
+  // void surf (out StandardSurface s) {
+  //   s.normal = v_normal;
+  //   #if USE_NORMAL_MAP
+  //     float normalStrenth = normalParams.x;
+  //     vec2 normalUV = v_uv * normalParams.y;
+  //     vec2 moveUV = normalUV + normalParams.zw * cc_time.x / 40.;
+  //     vec3 nmmp = normalBlend(texture(normalMap, moveUV).xyz - vec3(.5), texture(normalMap, normalUV).xyz - vec3(.5));
+  //     s.normal =
+  //       (nmmp.x * normalStrenth) * normalize(v_tangent) +
+  //       (nmmp.y * normalStrenth) * normalize(v_bitangent) +
+  //       nmmp.z * normalize(s.normal);
+  //   #endif
+
+  //   s.position = v_position;
+
+  //   vec4 pbr = pbrParams;
+  //   s.occlusion = clamp(pbr.x, 0.0, 0.96);
+  //   s.roughness = clamp(pbr.y, 0.04, 1.0);
+  //   s.metallic = pbr.z;
+  // }
+
+  vec4 frag () {
     vec4 baseColor = albedo;
+
+    vec3 viewDir = cc_cameraPos.xyz - v_position;
+    
 
     // depth
     vec2 depthUv = (v_projPos.xy / v_projPos.w) * 0.5 + 0.5;
-    // #if USE_FLOAT_TEXTURE
-    //   float sceneDepth = texture(cc_depth_buffer_map, depthUv).r;
-    // #else
-      float sceneDepth = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
-      // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
-    // #endif
-    float waterDepth = v_projPos.z;
-    float depth = clamp((sceneDepth - waterDepth) / depthDistance, 0., 1.);
-    baseColor += mix(shallowColor, deepColor, depth);
+    float sceneDepth = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
+    // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
+    // float waterDepth = v_projPos.z;
+    // float depth = clamp(abs(waterDepth - sceneDepth) / depthDistance, 0., 1.);
+    // // baseColor += mix(shallowColor, deepColor, depth);
+
+    // vec3 scenePositon = cc_cameraPos.xyz + normalize(viewDir) * sceneDepth * 1000.;
+    // float depth = clamp(scenePositon.z - v_position.z / depthDistance, 0., 1.);
+
+    // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
+    // vec4(v_projPos.xy, sceneDepth)
     
+    // baseColor.a = sceneDepth;
+
+    // baseColor = vec4((v_projPos.z / v_projPos.w) * 0.5 + 0.5);
+    baseColor = vec4(sceneDepth);
+
     // foam
 
-    #if USE_FOAM && (USE_FOAM_1 || USE_FOAM_2)
-      vec4 finalFoamColor = vec4(0.);
+    // #if USE_FOAM && (USE_FOAM_1 || USE_FOAM_2)
+    //   vec4 finalFoamColor = vec4(0.);
       
-      float foamDepth = foamParams.y;
-      float foamFade = foamParams.w;
+    //   float foamDepth = foamParams.y;
+    //   float foamFade = foamParams.w;
 
-      #if USE_FOAM_1
-      finalFoamColor += foam(foamParams2.xy, foamColor1);
-      #endif
-      #if USE_FOAM_2
-      finalFoamColor += foam(foamParams2.zw, foamColor2);
-      #endif
+    //   #if USE_FOAM_1
+    //   finalFoamColor += foam(foamParams2.xy, foamColor1);
+    //   #endif
+    //   #if USE_FOAM_2
+    //   finalFoamColor += foam(foamParams2.zw, foamColor2);
+    //   #endif
       
-      finalFoamColor *= (1. - depth / foamDepth) * foamFade;
+    //   finalFoamColor *= (1. - depth / foamDepth) * foamFade;
 
-      // baseColor = mix(baseColor, finalFoamColor,  step(0., foamDepth - depth));
-      baseColor += step(0., foamDepth - depth) * finalFoamColor;
-    #endif
-
-
-    // caustic
-
-    #if USE_CAUSTIC
-      vec3 finalCausticColor = caustic();
-     
-      float causticMinStrength = causticParams2.x;
-      vec3 causticColor = causticParams2.xyz;
-
-      finalCausticColor *= clamp((1.- depth), 0., 1.) + causticMinStrength;
-      finalCausticColor *= causticColor;
-
-      baseColor.rgb += finalCausticColor;
-    #endif
-
-    // #if USE_VERTEX_COLOR
-    //   baseColor.rgb *= v_color;
+    //   // baseColor = mix(baseColor, finalFoamColor,  step(0., foamDepth - depth));
+    //   baseColor += step(0., foamDepth - depth) * finalFoamColor;
     // #endif
 
-    s.albedo = baseColor;
 
-    s.normal = v_normal;
-    #if USE_NORMAL_MAP
-      float normalStrenth = normalParams.x;
-      vec2 normalUV = v_uv * normalParams.y;
-      vec2 moveUV = normalUV + normalParams.zw * cc_time.x / 40.;
-      vec3 nmmp = normalBlend(texture(normalMap, moveUV).xyz - vec3(.5), texture(normalMap, normalUV).xyz - vec3(.5));
-      s.normal =
-        (nmmp.x * normalStrenth) * normalize(v_tangent) +
-        (nmmp.y * normalStrenth) * normalize(v_bitangent) +
-        nmmp.z * normalize(s.normal);
-    #endif
+    // // caustic
 
-    s.position = v_position;
+    // #if USE_CAUSTIC
+    //   vec3 finalCausticColor = caustic();
+     
+    //   float causticMinStrength = causticParams2.x;
+    //   vec3 causticColor = causticParams2.xyz;
 
-    vec4 pbr = pbrParams;
-    s.occlusion = clamp(pbr.x, 0.0, 0.96);
-    s.roughness = clamp(pbr.y, 0.04, 1.0);
-    s.metallic = pbr.z;
-  }
+    //   finalCausticColor *= clamp((1.- depth), 0., 1.) + causticMinStrength;
+    //   finalCausticColor *= causticColor;
 
-  vec4 frag () {
+    //   baseColor.rgb += finalCausticColor;
+    // #endif
+
     // StandardSurface s; surf(s);
     // vec4 color = CCStandardShading(s);
 
     // return CCFragOutput(color);
 
-    vec2 depthUv = (v_projPos.xy / v_projPos.w) * 0.5 + 0.5 - vec2(0.2, 0.);
-    // #if USE_FLOAT_TEXTURE
-    //   float sceneDepth = texture(cc_depth_buffer_map, depthUv).r;
-    // #else
-    //   float sceneDepth = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
-    //   // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
-    // return vec4(0., 0., 0., sceneDepth/2.);
-    return texture(cc_depth_buffer_map, depthUv);
+    // vec2 depthUv = (v_projPos.xy / v_projPos.w) * 0.5 + 0.5;
+    // // float depth = (v_projPos.z / v_projPos.w) * 0.5 + 0.5;
+
+    // float sceneDepth = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
+    // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
+    // // return vec4(0., 0., 0., sceneDepth/2.);
+    // return vec4(0., 0., 0., clamp((sceneDepth - v_projPos.z) / depthDistance, 0., 1.));
+
+    return baseColor;
   }
 }%

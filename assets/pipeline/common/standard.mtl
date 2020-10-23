@@ -9,13 +9,8 @@
   "_techIdx": 0,
   "_defines": [
     {},
-    {
-      "USE_NORMAL_MAP": true,
-      "USE_ALBEDO_MAP": true
-    },
-    {
-      "USE_ALBEDO_MAP": true
-    }
+    {},
+    {}
   ],
   "_states": [
     {
@@ -47,23 +42,7 @@
     }
   ],
   "_props": [
-    {
-      "mainColor": {
-        "__type__": "cc.Color",
-        "r": 209,
-        "g": 209,
-        "b": 209,
-        "a": 255
-      },
-      "roughness": 0.9,
-      "metallic": 0,
-      "mainTexture": {
-        "__uuid__": "bfa45918-37e9-45bd-bf17-8256863213fd@6c48a"
-      },
-      "normalMap": {
-        "__uuid__": "f471ff51-932d-4639-b8cd-c011faaa1597@6c48a"
-      }
-    },
+    {},
     {},
     {}
   ]

@@ -8,9 +8,7 @@
   },
   "_techIdx": 1,
   "_defines": [
-    {
-      "USE_WAVE": true
-    }
+    {}
   ],
   "_states": [
     {
@@ -34,6 +32,7 @@
       },
       "roughness": 0.8,
       "normalStrenth": 1,
+      "depthDistance": 0.5,
       "shallowColor": {
         "__type__": "cc.Color",
         "r": 109,

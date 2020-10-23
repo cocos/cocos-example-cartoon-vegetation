@@ -1,9 +1,9 @@
 
 #pragma builtin(global)
-layout(set = 0, binding = 4) uniform sampler2D cc_grass_bend_map;
+layout(set = 0, binding = 6) uniform sampler2D cc_grass_bend_map;
 
 #pragma builtin(global)
-layout(set = 0, binding = 5) uniform CCGrassBend {
+layout(set = 0, binding = 4) uniform CCGrassBend {
     vec4 cc_grass_bend_uv;
 };
 

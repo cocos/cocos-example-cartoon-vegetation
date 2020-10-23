@@ -3,7 +3,7 @@ const { ccclass, type } = _decorator;
 const { SetIndex, UBOShadow } = pipeline;
 
 import { DepthBufferObject } from './depth-buffer-object';
-import { UNIFORM_DEPTH_BUFFER_MAP_BINDING } from '../ubo';
+import { UNIFORM_DEPTH_BUFFER_MAP_BINDING, UBOCustomCommon } from '../ubo';
 
 
 const colors: GFXColor[] = [{ x: 1, y: 1, z: 1, w: 1 }];
@@ -41,12 +41,15 @@ export class DepthBufferStage extends RenderStage {
 
     protected _pipelineStates = { rasterizerState: { cullMode: GFXCullMode.BACK } };
 
+    protected _buffer = new Float32Array(UBOCustomCommon.COUNT);
+
 
     depthBufferObjects: DepthBufferObject[] = [];
 
     activate (pipeline: RenderPipeline, flow: RenderFlow) {
         super.activate(pipeline, flow);
 
+        this.bindUBO();
         this.updateUBO();
     }
 
@@ -60,11 +63,11 @@ export class DepthBufferStage extends RenderStage {
         this.depthBufferObjects.splice(index, 1);
     }
 
-    updateUBO (view?: RenderView) {
+    bindUBO () {
         const pipeline = this._pipeline as ForwardPipeline;
         const device = pipeline.device;
 
-        let width = 512, height = 512;
+        let width = device.width, height = device.height;
 
         let renderTexture = this._renderTexture;
         if (!renderTexture) {
@@ -77,15 +80,48 @@ export class DepthBufferStage extends RenderStage {
             pipeline.descriptorSet.bindSampler(UNIFORM_DEPTH_BUFFER_MAP_BINDING, sampler);
             pipeline.descriptorSet.bindTexture(UNIFORM_DEPTH_BUFFER_MAP_BINDING, renderTexture.getGFXTexture());
         }
-        else if (renderTexture.width !== width || renderTexture.height !== height) {
+
+        let buffer = pipeline.descriptorSet.getBuffer(UBOCustomCommon.BINDING);
+        if (!buffer) {
+            buffer = pipeline.device.createBuffer(new GFXBufferInfo(
+                GFXBufferUsageBit.UNIFORM | GFXBufferUsageBit.TRANSFER_DST,
+                GFXMemoryUsageBit.HOST | GFXMemoryUsageBit.DEVICE,
+                UBOCustomCommon.SIZE,
+            ));
+            pipeline.descriptorSet.bindBuffer(UBOCustomCommon.BINDING, buffer);
+        }
+    }
+
+    updateUBO (view?: RenderView) {
+        const pipeline = this._pipeline as ForwardPipeline;
+        const device = pipeline.device;
+
+        let width = device.width, height = device.height;
+        // let shadingWidth = pipelineAny._shadingWidth * scale;
+        // let shadingHeight = pipelineAny._shadingHeight * scale;
+        // if (CC_EDITOR) {
+        //     shadingWidth = device.width;
+        //     shadingHeight = device.height;
+        // }
+
+        let renderTexture = this._renderTexture;
+        if (renderTexture.width !== width || renderTexture.height !== height) {
             renderTexture.resize(width, height);
         }
 
-
         if (view) {
+            let camera = view.camera;
+
             let shadowUBO: Float32Array = (pipeline as any)._shadowUBO;
             Mat4.toArray(shadowUBO, view.camera.matViewProj, UBOShadow.MAT_LIGHT_VIEW_PROJ_OFFSET);
             pipeline.commandBuffers[0].updateBuffer(pipeline.descriptorSet.getBuffer(UBOShadow.BINDING), shadowUBO);
+
+            let commonUBO = this._buffer;
+            commonUBO[UBOCustomCommon.ProjectionParamsOffset] = camera.nearClip;
+            commonUBO[UBOCustomCommon.ProjectionParamsOffset + 1] = camera.farClip;
+            commonUBO[UBOCustomCommon.ProjectionParamsOffset + 3] = 1 / camera.nearClip;
+            commonUBO[UBOCustomCommon.ProjectionParamsOffset + 2] = 1 / camera.farClip;
+            pipeline.commandBuffers[0].updateBuffer(pipeline.descriptorSet.getBuffer(UBOCustomCommon.BINDING), commonUBO);
         }
     }
 
