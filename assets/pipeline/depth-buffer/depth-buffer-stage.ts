@@ -1,5 +1,5 @@
 import { _decorator, RenderStage, GFXRect, GFXColor, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo, GFXRenderPassInfo, GFXColorAttachment, GFXDepthStencilAttachment, Mat4, getPhaseID } from "cc";
-const { ccclass, type } = _decorator;
+const { ccclass, type, property } = _decorator;
 const { SetIndex, UBOShadow } = pipeline;
 
 import { DepthBufferObject } from './depth-buffer-object';
@@ -23,7 +23,7 @@ _colorAttachment.endLayout = GFXTextureLayout.SHADER_READONLY_OPTIMAL;
 const _depthStencilAttachment = new GFXDepthStencilAttachment();
 const _renderPassInfo = new GFXRenderPassInfo([_colorAttachment], _depthStencilAttachment);
 
-const _phaseID = getPhaseID('shadow-add');
+const _phaseID = getPhaseID('shadow-caster');
 
 
 @ccclass("DepthBufferStage")
@@ -45,6 +45,9 @@ export class DepthBufferStage extends RenderStage {
 
 
     depthBufferObjects: DepthBufferObject[] = [];
+
+    @property
+    enabled = true;
 
     activate (pipeline: RenderPipeline, flow: RenderFlow) {
         super.activate(pipeline, flow);
@@ -126,6 +129,10 @@ export class DepthBufferStage extends RenderStage {
     }
 
     render (view: RenderView) {
+        if (!this.enabled) {
+            return;
+        }
+
         this.updateUBO(view);
 
         let renderTexture = this._renderTexture;

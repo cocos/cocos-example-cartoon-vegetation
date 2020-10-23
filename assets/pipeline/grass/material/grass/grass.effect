@@ -36,7 +36,7 @@ CCEffect %{
         shadowIntensity: { value: 0.4 }
     - vert: shadow-caster-vs:vert
       frag: shadow-caster-fs:frag
-      phase: shadow-add
+      phase: shadow-caster
       propertyIndex: 0
       rasterizerState:
         cullMode: back
@@ -54,7 +54,7 @@ CCEffect %{
       properties: *props
     - vert: shadow-caster-vs:vert
       frag: shadow-caster-fs:frag
-      phase: shadow-add
+      phase: shadow-caster
       propertyIndex: 0
       rasterizerState:
         cullMode: back
@@ -202,7 +202,7 @@ CCProgram fs %{
   #include <shared-ubos>
   #include <shared-funcs>
 
-  #include <./phong>
+  #include <../../../chunks/phong>
 
   in vec2 v_uv;
   in vec4 v_color;

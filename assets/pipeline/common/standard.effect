@@ -48,7 +48,7 @@ CCEffect %{
       properties: *props
     - vert: shadow-caster-vs:vert
       frag: shadow-caster-fs:frag
-      phase: shadow-add
+      phase: shadow-caster
       propertyIndex: 0
       rasterizerState:
         cullMode: back
@@ -82,7 +82,7 @@ CCEffect %{
       properties: *props
     - vert: shadow-caster-vs:vert
       frag: shadow-caster-fs:frag
-      phase: shadow-add
+      phase: shadow-caster
       propertyIndex: 0
       rasterizerState:
         cullMode: back
