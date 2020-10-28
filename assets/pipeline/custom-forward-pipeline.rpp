@@ -58,7 +58,7 @@
     "_name": "DepthBufferStage",
     "_priority": 0,
     "_tag": 0,
-    "enabled": false
+    "enabled": true
   },
   {
     "__type__": "GrassBendRenderStage",

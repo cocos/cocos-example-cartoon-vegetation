@@ -349,79 +349,59 @@ CCProgram water-fs %{
   //   s.metallic = pbr.z;
   // }
 
+  #include <../chunks/ubo-custom-common>
+
   vec4 frag () {
     vec4 baseColor = albedo;
 
-    vec3 viewDir = cc_cameraPos.xyz - v_position;
-    
-
     // depth
     vec2 depthUv = (v_projPos.xy / v_projPos.w) * 0.5 + 0.5;
-    float sceneDepth = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
-    // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
-    // float waterDepth = v_projPos.z;
-    // float depth = clamp(abs(waterDepth - sceneDepth) / depthDistance, 0., 1.);
-    // // baseColor += mix(shallowColor, deepColor, depth);
+    float sceneDepth0_1 = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
 
-    // vec3 scenePositon = cc_cameraPos.xyz + normalize(viewDir) * sceneDepth * 1000.;
-    // float depth = clamp(scenePositon.z - v_position.z / depthDistance, 0., 1.);
+    vec2 ndcXY = (v_projPos.xy / v_projPos.w);
+    vec3 clipPos = vec3(ndcXY, 1.) * cc_projection_params.y;
+    vec3 viewPos = (cc_matProjInv * clipPos.xyzz).xyz;
+    viewPos *= sceneDepth0_1;
+    vec4 worldPos = cc_matViewInv * vec4(viewPos, 1.);
 
-    // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
-    // vec4(v_projPos.xy, sceneDepth)
-    
-    // baseColor.a = sceneDepth;
-
-    // baseColor = vec4((v_projPos.z / v_projPos.w) * 0.5 + 0.5);
-    baseColor = vec4(sceneDepth);
+    float depth = clamp((v_position.y - worldPos.y) / depthDistance, 0., 1.);
+    baseColor += mix(shallowColor, deepColor, depth);
 
     // foam
 
-    // #if USE_FOAM && (USE_FOAM_1 || USE_FOAM_2)
-    //   vec4 finalFoamColor = vec4(0.);
+    #if USE_FOAM && (USE_FOAM_1 || USE_FOAM_2)
+      vec4 finalFoamColor = vec4(0.);
       
-    //   float foamDepth = foamParams.y;
-    //   float foamFade = foamParams.w;
+      float foamDepth = foamParams.y;
+      float foamFade = foamParams.w;
 
-    //   #if USE_FOAM_1
-    //   finalFoamColor += foam(foamParams2.xy, foamColor1);
-    //   #endif
-    //   #if USE_FOAM_2
-    //   finalFoamColor += foam(foamParams2.zw, foamColor2);
-    //   #endif
+      #if USE_FOAM_1
+      finalFoamColor += foam(foamParams2.xy, foamColor1);
+      #endif
+      #if USE_FOAM_2
+      finalFoamColor += foam(foamParams2.zw, foamColor2);
+      #endif
       
-    //   finalFoamColor *= (1. - depth / foamDepth) * foamFade;
+      finalFoamColor *= (1. - depth / foamDepth) * foamFade;
 
-    //   // baseColor = mix(baseColor, finalFoamColor,  step(0., foamDepth - depth));
-    //   baseColor += step(0., foamDepth - depth) * finalFoamColor;
-    // #endif
+      // baseColor = mix(baseColor, finalFoamColor,  step(0., foamDepth - depth));
+      baseColor += step(0., foamDepth - depth) * finalFoamColor;
+    #endif
 
 
-    // // caustic
+    // caustic
 
-    // #if USE_CAUSTIC
-    //   vec3 finalCausticColor = caustic();
+    #if USE_CAUSTIC
+      vec3 finalCausticColor = caustic();
      
-    //   float causticMinStrength = causticParams2.x;
-    //   vec3 causticColor = causticParams2.xyz;
+      float causticMinStrength = causticParams2.x;
+      vec3 causticColor = causticParams2.xyz;
 
-    //   finalCausticColor *= clamp((1.- depth), 0., 1.) + causticMinStrength;
-    //   finalCausticColor *= causticColor;
+      finalCausticColor *= clamp((1.- depth), 0., 1.) + causticMinStrength;
+      finalCausticColor *= causticColor;
 
-    //   baseColor.rgb += finalCausticColor;
-    // #endif
-
-    // StandardSurface s; surf(s);
-    // vec4 color = CCStandardShading(s);
-
-    // return CCFragOutput(color);
-
-    // vec2 depthUv = (v_projPos.xy / v_projPos.w) * 0.5 + 0.5;
-    // // float depth = (v_projPos.z / v_projPos.w) * 0.5 + 0.5;
-
-    // float sceneDepth = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
-    // sceneDepth = (sceneDepth - 0.5) / 0.5 * v_projPos.w;
-    // // return vec4(0., 0., 0., sceneDepth/2.);
-    // return vec4(0., 0., 0., clamp((sceneDepth - v_projPos.z) / depthDistance, 0., 1.));
+      baseColor.rgb += finalCausticColor;
+    #endif
 
     return baseColor;
   }

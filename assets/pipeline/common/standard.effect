@@ -46,12 +46,12 @@ CCEffect %{
           blendSrcAlpha: zero
           blendDstAlpha: one
       properties: *props
-    - vert: shadow-caster-vs:vert
-      frag: shadow-caster-fs:frag
-      phase: shadow-caster
+    - vert: depth-buffer-vs:vert
+      frag: depth-buffer-fs:frag
+      phase: depth-buffer
       propertyIndex: 0
       rasterizerState:
-        cullMode: back
+        cullMode: front
   - name: transparent
     passes:
     - vert: standard-vs:vert
@@ -80,12 +80,12 @@ CCEffect %{
           blendSrc: one
           blendDst: one
       properties: *props
-    - vert: shadow-caster-vs:vert
-      frag: shadow-caster-fs:frag
-      phase: shadow-caster
+    - vert: depth-buffer-vs:vert
+      frag: depth-buffer-fs:frag
+      phase: depth-buffer
       propertyIndex: 0
       rasterizerState:
-        cullMode: back
+        cullMode: front
 }%
 
 CCProgram shared-ubos %{
@@ -281,7 +281,7 @@ CCProgram standard-fs %{
   }
 }%
 
-CCProgram shadow-caster-vs %{
+CCProgram depth-buffer-vs %{
   precision highp float;
   #include <input-standard>
   #include <cc-local-batch>
@@ -308,20 +308,20 @@ CCProgram shadow-caster-vs %{
     CCGetWorldMatrixFull(matWorld, matWorldIT);
 
     vec4 worldPos = matWorld * In.position;
-    vec4 clipPos = cc_matLightViewProj * worldPos;
+    vec4 viewPos = cc_matView * worldPos;
 
     v_uv = a_texCoord * tilingOffset.xy + tilingOffset.zw;
     #if HAS_SECOND_UV
       v_uv1 = a_texCoord1 * tilingOffset.xy + tilingOffset.zw;
     #endif
 
-    v_clip_depth = (clipPos.z + cc_projection_params.x) / (cc_projection_params.x + cc_projection_params.y);
+    v_clip_depth = -viewPos.z / cc_projection_params.y;
 
-    return clipPos;
+    return cc_matProj * viewPos;
   }
 }%
 
-CCProgram shadow-caster-fs %{
+CCProgram depth-buffer-fs %{
   precision highp float;
   #include <shared-ubos>
   #include <packing>

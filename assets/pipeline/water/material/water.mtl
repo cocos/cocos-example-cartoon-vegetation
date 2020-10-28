@@ -8,7 +8,11 @@
   },
   "_techIdx": 1,
   "_defines": [
-    {}
+    {
+      "USE_FOAM": true,
+      "USE_CAUSTIC": true,
+      "USE_FOAM_1": true
+    }
   ],
   "_states": [
     {
@@ -32,7 +36,7 @@
       },
       "roughness": 0.8,
       "normalStrenth": 1,
-      "depthDistance": 0.5,
+      "depthDistance": 5,
       "shallowColor": {
         "__type__": "cc.Color",
         "r": 109,
@@ -46,6 +50,31 @@
         "g": 5,
         "b": 39,
         "a": 228
+      },
+      "foamScale1": {
+        "__type__": "cc.Vec2",
+        "x": 0.5,
+        "y": 0.1
+      },
+      "foamScale2": {
+        "__type__": "cc.Vec2",
+        "x": 0.5,
+        "y": 0.5
+      },
+      "foamColor2": {
+        "__type__": "cc.Color",
+        "r": 143,
+        "g": 143,
+        "b": 143,
+        "a": 95
+      },
+      "foamDepth": 0.1,
+      "foamTexture": {
+        "__uuid__": "d353a211-064a-4253-ac5a-01cb7d8b3ad6@6c48a"
+      },
+      "causticScale": 40,
+      "causticTexture": {
+        "__uuid__": "04f9f064-9886-42a8-b856-4af0f3e3422a@6c48a"
       }
     }
   ]

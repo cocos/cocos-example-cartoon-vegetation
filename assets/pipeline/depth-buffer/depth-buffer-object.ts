@@ -1,8 +1,9 @@
 import { _decorator, Component, Node } from 'cc';
 import { DepthBufferStage } from './depth-buffer-stage';
-const { ccclass, property } = _decorator;
+const { ccclass, executeInEditMode } = _decorator;
 
 @ccclass('DepthBufferObject')
+@executeInEditMode
 export class DepthBufferObject extends Component {
     /* class member could be defined like this */
     // dummy = '';

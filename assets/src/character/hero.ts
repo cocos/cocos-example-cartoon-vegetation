@@ -1,9 +1,3 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import { _decorator, Component, Node, Vec3, Vec2, Animation, lerp, AnimationClip, AnimationState, animation, AnimationComponent, RigidBody } from 'cc';
 import input from '../utils/input';
@@ -25,10 +19,13 @@ export class Hero extends Component {
     @type(RigidBody)
     rigidBody: RigidBody = null;
 
+    @property
+    jumpForce = 5;
+
     jumping = false;
 
-    speed = new Vec2;
-    targetSpeed = new Vec2;
+    speed = new Vec3;
+    targetSpeed = new Vec3;
 
     rotation = 0;
     targetRotation = 0;
@@ -70,7 +67,7 @@ export class Hero extends Component {
             speedAmount = this.runSpeed;
         }
 
-        this.targetSpeed.x = this.targetSpeed.y = 0;
+        this.targetSpeed.x = this.targetSpeed.z = 0;
 
         if (input.key.left) {
             this.targetRotation += 90 * deltaTime;
@@ -82,7 +79,7 @@ export class Hero extends Component {
         let targetRotationRad = this.targetRotation * Math.PI / 180;
         if (input.key.up) {
             this.targetSpeed.x = speedAmount * Math.sin(targetRotationRad);
-            this.targetSpeed.y = speedAmount * Math.cos(targetRotationRad);
+            this.targetSpeed.z = speedAmount * Math.cos(targetRotationRad);
             moving = true;
         }
         // else if (input.key.down) {
@@ -90,13 +87,13 @@ export class Hero extends Component {
         //     moving = true;
         // }
 
-        Vec2.lerp(speed, speed, this.targetSpeed, deltaTime * 5);
+        Vec3.lerp(speed, speed, this.targetSpeed, deltaTime * 5);
 
 
         if (input.key.space) {
             if (!this.jumping) {
                 this.jumping = true;
-                this.play('UnarmedJumpRunning');
+                this.rigidBody.applyImpulse(tempVec3.set(0, this.jumpForce, 0));
             }
         }
 
@@ -112,23 +109,34 @@ export class Hero extends Component {
             }
         }
         else {
-            speed.x = speed.y = 0;
+            speed.x = speed.z = 0;
             this.play('Yawn');
         }
 
         this.rotation = this.targetRotation;//lerp(this.rotation, this.targetRotation, deltaTime * 5);
 
         this.rigidBody.getLinearVelocity(tempVec3);
-        tempVec3.x = speed.x;
-        tempVec3.z = speed.y;
-        this.rigidBody.setLinearVelocity(tempVec3);
+        speed.y = tempVec3.y;
+        this.rigidBody.setLinearVelocity(speed);
+
+        if (this.speed.y < -3) {
+            if (this._currentAnim !== 'JumpingDown') {
+                this._currentAnim = 'JumpingDown';
+                // this.play('JumpingDown')
+            }
+        }
+        else if (this.speed.y > 3) {
+            this.jumping = true;
+            if (this._currentAnim !== 'JumpingUp') {
+                this.play('JumpingUp')
+            }
+        }
+        else if (this._currentAnim === 'JumpingDown') {
+            this.jumping = false;
+        }
 
         // model
         this.animation.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
 
-
-        // let position = this.node.position;
-        // this.node.setPosition(position.x + speed.x * deltaTime, position.y, position.z + speed.y * deltaTime);
-        // this.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
     }
 }

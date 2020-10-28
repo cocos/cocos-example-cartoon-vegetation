@@ -1,9 +1,10 @@
-import { _decorator, RenderStage, GFXRect, GFXColor, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo, GFXRenderPassInfo, GFXColorAttachment, GFXDepthStencilAttachment, Mat4, getPhaseID } from "cc";
+import { _decorator, RenderStage, GFXRect, GFXColor, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo, GFXRenderPassInfo, GFXColorAttachment, GFXDepthStencilAttachment, Mat4, getPhaseID, Terrain, GFXCommandBuffer, GFXDevice } from "cc";
 const { ccclass, type, property } = _decorator;
 const { SetIndex, UBOShadow } = pipeline;
 
 import { DepthBufferObject } from './depth-buffer-object';
 import { UNIFORM_DEPTH_BUFFER_MAP_BINDING, UBOCustomCommon } from '../ubo';
+import { EDITOR } from "cce.env";
 
 
 const colors: GFXColor[] = [{ x: 1, y: 1, z: 1, w: 1 }];
@@ -23,7 +24,7 @@ _colorAttachment.endLayout = GFXTextureLayout.SHADER_READONLY_OPTIMAL;
 const _depthStencilAttachment = new GFXDepthStencilAttachment();
 const _renderPassInfo = new GFXRenderPassInfo([_colorAttachment], _depthStencilAttachment);
 
-const _phaseID = getPhaseID('shadow-caster');
+const _phaseID = getPhaseID('depth-buffer');
 
 
 @ccclass("DepthBufferStage")
@@ -115,9 +116,9 @@ export class DepthBufferStage extends RenderStage {
         if (view) {
             let camera = view.camera;
 
-            let shadowUBO: Float32Array = (pipeline as any)._shadowUBO;
-            Mat4.toArray(shadowUBO, view.camera.matViewProj, UBOShadow.MAT_LIGHT_VIEW_PROJ_OFFSET);
-            pipeline.commandBuffers[0].updateBuffer(pipeline.descriptorSet.getBuffer(UBOShadow.BINDING), shadowUBO);
+            // let shadowUBO: Float32Array = (pipeline as any)._shadowUBO;
+            // Mat4.toArray(shadowUBO, view.camera.matViewProj, UBOShadow.MAT_LIGHT_VIEW_PROJ_OFFSET);
+            // pipeline.commandBuffers[0].updateBuffer(pipeline.descriptorSet.getBuffer(UBOShadow.BINDING), shadowUBO);
 
             let commonUBO = this._buffer;
             commonUBO[UBOCustomCommon.ProjectionParamsOffset] = camera.nearClip;
@@ -128,9 +129,45 @@ export class DepthBufferStage extends RenderStage {
         }
     }
 
+    commitBuffer (subModels: renderer.scene.SubModel[], cmdBuff: GFXCommandBuffer, device: GFXDevice, renderPass: GFXRenderPass) {
+        for (let m = 0; m < subModels.length; m++) {
+            const subModel = subModels[m];
+
+            for (let pi = 0; pi < subModel.passes.length; pi++) {
+                const pass = subModel.passes[pi];
+                if (pass.phase !== _phaseID) {
+                    continue;
+                }
+
+                const shaderHandle = renderer.SubModelPool.get(subModel.handle, renderer.SubModelView.SHADER_0 + pi);
+                const shader = renderer.ShaderPool.get(shaderHandle as any);
+                if (!shader) {
+                    continue;
+                }
+
+                const hPass = pass.handle;
+                const ia = subModel.inputAssembler;
+                const pso = PipelineStateManager.getOrCreatePipelineState(device, hPass, shader, renderPass, ia);
+
+                const descriptorSet = renderer.DSPool.get(renderer.PassPool.get(hPass, renderer.PassView.DESCRIPTOR_SET));
+                cmdBuff.bindPipelineState(pso);
+                cmdBuff.bindDescriptorSet(SetIndex.MATERIAL, descriptorSet);
+                cmdBuff.bindDescriptorSet(SetIndex.LOCAL, subModel.descriptorSet);
+                cmdBuff.bindInputAssembler(ia);
+                cmdBuff.draw(ia);
+            }
+        }
+    }
+
     render (view: RenderView) {
         if (!this.enabled) {
             return;
+        }
+
+        if (EDITOR) {
+            if (view.camera.node.name !== 'Editor Camera') {
+                return;
+            }
         }
 
         this.updateUBO(view);
@@ -162,34 +199,19 @@ export class DepthBufferStage extends RenderStage {
 
         const depthBufferObjects = this.depthBufferObjects;
         for (let i = 0; i < depthBufferObjects.length; ++i) {
-            const ro = depthBufferObjects[i].getComponent(ModelComponent);
-            const subModels = ro.model.subModels;
-            for (let m = 0; m < subModels.length; m++) {
-                const subModel = subModels[m];
+            const mc = depthBufferObjects[i].getComponent(ModelComponent);
+            if (mc) {
+                const subModels = mc.model.subModels;
+                this.commitBuffer(subModels, cmdBuff, device, renderPass);
+                continue;
+            }
 
-                for (let pi = 0; pi < subModel.passes.length; pi++) {
-                    const pass = subModel.passes[pi];
-                    if (pass.phase !== _phaseID) {
-                        continue;
-                    }
-
-                    const shaderHandle = renderer.SubModelPool.get(subModel.handle, renderer.SubModelView.SHADER_0 + pi);
-                    const shader = renderer.ShaderPool.get(shaderHandle as any);
-                    if (!shader) {
-                        continue;
-                    }
-    
-                    const hPass = pass.handle;
-                    const ia = subModel.inputAssembler;
-                    const pso = PipelineStateManager.getOrCreatePipelineState(device, hPass, shader, renderPass, ia);
-    
-                    const descriptorSet = renderer.DSPool.get(renderer.PassPool.get(hPass, renderer.PassView.DESCRIPTOR_SET));
-                    cmdBuff.bindPipelineState(pso);
-                    cmdBuff.bindDescriptorSet(SetIndex.MATERIAL, descriptorSet);
-                    cmdBuff.bindDescriptorSet(SetIndex.LOCAL, subModel.descriptorSet);
-                    cmdBuff.bindInputAssembler(ia);
-                    cmdBuff.draw(ia);
-                }
+            const tr = depthBufferObjects[i].getComponent(Terrain);
+            const blocks = tr.getBlocks();
+            for (let bi = 0; bi < blocks.length; bi++) {
+                const subModels: renderer.scene.SubModel[] = (blocks[bi] as any)._renderable._model.subModels;
+                this.commitBuffer(subModels, cmdBuff, device, renderPass);
+                continue;
             }
         }
 
