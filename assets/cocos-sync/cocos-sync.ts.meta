@@ -1,0 +1,16 @@
+{
+  "ver": "4.0.2",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "8a77cdf3-491f-4fcd-8a6b-0902971bd495",
+  "files": [
+    ".js",
+    ".trans"
+  ],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/cocos-sync/cocos-sync.js",
+    "importerSettings": 3
+  }
+}
