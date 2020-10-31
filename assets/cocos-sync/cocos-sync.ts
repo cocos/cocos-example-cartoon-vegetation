@@ -4,6 +4,7 @@ import { EDITOR } from "cce.env";
 let _tempVec4 = new Vec4();
 
 interface SyncComponentData {
+    uuid: number;
     name: string;
 }
 
@@ -24,6 +25,7 @@ interface SyncTerrainData extends SyncComponentData {
 
 interface SyncNodeData {
     name: string;
+    uuid: number;
 
     position: Vec3;
     scale: Vec3;
@@ -31,11 +33,23 @@ interface SyncNodeData {
 
     children: SyncNodeData[];
     components: string[];
+
+    // runtime
+    parentIndex: number;
+    node: Node
+}
+
+interface SyncSceneData {
+    nodeCount: number;
+    componentCount: number;
+    children: SyncNodeData[];
 }
 
 
 if (EDITOR) {
+    const cce = (window as any).cce;
     const io = (window as any).require('socket.io');
+    const XXH = (window as any).require('xxhashjs');
 
     let app = (window as any).__cocos_sync_io__;
     if (!app) {
@@ -52,45 +66,138 @@ if (EDITOR) {
     }
 
     function syncDataString (dataStr: string) {
+        let data: SyncSceneData;
         try {
-            let data: SyncNodeData = JSON.parse(dataStr);
-            syncData(data);
+            data = JSON.parse(dataStr);
         }
         catch (err) {
             error(err);
+            return;
+        }
+
+        collectSceneData(data);
+        syncDatas();
+    }
+
+
+    let _totalNodeCount = 0;
+    let _totalComponentCount = 0;
+    let _nodeCount = 0;
+    let _componentCount = 0;
+
+    let _nodeList: SyncNodeData[] = [];
+    let _currentNodeIndex = 0;
+    function collectSceneData (data: SyncSceneData) {
+        _nodeList.length = 0;
+        _currentNodeIndex = 0;
+
+        _totalNodeCount = data.nodeCount;
+        _totalComponentCount = data.componentCount;
+
+        if (data.children) {
+            for (let i = 0, l = data.children.length; i < l; i++) {
+                data.children[i].parentIndex = -1;
+                collectNodeData(data.children[i]);
+            }
+        }
+    }
+    function collectNodeData (data: SyncNodeData) {
+        let index = _nodeList.length;
+        _nodeList.push(data);
+
+        if (data.children) {
+            for (let i = 0, l = data.children.length; i < l; i++) {
+                data.children[i].parentIndex = index;
+                collectNodeData(data.children[i]);
+            }
         }
     }
 
-    function syncData (data: SyncNodeData, parent: Node = null) {
+    let _syncIntervalID = -1;
+    let _startTime = 0;
+    function syncDatasFrame () {
+        for (let i = 0; i < 1000; i++) {
+            let node = _nodeList[_currentNodeIndex];
+            if (node) {
+                let parent: Node;
+                let finded = true;
+                if (node.parentIndex !== -1) {
+                    let parentData = _nodeList[node.parentIndex];
+                    if (!parentData) {
+                        warn('Can not find parent node data with index : ' + node.parentIndex);
+                        finded = false;
+                    }
+                    parent = parentData.node;
+                }
+                if (finded) {
+                    syncNodeData(node, parent);
+                }
+            }
+            else {
+                warn('Can not find node data with index : ' + _currentNodeIndex);
+            }
+
+            if (++_currentNodeIndex >= _nodeList.length) {
+                log(`End sync : ${Date.now() - _startTime} ms`);
+
+                clearInterval(_syncIntervalID);
+                _syncIntervalID = -1;
+                return;
+            }
+        }
+
+        log(`Sync : Progress - ${_currentNodeIndex / _nodeList.length}, NodeCount - ${_currentNodeIndex}`);
+        setTimeout(syncDatasFrame, 500);
+    }
+    function syncDatas () {
+        if (_syncIntervalID !== -1) {
+            clearInterval(_syncIntervalID);
+        }
+
+        log('Begin sync...');
+        log('Total Node Count : ', _totalNodeCount);
+        log('Total Component Count : ', _totalComponentCount);
+        _startTime = Date.now();
+
+        syncDatasFrame();
+    }
+
+
+    function syncNodeData (data: SyncNodeData, parent: Node = null) {
         parent = parent || director.getScene() as any;
-        let node = find(data.name, parent);
+        // let node = find(data.name, parent);
+        let uuid = XXH.h32().update(data.uuid.toString()).digest().toString(16).padEnd(8, '0');
+        let node = cce.Node.query(uuid) as Node;
         if (!node) {
             node = new Node(data.name);
+            (node as any)._id = uuid;
             node.parent = parent;
         }
+        node.setPosition(data.position);
+        node.setScale(data.scale);
+        node.eulerAngles = data.eulerAngles;
+        data.node = node;
+
+        _nodeCount++;
 
         if (data.components) {
-            data.components.forEach(c => {
-                try {
-                    let data: SyncComponentData = JSON.parse(c);
-                    syncComponent(data, node);
-                }
-                catch (err) {
-                    error(err);
-                }
-            })
+            for (let i = 0, l = data.components.length; i < l; i++) {
+                let cdata: SyncComponentData = JSON.parse(data.components[i]);
+                syncComponent(cdata, node);
+            }
         }
 
-        if (data.children) {
-            data.children.forEach(c => {
-                syncData(c, node);
-            })
-        }
+        // if (data.children) {
+        //     for (let i = 0, l = data.children.length; i < l; i++) {
+        //         syncNodeData(data.children[i], node);
+        //     }
+        // }
+
+        return node;
     }
 
     let compSyncs = {
         'cc.Terrain' (comp: Terrain, compData: SyncTerrainData) {
-            
             const mapWidth = comp.info.size.width;
             const mapHeight = comp.info.size.height;
 
@@ -177,6 +284,8 @@ if (EDITOR) {
     }
 
     function syncComponent (compData: SyncComponentData, node: Node) {
+        _componentCount++;
+
         let comp = node.getComponent(compData.name);
         if (!comp) {
             comp = node.addComponent(compData.name);
