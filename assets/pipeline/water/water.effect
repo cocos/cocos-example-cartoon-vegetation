@@ -7,8 +7,6 @@ CCEffect %{
     - vert: water-vs:vert
       frag: water-fs:frag
       properties: &props
-        mainColor:      { value: [1.0, 1.0, 1.0, 1.0], target: albedo, editor: { displayName: Albedo, type: color } }
-        
         occlusion:      { value: 1.0, target: pbrParams.x }
         roughness:      { value: 0.1, target: pbrParams.y }
         metallic:       { value: 0, target: pbrParams.z }
@@ -21,18 +19,14 @@ CCEffect %{
         depthDistance:  { value: 1. }
         shallowColor:   { value: [1, 1, 1, 1], editor: { type: color }  }
         deepColor:      { value: [0, 0, 0, 0] , editor: { type: color } }
+        opacity:        { value: 1. }
+        coastOpacity:   { value: 0.5 }
 
-        foamScale1:     { value: [1, 1], target: foamParams2.xy, editor: { parent: USE_FOAM_1 } }
-        foamColor1:     { value: [1, 1, 1, 1], editor: { parent: USE_FOAM_1, type: color } }
-
-        foamScale2:     { value: [1, 1], target: foamParams2.zw, editor: { parent: USE_FOAM_2 } }
-        foamColor2:     { value: [1, 1, 1, 1], editor: { parent: USE_FOAM_2, type: color } }
-
-        foamCutOff:     { value: 0.5, target: foamParams.x, editor: { parent: USE_FOAM } }
-        foamDepth:      { value: 0.3, target: foamParams.y, editor: { parent: USE_FOAM } }
-        foamDistortion: { value: 1.222, target: foamParams.z, editor: { parent: USE_FOAM } }
-        foamFade:       { value: 1, target: foamParams.w, editor: { parent: USE_FOAM } }
-        foamTexture:    { value: white, editor: { parent: USE_FOAM } }
+        foamColor:      { value: [1, 1, 1, 1], editor: { parent: USE_FOAM, type: color } }
+        foamDistance:   { value: 0.35, target: foamParams.x, editor: { parent: USE_FOAM } }
+        foamDensity:    { value: 0.5, target: foamParams.y, editor: { parent: USE_FOAM } }
+        foamTile:       { value: 1, target: foamParams.z, editor: { parent: USE_FOAM } }
+        foamContrast:   { value: 0.5, target: foamParams.w, editor: { parent: USE_FOAM } }
 
         waveVisuals:    { value: [ 0.167, 7, 0.54, 1 ], editor: { parent: USE_WAVE } }
         waveDirections: { value: [ 0, 0.3, 0.6, 0.67 ], editor: { parent: USE_WAVE } }
@@ -65,7 +59,6 @@ CCProgram shared-ubos %{
   #define pi 3.14
 
   uniform Constants {
-    vec4 albedo;
     vec4 pbrParams;
     vec4 emissive;
     vec4 emissiveScaleParam;
@@ -78,12 +71,12 @@ CCProgram shared-ubos %{
     vec4 waveVisuals;
     vec4 waveDirections;
     vec4 foamParams;
-    vec4 foamParams2;
-    vec4 foamColor1;
-    vec4 foamColor2;
+    vec4 foamColor;
     vec4 causticParams1;
     vec4 causticParams2;
     float depthDistance;
+    float opacity;
+    float coastOpacity;
   };
 }%
 
@@ -351,58 +344,103 @@ CCProgram water-fs %{
 
   #include <../chunks/ubo-custom-common>
 
-  vec4 frag () {
-    vec4 baseColor = albedo;
+  // depth function
+  float worldDepthFade (vec4 sceneWorldPos, float dist) {
+    return clamp((v_position.y - sceneWorldPos.y) / dist, 0., 1.);
+  }
 
-    // depth
-    vec2 depthUv = (v_projPos.xy / v_projPos.w) * 0.5 + 0.5;
-    float sceneDepth0_1 = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
+  float eyeDepthFade (float sceneEyeDepth, float eyeDepth, float dist) {
+    return clamp((sceneEyeDepth - eyeDepth) / dist, 0., 1.);
+  }
 
+  vec4 getSceneWorldPos (float sceneEyeDepth0_1) {
     vec2 ndcXY = (v_projPos.xy / v_projPos.w);
     vec3 clipPos = vec3(ndcXY, 1.) * cc_projection_params.y;
     vec3 viewPos = (cc_matProjInv * clipPos.xyzz).xyz;
-    viewPos *= sceneDepth0_1;
-    vec4 worldPos = cc_matViewInv * vec4(viewPos, 1.);
+    viewPos *= sceneEyeDepth0_1;
+    return cc_matViewInv * vec4(viewPos, 1.);
+  }
+  
+  // noise
 
-    float depth = clamp((v_position.y - worldPos.y) / depthDistance, 0., 1.);
-    baseColor += mix(shallowColor, deepColor, depth);
+  vec2 voronoihash( vec2 p )
+  {
+    p = vec2( dot( p, vec2( 127.1, 311.7 ) ), dot( p, vec2( 269.5, 183.3 ) ) );
+    return fract( sin( p ) *43758.5453);
+  }
+
+
+  float voronoi( vec2 v, float time, float smoothness )
+  {
+    vec2 n = floor( v );
+    vec2 f = fract( v );
+    float F1 = 8.0;
+    float F2 = 8.0;
+    for ( int j = -1; j <= 1; j++ )
+    {
+      for ( int i = -1; i <= 1; i++ )
+      {
+        vec2 g = vec2( i, j );
+        vec2 o = voronoihash( n + g );
+        o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 );
+        vec2 r = f - g - o;
+        float d = 0.5 * dot( r, r );
+      //		if( d<F1 ) {
+      //			F2 = F1;
+          float h = smoothstep(0.0, 1.0, 0.5 + 0.5 * (F1 - d) / smoothness);
+          F1 = mix(F1, d, h) - smoothness * h * (1.0 - h);
+      //		} else if( d<F2 ) {
+      //			F2 = d;
+      //		}
+      }
+    }
+    return F1;
+  }
+
+
+  vec4 frag () {
+    // depth
+    float far = cc_projection_params.y;
+
+    vec2 depthUv = (v_projPos.xy / v_projPos.w) * 0.5 + 0.5;
+    float sceneEyeDepth0_1 = unpackRGBAToDepth(texture(cc_depth_buffer_map, depthUv));
+    float sceneEyeDepth = sceneEyeDepth0_1 * far;
+
+    vec4 viewPos = cc_matView * vec4(v_position, 1.);
+    float eyeDepth = -viewPos.z;
+
+    vec4 sceneWorldPos = getSceneWorldPos(sceneEyeDepth0_1);
+
+    // color
+    vec4 waterColor = mix(shallowColor, deepColor, eyeDepthFade(sceneEyeDepth, eyeDepth, depthDistance));
 
     // foam
-
-    #if USE_FOAM && (USE_FOAM_1 || USE_FOAM_2)
-      vec4 finalFoamColor = vec4(0.);
-      
-      float foamDepth = foamParams.y;
-      float foamFade = foamParams.w;
-
-      #if USE_FOAM_1
-      finalFoamColor += foam(foamParams2.xy, foamColor1);
-      #endif
-      #if USE_FOAM_2
-      finalFoamColor += foam(foamParams2.zw, foamColor2);
-      #endif
-      
-      finalFoamColor *= (1. - depth / foamDepth) * foamFade;
-
-      // baseColor = mix(baseColor, finalFoamColor,  step(0., foamDepth - depth));
-      baseColor += step(0., foamDepth - depth) * finalFoamColor;
+    vec4 finalFoamColor = vec4(0.);
+    #if USE_FOAM
+      vec2 foamUV = v_position.xz * foamParams.z;
+      float foamNoise = clamp(voronoi(foamUV, cc_time.x / 2., 1. - foamParams.y), 0., 1.);
+      finalFoamColor += pow(foamNoise, 1. - clamp(foamParams.w, 0., 0.95));
+      finalFoamColor *= 1. - eyeDepthFade(sceneEyeDepth, eyeDepth, foamParams.x);
     #endif
 
 
     // caustic
-
-    #if USE_CAUSTIC
-      vec3 finalCausticColor = caustic();
+    vec4 finalCausticColor = vec4(0.);
+    // #if USE_CAUSTIC
+    //   finalCausticColor = caustic();
      
-      float causticMinStrength = causticParams2.x;
-      vec3 causticColor = causticParams2.xyz;
+    //   float causticMinStrength = causticParams2.x;
+    //   vec3 causticColor = causticParams2.xyz;
 
-      finalCausticColor *= clamp((1.- depth), 0., 1.) + causticMinStrength;
-      finalCausticColor *= causticColor;
+    //   finalCausticColor *= clamp((1.- depth), 0., 1.) + causticMinStrength;
+    //   finalCausticColor *= causticColor;
 
-      baseColor.rgb += finalCausticColor;
-    #endif
+    //   baseColor.rgb += finalCausticColor;
+    // #endif
 
-    return baseColor;
+    vec4 finalColor = waterColor + finalFoamColor + finalCausticColor;
+    finalColor *= opacity * eyeDepthFade(sceneEyeDepth, eyeDepth, coastOpacity);
+
+    return finalColor;
   }
 }%

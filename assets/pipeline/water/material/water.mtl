@@ -10,8 +10,7 @@
   "_defines": [
     {
       "USE_FOAM": true,
-      "USE_CAUSTIC": true,
-      "USE_FOAM_1": true
+      "USE_CAUSTIC": true
     }
   ],
   "_states": [
@@ -27,52 +26,28 @@
   ],
   "_props": [
     {
-      "mainColor": {
-        "__type__": "cc.Color",
-        "r": 2,
-        "g": 17,
-        "b": 27,
-        "a": 0
-      },
       "roughness": 0.8,
       "normalStrenth": 1,
-      "depthDistance": 5,
+      "depthDistance": 2,
       "shallowColor": {
         "__type__": "cc.Color",
         "r": 13,
         "g": 82,
         "b": 78,
-        "a": 89
+        "a": 76
       },
       "deepColor": {
         "__type__": "cc.Color",
         "r": 23,
         "g": 160,
         "b": 180,
-        "a": 228
+        "a": 171
       },
-      "foamScale1": {
-        "__type__": "cc.Vec2",
-        "x": 0.5,
-        "y": 0.1
-      },
-      "foamScale2": {
-        "__type__": "cc.Vec2",
-        "x": 0.5,
-        "y": 0.5
-      },
-      "foamColor2": {
-        "__type__": "cc.Color",
-        "r": 143,
-        "g": 143,
-        "b": 143,
-        "a": 95
-      },
-      "foamCutOff": 0.35,
-      "foamDepth": 0.1,
-      "foamTexture": {
-        "__uuid__": "d353a211-064a-4253-ac5a-01cb7d8b3ad6@6c48a"
-      },
+      "coastOpacity": 0.15,
+      "foamDistance": 0.7,
+      "foamDensity": 0.7,
+      "foamTile": 2,
+      "foamContrast": 0.7,
       "causticScale": 40,
       "causticTexture": {
         "__uuid__": "04f9f064-9886-42a8-b856-4af0f3e3422a@6c48a"
