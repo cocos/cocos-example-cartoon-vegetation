@@ -30,7 +30,7 @@ export class SyncMesh extends SyncAsset {
             });
         })
 
-        let url = `db://assets/${formatPath(path.relative(data.dstPath, projectAssetPath))}`
+        let url = `db://assets/${formatPath(path.relative(projectAssetPath, data.dstPath))}`
         await Editor.Message.request('asset-db', 'refresh-asset', url);
 
         return loadAssetByUrl(url);
