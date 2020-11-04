@@ -1,31 +1,16 @@
-import { Component, director, error, find, JsonAsset, log, Node, Terrain, TERRAIN_BLOCK_TILE_COMPLEXITY, Vec3, Vec4, warn } from "cc";
+import { director, error, log,  Node, Vec3, Vec4, warn } from "cc";
 import { EDITOR } from "cce.env";
+import { SyncAssetData } from "./asset/asset";
 
-let _tempVec4 = new Vec4();
+import * as component from './component';
+import * as asset from './asset';
 
-interface SyncComponentData {
-    uuid: number;
-    name: string;
-}
-
-interface SyncTerrainLayer {
-    name: string;
-}
-
-interface SyncTerrainData extends SyncComponentData {
-    heightmapWidth: number;
-    heightmapHeight: number;
-    heightDatas: number[];
-
-    terrainLayers: SyncTerrainLayer[];
-    weightmapWidth: number;
-    weightmapHeight: number;
-    weightDatas: number[];
-}
+import { SyncComponentData } from "./component/component";
+import { cce, io, path, projectAssetPath } from "./utils/editor";
 
 interface SyncNodeData {
     name: string;
-    uuid: number;
+    uuid: string;
 
     position: Vec3;
     scale: Vec3;
@@ -39,18 +24,18 @@ interface SyncNodeData {
     node: Node
 }
 
+
 interface SyncSceneData {
     nodeCount: number;
     componentCount: number;
     children: SyncNodeData[];
+
+    assetBasePath: string;
+    assets: SyncAssetData[];
 }
 
 
 if (EDITOR) {
-    const cce = (window as any).cce;
-    const io = (window as any).require('socket.io');
-    const XXH = (window as any).require('xxhashjs');
-
     let app = (window as any).__cocos_sync_io__;
     if (!app) {
         app = (window as any).__cocos_sync_io__ = io('8877')
@@ -76,9 +61,13 @@ if (EDITOR) {
         }
 
         collectSceneData(data);
-        syncDatas();
+
+        syncAssets(() => {
+            syncDatas();
+        });
     }
 
+    let _sceneData: SyncSceneData = null;
 
     let _totalNodeCount = 0;
     let _totalComponentCount = 0;
@@ -86,17 +75,22 @@ if (EDITOR) {
     let _componentCount = 0;
 
     let _nodeList: SyncNodeData[] = [];
+    let _rootNodeList: SyncNodeData[] = [];
     let _currentNodeIndex = 0;
     function collectSceneData (data: SyncSceneData) {
         _nodeList.length = 0;
+        _rootNodeList.length = 0;
         _currentNodeIndex = 0;
 
         _totalNodeCount = data.nodeCount;
         _totalComponentCount = data.componentCount;
 
+        _sceneData = data;
+
         if (data.children) {
             for (let i = 0, l = data.children.length; i < l; i++) {
                 data.children[i].parentIndex = -1;
+                _rootNodeList.push(data.children[i]);
                 collectNodeData(data.children[i]);
             }
         }
@@ -112,6 +106,23 @@ if (EDITOR) {
             }
         }
     }
+
+
+    function syncAssets (cb) {
+        let count = 0;
+        let total = _sceneData.assets.length;
+       
+        asset.clear();
+        _sceneData.assets.forEach(async data => {
+            await asset.sync(data, _sceneData.assetBasePath);
+            
+            count++;
+            if (count >= total) {
+                cb();
+            }
+        });
+    }
+
 
     let _syncIntervalID = -1;
     let _startTime = 0;
@@ -138,6 +149,10 @@ if (EDITOR) {
             }
 
             if (++_currentNodeIndex >= _nodeList.length) {
+                // for (let ri = 0; ri < _rootNodeList.length; ri++) {
+                //     _rootNodeList[ri].node.parent = director.getScene() as any;
+                // }
+
                 log(`End sync : ${Date.now() - _startTime} ms`);
 
                 clearInterval(_syncIntervalID);
@@ -147,7 +162,7 @@ if (EDITOR) {
         }
 
         log(`Sync : Progress - ${_currentNodeIndex / _nodeList.length}, NodeCount - ${_currentNodeIndex}`);
-        setTimeout(syncDatasFrame, 500);
+        setTimeout(syncDatasFrame, 100);
     }
     function syncDatas () {
         if (_syncIntervalID !== -1) {
@@ -162,20 +177,19 @@ if (EDITOR) {
         syncDatasFrame();
     }
 
-
     function syncNodeData (data: SyncNodeData, parent: Node = null) {
         parent = parent || director.getScene() as any;
-        // let node = find(data.name, parent);
-        let uuid = XXH.h32().update(data.uuid.toString()).digest().toString(16).padEnd(8, '0');
+        let uuid = data.uuid;
         let node = cce.Node.query(uuid) as Node;
-        if (!node) {
+        if (!node || !node.activeInHierarchy) {
             node = new Node(data.name);
             (node as any)._id = uuid;
-            node.parent = parent;
         }
+        node.parent = parent;
         node.setPosition(data.position);
         node.setScale(data.scale);
         node.eulerAngles = data.eulerAngles;
+
         data.node = node;
 
         _nodeCount++;
@@ -183,121 +197,11 @@ if (EDITOR) {
         if (data.components) {
             for (let i = 0, l = data.components.length; i < l; i++) {
                 let cdata: SyncComponentData = JSON.parse(data.components[i]);
-                syncComponent(cdata, node);
+                component.sync(cdata, node);
+                _componentCount++;
             }
         }
-
-        // if (data.children) {
-        //     for (let i = 0, l = data.children.length; i < l; i++) {
-        //         syncNodeData(data.children[i], node);
-        //     }
-        // }
 
         return node;
     }
-
-    let compSyncs = {
-        'cc.Terrain' (comp: Terrain, compData: SyncTerrainData) {
-            const mapWidth = comp.info.size.width;
-            const mapHeight = comp.info.size.height;
-
-            // heightmap
-            let heightmapWidth = compData.heightmapWidth;
-            let heightmapHeight = compData.heightmapHeight;
-
-            let width = Math.min(mapWidth, heightmapWidth);
-            let height = Math.min(mapHeight, heightmapHeight)
-
-            for (let wi = 0; wi < width; wi++) {
-                for (let hi = 0; hi < height; hi++) {
-                    comp.setHeight(wi, hi, compData.heightDatas[wi + hi * heightmapWidth]);
-                }
-            }
-
-            for (let wi = 0; wi < width; wi++) {
-                for (let hi = 0; hi < height; hi++) {
-                    let n = comp._calcNormal(wi, hi);
-                    comp._setNormal(wi, hi, n);
-                }
-            }
-
-            // weightmap
-            const uWeigthScale = comp.info.weightMapSize / TERRAIN_BLOCK_TILE_COMPLEXITY;
-            const vWeigthScale = comp.info.weightMapSize / TERRAIN_BLOCK_TILE_COMPLEXITY;
-
-            let weightmapWidth = compData.weightmapWidth;
-            let weightmapHeight = compData.weightmapHeight;
-
-            width = Math.min(mapWidth, weightmapWidth);
-            height = Math.min(mapHeight, weightmapHeight);
-
-            let layerCount = compData.terrainLayers.length;
-            let weightDatas = compData.weightDatas;
-            for (let wi = 0; wi < width; wi++) {
-                for (let hi = 0; hi < height; hi++) {
-                    _tempVec4.set(Vec4.ZERO);
-
-                    let indexStart = (wi + hi * weightmapWidth) * layerCount;
-
-                    let sum = 0;
-                    for (let li = 0; li < layerCount; li++) {
-                        sum += Math.abs(weightDatas[indexStart + li]);
-                    }
-
-                    for (let li = 0; li < layerCount; li++) {
-                        let value = Math.abs(weightDatas[indexStart + li]) / sum;
-                        if (li === 0) {
-                            _tempVec4.x = value;
-                        }
-                        else if (li === 1) {
-                            _tempVec4.y = value;
-                        }
-                        else if (li === 2) {
-                            _tempVec4.z = value;
-                        }
-                        else if (li === 3) {
-                            _tempVec4.w = value;
-                        }
-                    }
-
-                    if (wi === (width - 1) || hi === height) {
-                        continue;
-                    }
-
-                    for (let wis = wi * uWeigthScale, wie = (wi + 1) * uWeigthScale; wis < wie; wis++) {
-                        for (let his = hi * vWeigthScale, hie = (hi + 1) * vWeigthScale; his < hie; his++) {
-                            comp.setWeight(wis, his, _tempVec4);
-                        }
-                    }
-                }
-            }
-
-            comp.getBlocks().forEach(b => {
-                b._updateHeight();
-
-                for (let i = 0; i < layerCount; i++) {
-                    b.setLayer(i, i);
-                }
-                b._updateWeightMap();
-            })
-        }
-    }
-
-    function syncComponent (compData: SyncComponentData, node: Node) {
-        _componentCount++;
-
-        let comp = node.getComponent(compData.name);
-        if (!comp) {
-            comp = node.addComponent(compData.name);
-            if (!comp) {
-                warn(`CocosSync: failed to add component ${compData.name}.`);
-                return;
-            }
-        }
-
-        if (compSyncs[compData.name]) {
-            compSyncs[compData.name](comp, compData);
-        }
-    }
-
 }

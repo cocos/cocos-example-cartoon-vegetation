@@ -1,0 +1,16 @@
+{
+  "ver": "4.0.2",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "05efec4e-2acc-4b0a-8e46-9dca7ccf6da6",
+  "files": [
+    ".js",
+    ".trans"
+  ],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/cocos-sync/utils/asset-operation.js",
+    "importerSettings": 3
+  }
+}

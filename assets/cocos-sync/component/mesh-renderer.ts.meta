@@ -1,0 +1,16 @@
+{
+  "ver": "4.0.2",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "baf5d665-3cb6-46da-b917-b701bd6174b2",
+  "files": [
+    ".js",
+    ".trans"
+  ],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/cocos-sync/component/mesh-renderer.js",
+    "importerSettings": 3
+  }
+}
