@@ -1,15 +1,9 @@
+import { Asset } from "cc";
 import { EDITOR } from "cce.env";
 import { loadAssetByUrl } from "../utils/asset-operation";
-import { Editor, projectAssetPath } from "../utils/editor";
+import { Editor, fse, path, projectAssetPath } from "../utils/editor";
 import { formatPath } from "../utils/path";
 import { register, SyncAsset, SyncAssetData } from "./asset";
-
-let fse, path;
-
-if (EDITOR) {
-    fse = (window as any).require('fs-extra');
-    path = (window as any).require('path');
-}
 
 export interface SyncMeshData extends SyncAssetData {
 
@@ -19,7 +13,7 @@ export interface SyncMeshData extends SyncAssetData {
 export class SyncMesh extends SyncAsset {
     static clsName = 'cc.Mesh';
 
-    static async sync (data: SyncMeshData) {
+    static async sync (data: SyncMeshData): Promise<Asset | null>  {
         await new Promise((resolve, reject) => {
             fse.ensureDirSync(path.dirname(data.dstPath))
             fse.copyFile(data.srcPath, data.dstPath, (err) => {

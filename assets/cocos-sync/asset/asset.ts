@@ -15,12 +15,12 @@ export interface SyncAssetData {
 export class SyncAsset {
     static clsName = 'cc.Asset';
 
-    static async sync (data: SyncAssetData) {
+    static async sync (data: SyncAssetData): Promise<Asset | null> {
         return null;
     }
 }
 
 export let classes: Map<string, typeof SyncAsset> = new Map();
-export function register(cls: typeof SyncAsset) {
+export function register (cls: typeof SyncAsset) {
     classes.set(cls.clsName, cls);
 }

@@ -725,9 +725,9 @@
     },
     "_angularFactor": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
+      "x": 0,
+      "y": 0,
+      "z": 0
     },
     "_id": "b7/ZBI4stEuZem8Fxvh82E"
   },
