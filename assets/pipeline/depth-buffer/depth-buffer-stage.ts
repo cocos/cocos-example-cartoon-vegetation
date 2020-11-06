@@ -29,15 +29,15 @@ const _phaseID = getPhaseID('depth-buffer');
 
 @ccclass("DepthBufferStage")
 export class DepthBufferStage extends RenderStage {
-    static get instance (): DepthBufferStage {
-        let flow = director.root.pipeline.flows.find(f => f.name === 'ForwardFlow');
+    static get instance (): DepthBufferStage | null {
+        let flow = director.root!.pipeline.flows.find(f => f.name === 'ForwardFlow');
         if (!flow) return null;
         return flow.stages.find(s => s.name === 'DepthBufferStage') as DepthBufferStage;
     }
 
     _name = 'DepthBufferStage'
 
-    private _renderTexture: RenderTexture = null;
+    private _renderTexture: RenderTexture | null = null;
     private _renderArea: GFXRect = { x: 0, y: 0, width: 0, height: 0 };
 
     protected _pipelineStates = { rasterizerState: { cullMode: GFXCullMode.BACK } };
@@ -108,7 +108,7 @@ export class DepthBufferStage extends RenderStage {
         //     shadingHeight = device.height;
         // }
 
-        let renderTexture = this._renderTexture;
+        let renderTexture = this._renderTexture!;
         if (renderTexture.width !== width || renderTexture.height !== height) {
             renderTexture.resize(width, height);
         }
@@ -147,7 +147,7 @@ export class DepthBufferStage extends RenderStage {
 
                 const hPass = pass.handle;
                 const ia = subModel.inputAssembler;
-                const pso = PipelineStateManager.getOrCreatePipelineState(device, hPass, shader, renderPass, ia);
+                const pso = PipelineStateManager.getOrCreatePipelineState(device, pass, shader, renderPass, ia);
 
                 const descriptorSet = renderer.DSPool.get(renderer.PassPool.get(hPass, renderer.PassView.DESCRIPTOR_SET));
                 cmdBuff.bindPipelineState(pso);
@@ -172,7 +172,7 @@ export class DepthBufferStage extends RenderStage {
 
         this.updateUBO(view);
 
-        let renderTexture = this._renderTexture;
+        let renderTexture = this._renderTexture!;
 
         const pipeline = this._pipeline as ForwardPipeline;
         const device = pipeline.device;
@@ -187,7 +187,7 @@ export class DepthBufferStage extends RenderStage {
         this._renderArea!.width = vp.width * renderTexture.width * pipeline.shadingScale;
         this._renderArea!.height = vp.height * renderTexture.height * pipeline.shadingScale;
 
-        const frameBuffer = renderTexture.window.framebuffer;
+        const frameBuffer = renderTexture.window!.framebuffer;
         const renderPass = frameBuffer.renderPass;
 
         _colorAttachment.loadOp = GFXLoadOp.CLEAR;
@@ -201,18 +201,21 @@ export class DepthBufferStage extends RenderStage {
         for (let i = 0; i < depthBufferObjects.length; ++i) {
             const mc = depthBufferObjects[i].getComponent(ModelComponent);
             if (mc) {
-                const subModels = mc.model.subModels;
+                const subModels = mc.model!.subModels;
                 this.commitBuffer(subModels, cmdBuff, device, renderPass);
                 continue;
             }
 
             const tr = depthBufferObjects[i].getComponent(Terrain);
-            const blocks = tr.getBlocks();
-            for (let bi = 0; bi < blocks.length; bi++) {
-                const subModels: renderer.scene.SubModel[] = (blocks[bi] as any)._renderable._model.subModels;
-                this.commitBuffer(subModels, cmdBuff, device, renderPass);
-                continue;
+            if (tr) {
+                const blocks = tr.getBlocks();
+                for (let bi = 0; bi < blocks.length; bi++) {
+                    const subModels: renderer.scene.SubModel[] = (blocks[bi] as any)._renderable._model.subModels;
+                    this.commitBuffer(subModels, cmdBuff, device, renderPass);
+                    continue;
+                }
             }
+
         }
 
         cmdBuff.endRenderPass();

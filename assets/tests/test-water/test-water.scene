@@ -39,7 +39,7 @@
     "_prefab": null,
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 29
+      "__id__": 27
     },
     "_id": "0abda8bf-d951-4571-995e-14abcd30cbf9"
   },
@@ -597,7 +597,7 @@
         "__id__": 22
       },
       {
-        "__id__": 28
+        "__id__": 26
       }
     ],
     "_prefab": null,
@@ -650,12 +650,8 @@
       {
         "__id__": 24
       },
-      {
-        "__id__": 25
-      },
-      {
-        "__id__": 26
-      },
+      null,
+      null,
       null,
       null,
       null,
@@ -912,7 +908,7 @@
     ],
     "_blockInfos": [
       {
-        "__id__": 27
+        "__id__": 25
       }
     ],
     "_lightmapInfos": [],
@@ -926,21 +922,7 @@
   {
     "__type__": "cc.TerrainLayer",
     "detailMap": {
-      "__uuid__": "1b2cc4da-7248-414d-946a-fae28f44d53b@6c48a"
-    },
-    "tileSize": 1
-  },
-  {
-    "__type__": "cc.TerrainLayer",
-    "detailMap": {
       "__uuid__": "fbc706d7-217b-4b50-bf9e-3773d4c375c4@6c48a"
-    },
-    "tileSize": 2
-  },
-  {
-    "__type__": "cc.TerrainLayer",
-    "detailMap": {
-      "__uuid__": "1b2cc4da-7248-414d-946a-fae28f44d53b@6c48a"
     },
     "tileSize": 1
   },
@@ -967,16 +949,16 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 30
+      "__id__": 28
     },
     "shadows": {
-      "__id__": 31
+      "__id__": 29
     },
     "_skybox": {
-      "__id__": 32
+      "__id__": 30
     },
     "fog": {
-      "__id__": 33
+      "__id__": 31
     }
   },
   {
