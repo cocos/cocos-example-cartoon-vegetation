@@ -1,7 +1,7 @@
-import { Asset, AssetLibrary } from "cc";
+import { Asset, assetManager } from "cc";
 import { EDITOR } from "cce.env";
 
-let _loadAssetByUrl: (filePath: string) => Promise<Asset>;
+let _loadAssetByUrl: (filePath: string) => Promise<Asset | null> = async (url: string) => { return null };
 
 if (EDITOR && typeof (window as any).BUILDER === 'undefined') {
     const Editor = (window as any).Editor;
@@ -11,7 +11,7 @@ if (EDITOR && typeof (window as any).BUILDER === 'undefined') {
 
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                AssetLibrary.loadAsset(assetUid, (err: any, asset: Asset) => {
+                assetManager.loadAny(assetUid, (err: any, asset: Asset) => {
                     if (err) {
                         return reject(err);
                     }

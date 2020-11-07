@@ -1,4 +1,4 @@
-import { Asset } from "cc";
+import { Asset } from 'cc';
 
 export interface SyncAssetData {
     name: string;
@@ -16,11 +16,12 @@ export class SyncAsset {
     static clsName = 'cc.Asset';
 
     static async sync (data: SyncAssetData): Promise<Asset | null> {
+        data;
         return null;
     }
 }
 
-export let classes: Map<string, typeof SyncAsset> = new Map();
+export const classes: Map<string, typeof SyncAsset> = new Map();
 export function register (cls: typeof SyncAsset) {
     classes.set(cls.clsName, cls);
 }

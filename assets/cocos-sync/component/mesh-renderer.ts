@@ -1,5 +1,5 @@
-import { Material, MeshRenderer } from "cc";
-import { SyncComponentData, SyncComponent } from "./component";
+import { Material, Mesh, MeshRenderer } from "cc";
+import { SyncComponentData, SyncComponent, register } from "./component";
 import * as SyncAssets from '../asset';
 
 export interface SyncMeshRendererData extends SyncComponentData {
@@ -7,7 +7,7 @@ export interface SyncMeshRendererData extends SyncComponentData {
     mesh: string;
 }
 
-
+@register
 export class SyncMeshRenderer extends SyncComponent {
     static clsName = 'cc.MeshRenderer';
 
@@ -18,5 +18,8 @@ export class SyncMeshRenderer extends SyncComponent {
                 comp.setMaterial(m as Material, index);
             }
         })
+
+        let m = SyncAssets.get(data.mesh) as Mesh;
+        comp.mesh = m;
     }
 }

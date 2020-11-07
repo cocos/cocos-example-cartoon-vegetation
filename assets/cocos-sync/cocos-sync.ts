@@ -1,4 +1,4 @@
-import { director, error, log,  Node, Vec3, Vec4, warn } from "cc";
+import { director, error, log, Node, Vec3, warn } from "cc";
 import { EDITOR } from "cce.env";
 import { SyncAssetData } from "./asset/asset";
 
@@ -31,7 +31,7 @@ interface SyncSceneData {
     children: SyncNodeData[];
 
     assetBasePath: string;
-    assets: SyncAssetData[];
+    assets: string[];
 }
 
 
@@ -111,11 +111,17 @@ if (EDITOR) {
     function syncAssets (cb) {
         let count = 0;
         let total = _sceneData.assets.length;
-       
+
         asset.clear();
-        _sceneData.assets.forEach(async data => {
+        if (total <= 0) {
+            return cb();
+        }
+
+        _sceneData.assets.forEach(async dataStr => {
+            let data: SyncAssetData = JSON.parse(dataStr);
+
             await asset.sync(data, _sceneData.assetBasePath);
-            
+
             count++;
             if (count >= total) {
                 cb();
