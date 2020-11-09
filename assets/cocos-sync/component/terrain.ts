@@ -1,4 +1,4 @@
-import { Terrain, TERRAIN_BLOCK_TILE_COMPLEXITY, Vec4 } from "cc";
+import { Terrain, TerrainInfo, TERRAIN_BLOCK_TILE_COMPLEXITY, Vec4 } from "cc";
 import { cce } from "../utils/editor";
 import { SyncComponentData, SyncComponent, register } from "./component";
 
@@ -17,6 +17,9 @@ export interface SyncTerrainData extends SyncComponentData {
     weightmapWidth: number;
     weightmapHeight: number;
     weightDatas: number[];
+
+    terrainWidth: number;
+    terrainHeight: number;
 }
 
 
@@ -25,81 +28,85 @@ export class SyncTerrain extends SyncComponent {
     static clsName = 'cc.Terrain';
 
     static import (comp: Terrain, compData: SyncTerrainData) {
-        const mapWidth = comp.info.size.width;
-        const mapHeight = comp.info.size.height;
+        let heightMapResolution = Math.max(compData.heightmapWidth - 1, compData.heightmapHeight - 1);
+        let terrainSize = Math.max(compData.terrainWidth, compData.terrainHeight);
+
+        let info = new TerrainInfo();
+        info.tileSize = terrainSize / heightMapResolution;
+        info.blockCount = [heightMapResolution / TERRAIN_BLOCK_TILE_COMPLEXITY, heightMapResolution / TERRAIN_BLOCK_TILE_COMPLEXITY];
+
+        comp.rebuild(info);
+
 
         // heightmap
         let heightmapWidth = compData.heightmapWidth;
         let heightmapHeight = compData.heightmapHeight;
 
-        let width = Math.min(mapWidth, heightmapWidth);
-        let height = Math.min(mapHeight, heightmapHeight)
-
-        for (let wi = 0; wi < width; wi++) {
-            for (let hi = 0; hi < height; hi++) {
+        for (let wi = 0; wi < heightmapWidth; wi++) {
+            for (let hi = 0; hi < heightmapHeight; hi++) {
                 comp.setHeight(wi, hi, compData.heightDatas[wi + hi * heightmapWidth]);
             }
         }
 
-        for (let wi = 0; wi < width; wi++) {
-            for (let hi = 0; hi < height; hi++) {
+        for (let wi = 0; wi < heightmapWidth; wi++) {
+            for (let hi = 0; hi < heightmapHeight; hi++) {
                 let n = comp._calcNormal(wi, hi);
                 comp._setNormal(wi, hi, n);
             }
         }
 
         // weightmap
-        const uWeigthScale = comp.info.weightMapSize / TERRAIN_BLOCK_TILE_COMPLEXITY;
-        const vWeigthScale = comp.info.weightMapSize / TERRAIN_BLOCK_TILE_COMPLEXITY;
-
-        let weightmapWidth = compData.weightmapWidth;
-        let weightmapHeight = compData.weightmapHeight;
-
-        width = Math.min(mapWidth, weightmapWidth);
-        height = Math.min(mapHeight, weightmapHeight);
-
 
         let layerCount = compData.terrainLayers.length;
         let weightDatas = compData.weightDatas;
 
         let values: number[] = new Array(Math.max(layerCount, 4)).fill(0);
 
-        for (let wi = 0; wi < width; wi++) {
-            for (let hi = 0; hi < height; hi++) {
-                if (wi === (width - 1) || hi === (height - 1)) {
-                    break;
-                }
+        const weightmapWidth = comp.info.blockCount[0] * comp.info.weightMapSize;
+        const weightmapHeight = comp.info.blockCount[1] * comp.info.weightMapSize;
 
-                for (let wis = 0; wis <= 1; wis += 1 / uWeigthScale) {
-                    for (let his = 0; his <= 1; his += 1 / vWeigthScale) {
+        if (weightmapWidth > compData.weightmapWidth) {
+            let xScale = weightmapWidth / compData.weightmapWidth;
+            let yScale = weightmapHeight / compData.weightmapHeight;
 
-                        let sum = 0;
-                        for (let li = 0; li < layerCount; li++) {
-                            let v00 = weightDatas[(wi + hi * weightmapWidth) * layerCount + li];
-                            let v10 = weightDatas[((wi + 1) + hi * weightmapWidth) * layerCount + li];
-                            let v01 = weightDatas[(wi + (hi + 1) * weightmapWidth) * layerCount + li];
-                            let v11 = weightDatas[((wi + 1) + (hi + 1) * weightmapWidth) * layerCount + li];
+            for (let wi = 0; wi < weightmapWidth; wi++) {
+                for (let hi = 0; hi < weightmapHeight; hi++) {
 
-                            let v =
-                                (1 - wis) * (1 - his) * v00 +
-                                (wis) * (1 - his) * v10 +
-                                (1 - wis) * (his) * v01 +
-                                (wis) * (his) * v11;
+                    let mappedWi = Math.floor(wi * compData.weightmapWidth / weightmapWidth);
+                    let mappedHi = Math.floor(hi * compData.weightmapHeight / weightmapHeight);
 
-                            sum += v;
-                            values[li] = v;
-                        }
+                    let mappedNWi = mappedWi + 1;
+                    let mappedNHi = mappedHi + 1;
 
-                        for (let li = 0; li < layerCount; li++) {
-                            values[li] /= sum;
-                        }
+                    let px = (wi % xScale) / xScale;
+                    let py = (hi % yScale) / yScale;
 
-                        Vec4.fromArray(_tempVec4, values);
-                        comp.setWeight(wis * uWeigthScale + wi * uWeigthScale, his * vWeigthScale + hi * vWeigthScale, _tempVec4);
+                    let sum = 0;
+                    for (let li = 0; li < layerCount; li++) {
+                        let v00 = weightDatas[(mappedWi + mappedHi * compData.weightmapWidth) * layerCount + li];
+                        let v10 = weightDatas[(mappedNWi + mappedHi * compData.weightmapWidth) * layerCount + li];
+                        let v01 = weightDatas[(mappedWi + mappedNHi * compData.weightmapWidth) * layerCount + li];
+                        let v11 = weightDatas[(mappedNWi + mappedNHi * compData.weightmapWidth) * layerCount + li];
+
+                        let v =
+                            (1 - px) * (1 - py) * v00 +
+                            (px) * (1 - py) * v10 +
+                            (1 - px) * (py) * v01 +
+                            (px) * (py) * v11;
+
+                        sum += v;
+                        values[li] = v;
                     }
+                    for (let li = 0; li < layerCount; li++) {
+                        values[li] /= sum;
+                    }
+
+                    Vec4.fromArray(_tempVec4, values);
+                    comp.setWeight(wi, hi, _tempVec4);
                 }
             }
         }
+
 
         comp.getBlocks().forEach(b => {
             b._updateHeight();

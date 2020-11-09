@@ -11,9 +11,12 @@ export function clear () {
     map.clear();
 }
 
-export function get (uuid: string): Asset {
+export function get (uuid: string): Asset | null {
     let data = map.get(uuid);
-    return data && data.asset;
+    if (!data) {
+        return null;
+    }
+    return data.asset;
 }
 
 export async function sync (data: SyncAssetData, assetBasePath: string) {
@@ -25,7 +28,7 @@ export async function sync (data: SyncAssetData, assetBasePath: string) {
         try {
             data.asset = await cls.sync(data);
         }
-        catch(err) {
+        catch (err) {
             error(err);
         }
     }

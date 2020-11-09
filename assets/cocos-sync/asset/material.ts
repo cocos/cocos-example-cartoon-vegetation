@@ -12,13 +12,14 @@ export class SyncMaterial extends SyncAsset {
     static clsName = 'cc.Material';
 
     static async sync (data: SyncMeshData): Promise<Asset | null> {
-        // const defaultUrl = 'db://internal/default-material.mtl';
-        // const dstUrl = `db://assets/${data.path.replace(path.extname(data.path), '')}.mtl`;
-        // await Editor.Message.request('asset-db', 'copy-asset', defaultUrl, dstUrl);
+        const defaultUrl = 'db://internal/default-material.mtl';
+        const dstUrl = `db://assets/${data.path.replace(path.extname(data.path), '')}.mtl`;
 
-        // return loadAssetByUrl(dstUrl);
+        if (!fse.existsSync(data.dstPath)) {
+            await Editor.Message.request('asset-db', 'copy-asset', defaultUrl, dstUrl);
+        }
 
-        return null;
+        return loadAssetByUrl(dstUrl);
     }
 }
 

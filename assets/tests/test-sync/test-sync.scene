@@ -26,9 +26,6 @@
       },
       {
         "__id__": 12
-      },
-      {
-        "__id__": 273
       }
     ],
     "_active": true,
@@ -36,7 +33,7 @@
     "_prefab": null,
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 287
+      "__id__": 83
     },
     "_id": "544ca484-4ab9-4d4e-8690-5fb98786545e"
   },
@@ -130,16 +127,16 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -10,
-      "y": 10,
-      "z": 10
+      "x": 3.947,
+      "y": 38.167,
+      "z": -3.947
     },
     "_lrot": {
       "__type__": "cc.Quat",
-      "x": -0.27781593346944056,
-      "y": -0.36497167621709875,
-      "z": -0.11507512748638377,
-      "w": 0.8811195706053617
+      "x": -0.08758426572725118,
+      "y": -0.8892451594039211,
+      "z": -0.19187986723458542,
+      "w": 0.40589919859954265
     },
     "_lscale": {
       "__type__": "cc.Vec3",
@@ -150,8 +147,8 @@
     "_layer": 1073741824,
     "_euler": {
       "__type__": "cc.Vec3",
-      "x": -35,
-      "y": -45,
+      "x": -24.353,
+      "y": -130.931,
       "z": 0
     },
     "_id": "c9DMICJLFO5IeO07EPon7U"
@@ -217,9 +214,9 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 256,
+      "x": 128,
       "y": 6.59,
-      "z": 290.118
+      "z": 128
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -230,9 +227,9 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 52,
+      "x": 16,
       "y": 1,
-      "z": 30
+      "z": 26
     },
     "_layer": 1073741824,
     "_euler": {
@@ -314,6 +311,12 @@
     "_components": [
       {
         "__id__": 13
+      },
+      {
+        "__id__": 14
+      },
+      {
+        "__id__": 82
       }
     ],
     "_prefab": null,
@@ -343,7 +346,19 @@
       "y": 0,
       "z": 0
     },
-    "_id": "f5d010b4-920f-4513-a9b5-358425e7d2f3"
+    "_id": "0cJZltmKFFlKf/9UfHgKgP"
+  },
+  {
+    "__type__": "124b0IYkEpIgI9qrfvYKLRK",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 12
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "guid": "553dbe13-05d9-4359-990f-980a9c0bb0c7",
+    "_id": "a8D/IOVWJMWZxGCQOmcIx7"
   },
   {
     "__type__": "cc.Terrain",
@@ -362,13 +377,13 @@
     },
     "_layers": [
       {
-        "__id__": 14
-      },
-      {
         "__id__": 15
       },
       {
         "__id__": 16
+      },
+      {
+        "__id__": 17
       },
       null,
       null,
@@ -626,9 +641,6 @@
     ],
     "_blockInfos": [
       {
-        "__id__": 17
-      },
-      {
         "__id__": 18
       },
       {
@@ -819,612 +831,39 @@
       },
       {
         "__id__": 81
-      },
-      {
-        "__id__": 82
-      },
-      {
-        "__id__": 83
-      },
-      {
-        "__id__": 84
-      },
-      {
-        "__id__": 85
-      },
-      {
-        "__id__": 86
-      },
-      {
-        "__id__": 87
-      },
-      {
-        "__id__": 88
-      },
-      {
-        "__id__": 89
-      },
-      {
-        "__id__": 90
-      },
-      {
-        "__id__": 91
-      },
-      {
-        "__id__": 92
-      },
-      {
-        "__id__": 93
-      },
-      {
-        "__id__": 94
-      },
-      {
-        "__id__": 95
-      },
-      {
-        "__id__": 96
-      },
-      {
-        "__id__": 97
-      },
-      {
-        "__id__": 98
-      },
-      {
-        "__id__": 99
-      },
-      {
-        "__id__": 100
-      },
-      {
-        "__id__": 101
-      },
-      {
-        "__id__": 102
-      },
-      {
-        "__id__": 103
-      },
-      {
-        "__id__": 104
-      },
-      {
-        "__id__": 105
-      },
-      {
-        "__id__": 106
-      },
-      {
-        "__id__": 107
-      },
-      {
-        "__id__": 108
-      },
-      {
-        "__id__": 109
-      },
-      {
-        "__id__": 110
-      },
-      {
-        "__id__": 111
-      },
-      {
-        "__id__": 112
-      },
-      {
-        "__id__": 113
-      },
-      {
-        "__id__": 114
-      },
-      {
-        "__id__": 115
-      },
-      {
-        "__id__": 116
-      },
-      {
-        "__id__": 117
-      },
-      {
-        "__id__": 118
-      },
-      {
-        "__id__": 119
-      },
-      {
-        "__id__": 120
-      },
-      {
-        "__id__": 121
-      },
-      {
-        "__id__": 122
-      },
-      {
-        "__id__": 123
-      },
-      {
-        "__id__": 124
-      },
-      {
-        "__id__": 125
-      },
-      {
-        "__id__": 126
-      },
-      {
-        "__id__": 127
-      },
-      {
-        "__id__": 128
-      },
-      {
-        "__id__": 129
-      },
-      {
-        "__id__": 130
-      },
-      {
-        "__id__": 131
-      },
-      {
-        "__id__": 132
-      },
-      {
-        "__id__": 133
-      },
-      {
-        "__id__": 134
-      },
-      {
-        "__id__": 135
-      },
-      {
-        "__id__": 136
-      },
-      {
-        "__id__": 137
-      },
-      {
-        "__id__": 138
-      },
-      {
-        "__id__": 139
-      },
-      {
-        "__id__": 140
-      },
-      {
-        "__id__": 141
-      },
-      {
-        "__id__": 142
-      },
-      {
-        "__id__": 143
-      },
-      {
-        "__id__": 144
-      },
-      {
-        "__id__": 145
-      },
-      {
-        "__id__": 146
-      },
-      {
-        "__id__": 147
-      },
-      {
-        "__id__": 148
-      },
-      {
-        "__id__": 149
-      },
-      {
-        "__id__": 150
-      },
-      {
-        "__id__": 151
-      },
-      {
-        "__id__": 152
-      },
-      {
-        "__id__": 153
-      },
-      {
-        "__id__": 154
-      },
-      {
-        "__id__": 155
-      },
-      {
-        "__id__": 156
-      },
-      {
-        "__id__": 157
-      },
-      {
-        "__id__": 158
-      },
-      {
-        "__id__": 159
-      },
-      {
-        "__id__": 160
-      },
-      {
-        "__id__": 161
-      },
-      {
-        "__id__": 162
-      },
-      {
-        "__id__": 163
-      },
-      {
-        "__id__": 164
-      },
-      {
-        "__id__": 165
-      },
-      {
-        "__id__": 166
-      },
-      {
-        "__id__": 167
-      },
-      {
-        "__id__": 168
-      },
-      {
-        "__id__": 169
-      },
-      {
-        "__id__": 170
-      },
-      {
-        "__id__": 171
-      },
-      {
-        "__id__": 172
-      },
-      {
-        "__id__": 173
-      },
-      {
-        "__id__": 174
-      },
-      {
-        "__id__": 175
-      },
-      {
-        "__id__": 176
-      },
-      {
-        "__id__": 177
-      },
-      {
-        "__id__": 178
-      },
-      {
-        "__id__": 179
-      },
-      {
-        "__id__": 180
-      },
-      {
-        "__id__": 181
-      },
-      {
-        "__id__": 182
-      },
-      {
-        "__id__": 183
-      },
-      {
-        "__id__": 184
-      },
-      {
-        "__id__": 185
-      },
-      {
-        "__id__": 186
-      },
-      {
-        "__id__": 187
-      },
-      {
-        "__id__": 188
-      },
-      {
-        "__id__": 189
-      },
-      {
-        "__id__": 190
-      },
-      {
-        "__id__": 191
-      },
-      {
-        "__id__": 192
-      },
-      {
-        "__id__": 193
-      },
-      {
-        "__id__": 194
-      },
-      {
-        "__id__": 195
-      },
-      {
-        "__id__": 196
-      },
-      {
-        "__id__": 197
-      },
-      {
-        "__id__": 198
-      },
-      {
-        "__id__": 199
-      },
-      {
-        "__id__": 200
-      },
-      {
-        "__id__": 201
-      },
-      {
-        "__id__": 202
-      },
-      {
-        "__id__": 203
-      },
-      {
-        "__id__": 204
-      },
-      {
-        "__id__": 205
-      },
-      {
-        "__id__": 206
-      },
-      {
-        "__id__": 207
-      },
-      {
-        "__id__": 208
-      },
-      {
-        "__id__": 209
-      },
-      {
-        "__id__": 210
-      },
-      {
-        "__id__": 211
-      },
-      {
-        "__id__": 212
-      },
-      {
-        "__id__": 213
-      },
-      {
-        "__id__": 214
-      },
-      {
-        "__id__": 215
-      },
-      {
-        "__id__": 216
-      },
-      {
-        "__id__": 217
-      },
-      {
-        "__id__": 218
-      },
-      {
-        "__id__": 219
-      },
-      {
-        "__id__": 220
-      },
-      {
-        "__id__": 221
-      },
-      {
-        "__id__": 222
-      },
-      {
-        "__id__": 223
-      },
-      {
-        "__id__": 224
-      },
-      {
-        "__id__": 225
-      },
-      {
-        "__id__": 226
-      },
-      {
-        "__id__": 227
-      },
-      {
-        "__id__": 228
-      },
-      {
-        "__id__": 229
-      },
-      {
-        "__id__": 230
-      },
-      {
-        "__id__": 231
-      },
-      {
-        "__id__": 232
-      },
-      {
-        "__id__": 233
-      },
-      {
-        "__id__": 234
-      },
-      {
-        "__id__": 235
-      },
-      {
-        "__id__": 236
-      },
-      {
-        "__id__": 237
-      },
-      {
-        "__id__": 238
-      },
-      {
-        "__id__": 239
-      },
-      {
-        "__id__": 240
-      },
-      {
-        "__id__": 241
-      },
-      {
-        "__id__": 242
-      },
-      {
-        "__id__": 243
-      },
-      {
-        "__id__": 244
-      },
-      {
-        "__id__": 245
-      },
-      {
-        "__id__": 246
-      },
-      {
-        "__id__": 247
-      },
-      {
-        "__id__": 248
-      },
-      {
-        "__id__": 249
-      },
-      {
-        "__id__": 250
-      },
-      {
-        "__id__": 251
-      },
-      {
-        "__id__": 252
-      },
-      {
-        "__id__": 253
-      },
-      {
-        "__id__": 254
-      },
-      {
-        "__id__": 255
-      },
-      {
-        "__id__": 256
-      },
-      {
-        "__id__": 257
-      },
-      {
-        "__id__": 258
-      },
-      {
-        "__id__": 259
-      },
-      {
-        "__id__": 260
-      },
-      {
-        "__id__": 261
-      },
-      {
-        "__id__": 262
-      },
-      {
-        "__id__": 263
-      },
-      {
-        "__id__": 264
-      },
-      {
-        "__id__": 265
-      },
-      {
-        "__id__": 266
-      },
-      {
-        "__id__": 267
-      },
-      {
-        "__id__": 268
-      },
-      {
-        "__id__": 269
-      },
-      {
-        "__id__": 270
-      },
-      {
-        "__id__": 271
-      },
-      {
-        "__id__": 272
       }
     ],
     "_lightmapInfos": [],
     "_receiveShadow": false,
-    "_id": "fdm8XlQNlG05AJV513sniH"
+    "_id": "88J66+mR1Bm5iol64y+GeZ"
   },
   {
     "__type__": "cc.TerrainLayer",
     "detailMap": {
       "__uuid__": "fbc706d7-217b-4b50-bf9e-3773d4c375c4@6c48a"
     },
-    "tileSize": 1
+    "tileSize": 2
   },
   {
     "__type__": "cc.TerrainLayer",
     "detailMap": {
       "__uuid__": "e220640d-91e3-48d0-9652-4b9f51cb91c7@6c48a"
     },
-    "tileSize": 1
+    "tileSize": 3
   },
   {
     "__type__": "cc.TerrainLayer",
     "detailMap": {
       "__uuid__": "047f2a5d-aaba-4405-a392-7852a9f7477f@6c48a"
     },
-    "tileSize": 1
+    "tileSize": 2
   },
   {
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1432,8 +871,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1441,8 +880,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1450,8 +889,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1459,8 +898,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1468,8 +907,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1477,8 +916,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1486,8 +925,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1495,8 +934,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1504,8 +943,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1513,8 +952,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1522,8 +961,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1531,8 +970,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1540,8 +979,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1549,8 +988,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1558,8 +997,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1567,8 +1006,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1576,8 +1015,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1585,8 +1024,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1594,8 +1033,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1603,8 +1042,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1612,8 +1051,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1621,8 +1060,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1630,8 +1069,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1639,8 +1078,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1648,8 +1087,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1657,8 +1096,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1666,8 +1105,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1675,8 +1114,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1684,8 +1123,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1693,8 +1132,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1702,8 +1141,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1711,8 +1150,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1720,8 +1159,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1729,8 +1168,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1738,8 +1177,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1747,8 +1186,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1756,8 +1195,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1765,8 +1204,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1774,8 +1213,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1783,8 +1222,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1792,8 +1231,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1801,8 +1240,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1810,8 +1249,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1819,8 +1258,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1828,8 +1267,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1837,8 +1276,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1846,8 +1285,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1855,8 +1294,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1864,8 +1303,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1873,8 +1312,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1882,8 +1321,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1891,8 +1330,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1900,8 +1339,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1909,8 +1348,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1918,8 +1357,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1927,8 +1366,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1936,8 +1375,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1945,8 +1384,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1954,8 +1393,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1963,8 +1402,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1972,8 +1411,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1981,8 +1420,8 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
@@ -1990,2173 +1429,35 @@
     "__type__": "cc.TerrainBlockInfo",
     "layers": [
       0,
-      -1,
-      -1,
+      1,
+      2,
       -1
     ]
   },
   {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.TerrainBlockInfo",
-    "layers": [
-      0,
-      -1,
-      -1,
-      -1
-    ]
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Groups",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
-    "_children": [
-      {
-        "__id__": 274
-      }
-    ],
-    "_active": true,
-    "_components": [],
-    "_prefab": null,
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": 130.03245544433594,
-      "y": 7.365324020385742,
-      "z": 92.93846130371094
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
-    "_layer": 1073741824,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_id": "5f7b77cf-579a-4317-948b-9312153e0254"
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Trees",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 273
-    },
-    "_children": [
-      {
-        "__id__": 275
-      },
-      {
-        "__id__": 281
-      }
-    ],
-    "_active": true,
-    "_components": [],
-    "_prefab": null,
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
-    "_layer": 1073741824,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_id": "f5f53431-e89f-438a-a9d1-31ea0179bc99"
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "AN_Fir_3",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 274
-    },
-    "_children": [
-      {
-        "__id__": 276
-      }
-    ],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 279
-      }
-    ],
-    "_prefab": null,
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": 44.16754150390625,
-      "y": 1.2746763229370117,
-      "z": 35.39154052734375
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0.007924693147443132,
-      "y": 0.5032621610121482,
-      "z": -0.04023763030464611,
-      "w": -0.8631600834372314
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 1.390169382095337,
-      "y": 1.3901695013046265,
-      "z": 1.390169382095337
-    },
-    "_layer": 1073741824,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 1.5414639711380005,
-      "y": 299.451904296875,
-      "z": 4.441399097442627
-    },
-    "_id": "00b910c0-e45a-41b6-8623-386dbbc54bbc"
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "LOD0",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 275
-    },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 277
-      }
-    ],
-    "_prefab": null,
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
-    "_layer": 1073741824,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_id": "f8ae5120-2380-4eb2-9a74-46569dd0738a"
-  },
-  {
-    "__type__": "cc.MeshRenderer",
+    "__type__": "00b5eVKMDdDjZ77e0HWhyMl",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 276
+      "__id__": 12
     },
     "_enabled": true,
     "__prefab": null,
-    "_materials": [],
-    "_visFlags": 0,
-    "lightmapSettings": {
-      "__id__": 278
-    },
-    "_mesh": {
-      "__uuid__": "69b04932-864d-407a-abfd-ffcc641bb241@34525"
-    },
-    "_shadowCastingMode": 0,
-    "_shadowReceivingMode": 1,
-    "_enableMorph": true,
-    "_id": "54g9ztPBpIspAzmWLknWab"
-  },
-  {
-    "__type__": "cc.ModelLightmapSettings",
-    "texture": null,
-    "uvParam": {
-      "__type__": "cc.Vec4",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 0
-    },
-    "_bakeable": false,
-    "_castShadow": false,
-    "_receiveShadow": false,
-    "_recieveShadow": false,
-    "_lightmapSize": 64
-  },
-  {
-    "__type__": "cc.MeshRenderer",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 275
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_materials": [],
-    "_visFlags": 0,
-    "lightmapSettings": {
-      "__id__": 280
-    },
-    "_mesh": {
-      "__uuid__": "ac8ea480-db29-4a91-9d52-69218a7e80b4@59c2f"
-    },
-    "_shadowCastingMode": 0,
-    "_shadowReceivingMode": 1,
-    "_enableMorph": true,
-    "_id": "88TZ0U2UlEOJUE4jaSL4v1"
-  },
-  {
-    "__type__": "cc.ModelLightmapSettings",
-    "texture": null,
-    "uvParam": {
-      "__type__": "cc.Vec4",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 0
-    },
-    "_bakeable": false,
-    "_castShadow": false,
-    "_receiveShadow": false,
-    "_recieveShadow": false,
-    "_lightmapSize": 64
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "AN_Birch_2",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 274
-    },
-    "_children": [
-      {
-        "__id__": 282
-      }
-    ],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 285
-      }
-    ],
-    "_prefab": null,
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": -18.371,
-      "y": -0.161,
-      "z": -88.758
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0.012818508521283552,
-      "w": -0.9999178395444747
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 1.3245691061019897,
-      "y": 1.3245691061019897,
-      "z": 1.324568748474121
-    },
-    "_layer": 1073741824,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 358.53106689453125
-    },
-    "_id": "2240a54a-b34d-4261-915a-6529bc393727"
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "LOD0",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 281
-    },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 283
-      }
-    ],
-    "_prefab": null,
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
-    "_layer": 1073741824,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_id": "32a228ee-9f86-4f4a-91bc-c576f9192da6"
-  },
-  {
-    "__type__": "cc.MeshRenderer",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 282
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_materials": [],
-    "_visFlags": 0,
-    "lightmapSettings": {
-      "__id__": 284
-    },
-    "_mesh": {
-      "__uuid__": "13a1cecc-d095-4060-bb00-ee2d9e7c3bb5@34525"
-    },
-    "_shadowCastingMode": 0,
-    "_shadowReceivingMode": 1,
-    "_enableMorph": true,
-    "_id": "05xY0+mdpAtqHsQnlmL4Pk"
-  },
-  {
-    "__type__": "cc.ModelLightmapSettings",
-    "texture": null,
-    "uvParam": {
-      "__type__": "cc.Vec4",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 0
-    },
-    "_bakeable": false,
-    "_castShadow": false,
-    "_receiveShadow": false,
-    "_recieveShadow": false,
-    "_lightmapSize": 64
-  },
-  {
-    "__type__": "cc.MeshRenderer",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 281
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_materials": [],
-    "_visFlags": 0,
-    "lightmapSettings": {
-      "__id__": 286
-    },
-    "_mesh": {
-      "__uuid__": "b44451a2-d226-442d-8112-f83113fd92ff@8f546"
-    },
-    "_shadowCastingMode": 0,
-    "_shadowReceivingMode": 1,
-    "_enableMorph": true,
-    "_id": "0cU7T7js9JmbCXJI2d4pjw"
-  },
-  {
-    "__type__": "cc.ModelLightmapSettings",
-    "texture": null,
-    "uvParam": {
-      "__type__": "cc.Vec4",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 0
-    },
-    "_bakeable": false,
-    "_castShadow": false,
-    "_receiveShadow": false,
-    "_recieveShadow": false,
-    "_lightmapSize": 64
+    "_id": "483lRf5YtHI7iuKA367afT"
   },
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 288
+      "__id__": 84
     },
     "shadows": {
-      "__id__": 289
+      "__id__": 85
     },
     "_skybox": {
-      "__id__": 290
+      "__id__": 86
     },
     "fog": {
-      "__id__": 291
+      "__id__": 87
     }
   },
   {

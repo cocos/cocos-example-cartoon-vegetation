@@ -7,6 +7,7 @@ import * as asset from './asset';
 
 import { SyncComponentData } from "./component/component";
 import { cce, io, path, projectAssetPath } from "./utils/editor";
+import { GuidProvider } from "./utils/guid-provider";
 
 interface SyncNodeData {
     name: string;
@@ -183,14 +184,22 @@ if (EDITOR) {
         syncDatasFrame();
     }
 
-    function syncNodeData (data: SyncNodeData, parent: Node = null) {
+    function syncNodeData (data: SyncNodeData, parent: Node | null = null) {
         parent = parent || director.getScene() as any;
-        let uuid = data.uuid;
-        let node = cce.Node.query(uuid) as Node;
-        if (!node || !node.activeInHierarchy) {
+        let guid = data.uuid;
+
+        let provider = GuidProvider.guids.get(guid);
+
+        let node: Node;
+        if (!provider || !provider.enabledInHierarchy) {
             node = new Node(data.name);
-            (node as any)._id = uuid;
+            provider = node.addComponent(GuidProvider);
+            provider.guid = guid;
         }
+        else {
+            node = provider.node;
+        }
+
         node.parent = parent;
         node.setPosition(data.position);
         node.setScale(data.scale);

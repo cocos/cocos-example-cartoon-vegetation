@@ -6,7 +6,7 @@ export interface SyncAssetData {
     path: string;
 
     // runtime
-    asset: Asset;
+    asset: Asset | null;
 
     srcPath: string;
     dstPath: string;
