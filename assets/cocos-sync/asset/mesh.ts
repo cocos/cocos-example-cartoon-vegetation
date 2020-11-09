@@ -1,11 +1,21 @@
-import { Asset } from 'cc';
+import { Asset, error, IVec3Like } from 'cc';
 import { loadAssetByUrl } from '../utils/asset-operation';
 import { Editor, fse, path, projectAssetPath } from '../utils/editor';
+import { toGltfMesh } from '../utils/gltf';
 import { formatPath } from '../utils/path';
 import { register, SyncAsset, SyncAssetData } from './asset';
 
 export interface SyncMeshData extends SyncAssetData {
     meshName: string;
+
+    vertices: number[];
+    uv: number[];
+    normals: number[];
+    boneWeights: number[];
+    indices: number[];
+
+    min: IVec3Like;
+    max: IVec3Like;
 }
 
 @register
@@ -13,27 +23,38 @@ export class SyncMesh extends SyncAsset {
     static clsName = 'cc.Mesh';
 
     static async sync (data: SyncMeshData): Promise<Asset | null> {
-        await new Promise((resolve, reject) => {
-            if (fse.existsSync(data.dstPath)) {
-                const srcStats = fse.fstatSync(data.srcPath);
-                const dstStats = fse.fstatSync(data.dstPath);
+        let basenameNoExt = path.basename(data.dstPath).replace(path.extname(data.dstPath), '');
+        let dstPath = path.join(path.dirname(data.dstPath), basenameNoExt, data.meshName + '.gltf');
 
-                if (srcStats.mtime.toJSON() === dstStats.mtime.toJSON()) {
+        await new Promise((resolve, reject) => {
+            if (fse.existsSync(dstPath)) {
+                const srcStats = fse.statSync(data.srcPath);
+
+                let content;
+                try {
+                    content = fse.readJSONSync(dstPath);
+                }
+                catch (err) {
+                }
+
+                if (content && srcStats.mtime.toJSON() === content.__mtime__) {
                     resolve();
                     return;
                 }
             }
 
-            fse.ensureDirSync(path.dirname(data.dstPath));
-            fse.copyFile(data.srcPath, data.dstPath, (err) => {
+            let gltf = toGltfMesh(data);
+
+            fse.ensureDirSync(path.dirname(dstPath));
+            fse.writeJSON(dstPath, gltf, err => {
                 if (err) {
                     return reject(err);
                 }
                 return resolve();
-            });
+            })
         });
 
-        const url = `db://assets/${formatPath(path.relative(projectAssetPath, data.dstPath))}/${data.meshName}.mesh`;
+        const url = `db://assets/${formatPath(path.relative(projectAssetPath, dstPath))}/${data.meshName}.mesh`;
         await Editor.Message.request('asset-db', 'refresh-asset', url);
 
         return loadAssetByUrl(url);
