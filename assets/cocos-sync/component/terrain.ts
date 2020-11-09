@@ -1,4 +1,5 @@
 import { Terrain, TERRAIN_BLOCK_TILE_COMPLEXITY, Vec4 } from "cc";
+import { cce } from "../utils/editor";
 import { SyncComponentData, SyncComponent, register } from "./component";
 
 let _tempVec4 = new Vec4();
@@ -65,31 +66,6 @@ export class SyncTerrain extends SyncComponent {
 
         for (let wi = 0; wi < width; wi++) {
             for (let hi = 0; hi < height; hi++) {
-                // _tempVec4.set(Vec4.ZERO);
-
-                // let indexStart = (wi + hi * weightmapWidth) * layerCount;
-
-                // let sum = 0;
-                // for (let li = 0; li < layerCount; li++) {
-                //     sum += Math.abs(weightDatas[indexStart + li]);
-                // }
-
-                // for (let li = 0; li < layerCount; li++) {
-                //     let value = Math.abs(weightDatas[indexStart + li]) / sum;
-                //     if (li === 0) {
-                //         _tempVec4.x = value;
-                //     }
-                //     else if (li === 1) {
-                //         _tempVec4.y = value;
-                //     }
-                //     else if (li === 2) {
-                //         _tempVec4.z = value;
-                //     }
-                //     else if (li === 3) {
-                //         _tempVec4.w = value;
-                //     }
-                // }
-
                 if (wi === (width - 1) || hi === (height - 1)) {
                     break;
                 }
@@ -122,12 +98,6 @@ export class SyncTerrain extends SyncComponent {
                         comp.setWeight(wis * uWeigthScale + wi * uWeigthScale, his * vWeigthScale + hi * vWeigthScale, _tempVec4);
                     }
                 }
-
-                // for (let wis = wi * uWeigthScale, wie = (wi + 1) * uWeigthScale; wis < wie; wis++) {
-                //     for (let his = hi * vWeigthScale, hie = (hi + 1) * vWeigthScale; his < hie; his++) {
-                //         comp.setWeight(wis, his, _tempVec4);
-                //     }
-                // }
             }
         }
 
@@ -140,6 +110,10 @@ export class SyncTerrain extends SyncComponent {
             b._updateWeightMap();
         });
 
+        if (!cce.Terrain.curComp) {
+            cce.Terrain.curComp = comp;
+            cce.Terrain.assetUid = comp._asset && comp._asset._uuid;
+        }
         (comp as any).isTerrainChange = true;
     }
 }
