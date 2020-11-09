@@ -57,44 +57,77 @@ export class SyncTerrain extends SyncComponent {
         width = Math.min(mapWidth, weightmapWidth);
         height = Math.min(mapHeight, weightmapHeight);
 
+
         let layerCount = compData.terrainLayers.length;
         let weightDatas = compData.weightDatas;
+
+        let values: number[] = new Array(Math.max(layerCount, 4)).fill(0);
+
         for (let wi = 0; wi < width; wi++) {
             for (let hi = 0; hi < height; hi++) {
-                _tempVec4.set(Vec4.ZERO);
+                // _tempVec4.set(Vec4.ZERO);
 
-                let indexStart = (wi + hi * weightmapWidth) * layerCount;
+                // let indexStart = (wi + hi * weightmapWidth) * layerCount;
 
-                let sum = 0;
-                for (let li = 0; li < layerCount; li++) {
-                    sum += Math.abs(weightDatas[indexStart + li]);
+                // let sum = 0;
+                // for (let li = 0; li < layerCount; li++) {
+                //     sum += Math.abs(weightDatas[indexStart + li]);
+                // }
+
+                // for (let li = 0; li < layerCount; li++) {
+                //     let value = Math.abs(weightDatas[indexStart + li]) / sum;
+                //     if (li === 0) {
+                //         _tempVec4.x = value;
+                //     }
+                //     else if (li === 1) {
+                //         _tempVec4.y = value;
+                //     }
+                //     else if (li === 2) {
+                //         _tempVec4.z = value;
+                //     }
+                //     else if (li === 3) {
+                //         _tempVec4.w = value;
+                //     }
+                // }
+
+                if (wi === (width - 1) || hi === (height - 1)) {
+                    break;
                 }
 
-                for (let li = 0; li < layerCount; li++) {
-                    let value = Math.abs(weightDatas[indexStart + li]) / sum;
-                    if (li === 0) {
-                        _tempVec4.x = value;
-                    }
-                    else if (li === 1) {
-                        _tempVec4.y = value;
-                    }
-                    else if (li === 2) {
-                        _tempVec4.z = value;
-                    }
-                    else if (li === 3) {
-                        _tempVec4.w = value;
+                for (let wis = 0; wis <= 1; wis += 1 / uWeigthScale) {
+                    for (let his = 0; his <= 1; his += 1 / vWeigthScale) {
+
+                        let sum = 0;
+                        for (let li = 0; li < layerCount; li++) {
+                            let v00 = weightDatas[(wi + hi * weightmapWidth) * layerCount + li];
+                            let v10 = weightDatas[((wi + 1) + hi * weightmapWidth) * layerCount + li];
+                            let v01 = weightDatas[(wi + (hi + 1) * weightmapWidth) * layerCount + li];
+                            let v11 = weightDatas[((wi + 1) + (hi + 1) * weightmapWidth) * layerCount + li];
+
+                            let v =
+                                (1 - wis) * (1 - his) * v00 +
+                                (wis) * (1 - his) * v10 +
+                                (1 - wis) * (his) * v01 +
+                                (wis) * (his) * v11;
+
+                            sum += v;
+                            values[li] = v;
+                        }
+
+                        for (let li = 0; li < layerCount; li++) {
+                            values[li] /= sum;
+                        }
+
+                        Vec4.fromArray(_tempVec4, values);
+                        comp.setWeight(wis * uWeigthScale + wi * uWeigthScale, his * vWeigthScale + hi * vWeigthScale, _tempVec4);
                     }
                 }
 
-                if (wi === (width - 1) || hi === height) {
-                    continue;
-                }
-
-                for (let wis = wi * uWeigthScale, wie = (wi + 1) * uWeigthScale; wis < wie; wis++) {
-                    for (let his = hi * vWeigthScale, hie = (hi + 1) * vWeigthScale; his < hie; his++) {
-                        comp.setWeight(wis, his, _tempVec4);
-                    }
-                }
+                // for (let wis = wi * uWeigthScale, wie = (wi + 1) * uWeigthScale; wis < wie; wis++) {
+                //     for (let his = hi * vWeigthScale, hie = (hi + 1) * vWeigthScale; his < hie; his++) {
+                //         comp.setWeight(wis, his, _tempVec4);
+                //     }
+                // }
             }
         }
 
@@ -105,6 +138,8 @@ export class SyncTerrain extends SyncComponent {
                 b.setLayer(i, i);
             }
             b._updateWeightMap();
-        })
+        });
+
+        (comp as any).isTerrainChange = true;
     }
 }
