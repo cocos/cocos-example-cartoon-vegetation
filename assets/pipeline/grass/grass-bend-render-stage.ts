@@ -169,28 +169,6 @@ export class GrassBendRenderStage extends RenderStage {
             const subModels = ro.model.subModels;
 
             commitBuffer(subModels, cmdBuff, device, renderPass, _phaseID);
-            // for (m = 0; m < subModels.length; m++) {
-            //     const subModel = subModels[m];
-
-            //     let grassBendStartIdx = 0;
-
-            //     const shaderHandle = renderer.SubModelPool.get(subModel.handle, renderer.SubModelView.SHADER_0 + grassBendStartIdx);
-            //     const shader = renderer.ShaderPool.get(shaderHandle as any);
-            //     if (!shader) {
-            //         continue;
-            //     }
-
-            //     const hPass = subModel.passes[grassBendStartIdx].handle;
-            //     const ia = subModel.inputAssembler;
-            //     const pso = PipelineStateManager.getOrCreatePipelineState(device, hPass, shader, renderPass, ia);
-
-            //     const descriptorSet = renderer.DSPool.get(renderer.PassPool.get(hPass, renderer.PassView.DESCRIPTOR_SET));
-            //     cmdBuff.bindPipelineState(pso);
-            //     cmdBuff.bindDescriptorSet(SetIndex.MATERIAL, descriptorSet);
-            //     cmdBuff.bindDescriptorSet(SetIndex.LOCAL, subModel.descriptorSet);
-            //     cmdBuff.bindInputAssembler(ia);
-            //     cmdBuff.draw(ia);
-            // }
         }
 
         cmdBuff.endRenderPass();
