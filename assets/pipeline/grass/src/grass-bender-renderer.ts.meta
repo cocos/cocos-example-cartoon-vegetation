@@ -1,5 +1,5 @@
 {
-  "ver": "4.0.2",
+  "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
   "uuid": "dd671742-064c-4f70-8ea0-f711e4938c84",
@@ -11,6 +11,6 @@
   "userData": {
     "importAsPlugin": false,
     "moduleId": "project:///assets/pipeline/grass/src/grass-bender-renderer.js",
-    "importerSettings": 7
+    "importerSettings": 4
   }
 }

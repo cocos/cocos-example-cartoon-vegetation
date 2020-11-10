@@ -1,5 +1,5 @@
 {
-  "ver": "4.0.2",
+  "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
   "uuid": "00b5e54a-3037-438d-9efb-7b41d6872325",
@@ -11,6 +11,6 @@
   "userData": {
     "importAsPlugin": false,
     "moduleId": "project:///assets/pipeline/depth-buffer/depth-buffer-object.js",
-    "importerSettings": 7
+    "importerSettings": 4
   }
 }

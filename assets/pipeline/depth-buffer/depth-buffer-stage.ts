@@ -171,9 +171,8 @@ export class DepthBufferStage extends RenderStage {
         const depthBufferObjects = this.depthBufferObjects;
         for (let i = 0; i < depthBufferObjects.length; ++i) {
             const mc = depthBufferObjects[i].getComponent(ModelComponent);
-            if (mc) {
-                const subModels = mc.model!.subModels;
-                commitBuffer(subModels, cmdBuff, device, renderPass, _phaseID);
+            if (mc && mc.model) {
+                commitBuffer(mc.model, cmdBuff, device, renderPass, _phaseID);
                 continue;
             }
 
@@ -181,8 +180,7 @@ export class DepthBufferStage extends RenderStage {
             if (tr) {
                 const blocks = tr.getBlocks();
                 for (let bi = 0; bi < blocks.length; bi++) {
-                    const subModels: renderer.scene.SubModel[] = (blocks[bi] as any)._renderable._model.subModels;
-                    commitBuffer(subModels, cmdBuff, device, renderPass, _phaseID);
+                    commitBuffer((blocks[bi] as any)._renderable._model, cmdBuff, device, renderPass, _phaseID);
                     continue;
                 }
             }

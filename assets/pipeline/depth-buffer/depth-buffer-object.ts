@@ -17,10 +17,14 @@ export class DepthBufferObject extends Component {
     }
 
     onEnable () {
-        DepthBufferStage.instance.addObject(this);
+        if (DepthBufferStage.instance) {
+            DepthBufferStage.instance.addObject(this);
+        }
     }
     onDisable () {
-        DepthBufferStage.instance.removeObject(this);
+        if (DepthBufferStage.instance) {
+            DepthBufferStage.instance.removeObject(this);
+        }
     }
 
     // update (deltaTime: number) {

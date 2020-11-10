@@ -1,5 +1,5 @@
 {
-  "ver": "4.0.2",
+  "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
   "uuid": "0815c115-9262-4ca0-b55b-b84f25d51e03",
@@ -11,6 +11,6 @@
   "userData": {
     "importAsPlugin": false,
     "moduleId": "project:///assets/pipeline/utils/stage.js",
-    "importerSettings": 7
+    "importerSettings": 4
   }
 }

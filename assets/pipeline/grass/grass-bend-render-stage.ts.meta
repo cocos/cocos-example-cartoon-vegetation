@@ -1,5 +1,5 @@
 {
-  "ver": "4.0.2",
+  "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
   "uuid": "5f9a4583-dc11-49d2-bba9-417d1784a7ca",
@@ -11,6 +11,6 @@
   "userData": {
     "importAsPlugin": false,
     "moduleId": "project:///assets/pipeline/grass/grass-bend-render-stage.js",
-    "importerSettings": 7
+    "importerSettings": 4
   }
 }

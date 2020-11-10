@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Material, ModelComponent, Prefab, instantiate } from 'cc';
+import { _decorator, Component, Node, Material, ModelComponent, Prefab, instantiate, CCObject, utils, Mesh, MeshRenderer } from 'cc';
 const { ccclass, property, executeInEditMode, type } = _decorator;
 
 @ccclass('DistributeGrid')
@@ -59,12 +59,33 @@ export class DistributeGrid extends Component {
             return;
         }
 
+        let mesh: Mesh = new Mesh;
+        let c = instantiate(this.template);
+        this.mergeMesh(c, mesh);
+
         let rowLength = Math.pow(this.count, 0.5) | 0;
         this.node.removeAllChildren();
         for (let i = 0; i < this.count; i++) {
-            let c = instantiate(this.template);
-            c.setPosition( i % rowLength * this.space, 0, Math.floor(i / rowLength) * this.space);
+            // let c = instantiate(this.template);
+
+            let c = new Node();
+            let mr = c.addComponent(MeshRenderer);
+            mr.mesh = mesh;
+            c.setPosition(i % rowLength * this.space, 0, Math.floor(i / rowLength) * this.space);
+            c._objFlags |= CCObject.Flags.DontSave | CCObject.Flags.HideInHierarchy;
+
             c.parent = this.node;
+        }
+    }
+
+    mergeMesh (node: Node, mesh: Mesh) {
+        let mr = node.getComponent(MeshRenderer);
+        if (mr && mr.mesh) {
+            mesh.merge(mr.mesh, node.worldMatrix);
+        }
+
+        for (let i = 0; i < node.children.length; i++) {
+            this.mergeMesh(node.children[i], mesh);
         }
     }
 

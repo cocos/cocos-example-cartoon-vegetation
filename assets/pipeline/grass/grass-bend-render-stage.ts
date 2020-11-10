@@ -32,18 +32,18 @@ const _phaseID = getPhaseID('grass-bend');
 
 @ccclass("GrassBendRenderStage")
 export class GrassBendRenderStage extends RenderStage {
-    static get instance (): GrassBendRenderStage {
-        let flow = director.root.pipeline.flows.find(f => f.name === 'ForwardFlow');
+    static get instance (): GrassBendRenderStage | null {
+        let flow = director.root!.pipeline.flows.find(f => f.name === 'ForwardFlow');
         if (!flow) return null;
         return flow.stages.find(s => s.name === 'GrassBendRenderStage') as GrassBendRenderStage;
     }
 
     _name = 'GrassBendRenderStage'
 
-    private _renderTexture: RenderTexture = null;
+    private _renderTexture: RenderTexture | null = null;
     private _renderArea: GFXRect = { x: 0, y: 0, width: 0, height: 0 };
 
-    private _grassBendRenderer: GrassBenderRenderer = null;
+    private _grassBendRenderer: GrassBenderRenderer | null = null;
 
     protected _bendUBO = new Float32Array(UBOGrassBend.COUNT);
 
@@ -68,7 +68,7 @@ export class GrassBendRenderStage extends RenderStage {
         this.grassBenders.splice(index, 1);
     }
 
-    setGrassBendRenderer (renderer: GrassBenderRenderer) {
+    setGrassBendRenderer (renderer: GrassBenderRenderer | null) {
         this._grassBendRenderer = renderer;
     }
 
@@ -96,9 +96,9 @@ export class GrassBendRenderStage extends RenderStage {
             renderTexture.resize(width, height);
         }
 
-        if (this._grassBendRenderer) {
-            let bendRenderer = this._grassBendRenderer;
-            let pos = this._grassBendRenderer.renderCamera.node.worldPosition;
+        let bendRenderer = this._grassBendRenderer;
+        if (bendRenderer) {
+            let pos = bendRenderer.renderCamera!.node.worldPosition;
             tempVec4.set(
                 pos.x,
                 pos.z,
@@ -124,14 +124,17 @@ export class GrassBendRenderStage extends RenderStage {
         if (!this._grassBendRenderer) {
             return;
         }
-        if (view.camera.node !== this._grassBendRenderer.renderCamera.node) {
+        if (view.camera.node !== this._grassBendRenderer.renderCamera!.node) {
+            return;
+        }
+        let renderTexture = this._renderTexture;
+        if (!renderTexture) {
             return;
         }
 
         this.updateUBO();
 
-        let renderTexture = this._renderTexture;
-        this._grassBendRenderer.renderCamera.targetTexture = renderTexture;
+        this._grassBendRenderer.renderCamera!.targetTexture = renderTexture;
 
         const pipeline = this._pipeline as ForwardPipeline;
         const device = pipeline.device;
@@ -146,7 +149,7 @@ export class GrassBendRenderStage extends RenderStage {
         this._renderArea!.width = vp.width * renderTexture.width * pipeline.shadingScale;
         this._renderArea!.height = vp.height * renderTexture.height * pipeline.shadingScale;
 
-        const frameBuffer = renderTexture.window.framebuffer;
+        const frameBuffer = renderTexture.window!.framebuffer;
         const renderPass = frameBuffer.renderPass;
 
         colors[0].x = camera.clearColor.x;

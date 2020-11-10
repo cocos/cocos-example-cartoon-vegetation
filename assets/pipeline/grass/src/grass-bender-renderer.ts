@@ -9,7 +9,7 @@ const neutralVector = new Color(0.5*255, 0, 0.5*255, 0);
 export class GrassBenderRenderer extends Component {
 
     @type(Node)
-    followTarget: Node = null;
+    followTarget: Node | null = null;
 
     @property
     _range = 32
@@ -35,10 +35,12 @@ export class GrassBenderRenderer extends Component {
             return;
         }
         this._resolution = v;
-        GrassBendRenderStage.instance.rebuild();
+        if (GrassBendRenderStage.instance) {
+            GrassBendRenderStage.instance.rebuild();
+        }
     }
 
-    _renderCamera: Camera = null;
+    _renderCamera: Camera | null = null;
     get renderCamera () {
         return this._renderCamera;
     }
@@ -75,7 +77,7 @@ export class GrassBenderRenderer extends Component {
     }
 
     update (deltaTime: number) {
-        if (this.followTarget) {
+        if (this.followTarget && this._renderCamera) {
             let followPosition = this.followTarget.worldPosition;
             let worldPosition = this._renderCamera.node.worldPosition;
             if (followPosition.x !== worldPosition.x || followPosition.y + this.range !== worldPosition.y || followPosition.z !== worldPosition.z) {

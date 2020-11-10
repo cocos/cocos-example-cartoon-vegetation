@@ -1,7 +1,8 @@
 import { GFXCommandBuffer, GFXDevice, GFXRenderPass, pipeline, PipelineStateManager, renderer } from "cc";
 const { SetIndex } = pipeline;
 
-export function commitBuffer (subModels: renderer.scene.SubModel[], cmdBuff: GFXCommandBuffer, device: GFXDevice, renderPass: GFXRenderPass, phaseID: number) {
+export function commitBuffer (model: renderer.scene.Model, cmdBuff: GFXCommandBuffer, device: GFXDevice, renderPass: GFXRenderPass, phaseID: number) {
+    let subModels = model.subModels;
     for (let m = 0; m < subModels.length; m++) {
         const subModel = subModels[m];
 
