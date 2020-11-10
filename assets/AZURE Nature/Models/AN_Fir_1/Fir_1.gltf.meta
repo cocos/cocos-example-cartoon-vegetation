@@ -1,0 +1,38 @@
+{
+  "ver": "2.0.2",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "9c676466-aeb1-4c83-bf56-d1ec5df1c8e0",
+  "files": [],
+  "subMetas": {
+    "d9750": {
+      "importer": "gltf-mesh",
+      "uuid": "9c676466-aeb1-4c83-bf56-d1ec5df1c8e0@d9750",
+      "displayName": "",
+      "id": "d9750",
+      "name": "Fir_1.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "assetFinder": {
+      "meshes": [
+        "9c676466-aeb1-4c83-bf56-d1ec5df1c8e0@d9750"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": []
+    }
+  }
+}

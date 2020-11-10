@@ -1,0 +1,39 @@
+{
+  "ver": "2.0.2",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "aafce927-e736-417d-bb52-a896bd081ef5",
+  "files": [],
+  "subMetas": {
+    "34525": {
+      "importer": "gltf-mesh",
+      "uuid": "aafce927-e736-417d-bb52-a896bd081ef5@34525",
+      "displayName": "",
+      "id": "34525",
+      "name": "LOD0.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "assetFinder": {
+      "meshes": [
+        "aafce927-e736-417d-bb52-a896bd081ef5@34525"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": []
+    }
+  }
+}

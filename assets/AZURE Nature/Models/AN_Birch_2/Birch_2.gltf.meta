@@ -1,0 +1,38 @@
+{
+  "ver": "2.0.2",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "82c27241-e796-4899-bdb4-869207fd5784",
+  "files": [],
+  "subMetas": {
+    "8f546": {
+      "importer": "gltf-mesh",
+      "uuid": "82c27241-e796-4899-bdb4-869207fd5784@8f546",
+      "displayName": "",
+      "id": "8f546",
+      "name": "Birch_2.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "assetFinder": {
+      "meshes": [
+        "82c27241-e796-4899-bdb4-869207fd5784@8f546"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": []
+    }
+  }
+}

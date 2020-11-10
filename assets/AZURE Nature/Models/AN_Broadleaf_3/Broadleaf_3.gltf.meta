@@ -1,0 +1,38 @@
+{
+  "ver": "2.0.2",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "c0ae236a-76de-47c1-bf01-de604eb7bda4",
+  "files": [],
+  "subMetas": {
+    "ebfbd": {
+      "importer": "gltf-mesh",
+      "uuid": "c0ae236a-76de-47c1-bf01-de604eb7bda4@ebfbd",
+      "displayName": "",
+      "id": "ebfbd",
+      "name": "Broadleaf_3.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "assetFinder": {
+      "meshes": [
+        "c0ae236a-76de-47c1-bf01-de604eb7bda4@ebfbd"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": []
+    }
+  }
+}

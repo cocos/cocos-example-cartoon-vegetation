@@ -1,5 +1,5 @@
 {
-  "ver": "4.0.2",
+  "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
   "uuid": "75021440-1059-4ee8-bf6c-1e4f88c92f42",
@@ -11,6 +11,6 @@
   "userData": {
     "importAsPlugin": false,
     "moduleId": "project:///assets/src/character/hero.js",
-    "importerSettings": 7
+    "importerSettings": 4
   }
 }

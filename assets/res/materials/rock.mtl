@@ -8,12 +8,16 @@
   },
   "_techIdx": 0,
   "_defines": [
-    {},
     {
+      "USE_INSTANCING": true
+    },
+    {
+      "USE_INSTANCING": true,
       "USE_NORMAL_MAP": true,
       "USE_ALBEDO_MAP": true
     },
     {
+      "USE_INSTANCING": true,
       "USE_ALBEDO_MAP": true
     }
   ],

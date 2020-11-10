@@ -1,0 +1,38 @@
+{
+  "ver": "2.0.2",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "98d2b036-7fd7-454f-9ca8-542d3c9720f6",
+  "files": [],
+  "subMetas": {
+    "2b730": {
+      "importer": "gltf-mesh",
+      "uuid": "98d2b036-7fd7-454f-9ca8-542d3c9720f6@2b730",
+      "displayName": "",
+      "id": "2b730",
+      "name": "DeadTree_3.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "assetFinder": {
+      "meshes": [
+        "98d2b036-7fd7-454f-9ca8-542d3c9720f6@2b730"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": []
+    }
+  }
+}
