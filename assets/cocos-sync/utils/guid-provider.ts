@@ -6,6 +6,9 @@ let guids: Map<string, GuidProvider>
 if (!(window as any).__GuidProvider_guids__) {
     (window as any).__GuidProvider_guids__ = guids = new Map();
 }
+else {
+    guids = (window as any).__GuidProvider_guids__;
+}
 
 @ccclass('GuidProvider')
 @executeInEditMode

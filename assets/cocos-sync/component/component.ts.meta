@@ -1,5 +1,5 @@
 {
-  "ver": "4.0.2",
+  "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
   "uuid": "77da1fb5-c07b-4d7d-bb9d-e5515b36af2d",
@@ -11,6 +11,6 @@
   "userData": {
     "importAsPlugin": false,
     "moduleId": "project:///assets/cocos-sync/component/component.js",
-    "importerSettings": 7
+    "importerSettings": 4
   }
 }

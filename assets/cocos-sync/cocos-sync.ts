@@ -1,28 +1,38 @@
-import { director, error, log, Node, Vec3, warn } from "cc";
+import { director, error, find, IVec3Like, log, Mat4, Material, Mesh, Node, Quat, Vec3, Vec4, warn } from "cc";
 import { EDITOR } from "cce.env";
 import { SyncAssetData } from "./asset/asset";
 
-import * as component from './component';
-import * as asset from './asset';
+import * as SyncComponents from './component';
+import * as SyncAssets from './asset';
 
 import { SyncComponentData } from "./component/component";
 import { cce, io, path, projectAssetPath } from "./utils/editor";
 import { GuidProvider } from "./utils/guid-provider";
+import { SyncMeshRenderer, SyncMeshRendererData } from "./component/mesh-renderer";
+import { MergeData, MergeStatics } from "./component/merge-statics";
+
+let _tempQuat = new Quat();
+let _tempVec3 = new Vec3();
 
 interface SyncNodeData {
     name: string;
     uuid: string;
 
-    position: Vec3;
-    scale: Vec3;
-    eulerAngles: Vec3;
+    position: IVec3Like;
+    scale: IVec3Like;
+    eulerAngles: IVec3Like;
 
     children: SyncNodeData[];
     components: string[];
 
+    needMerge: boolean;
+
     // runtime
     parentIndex: number;
-    node: Node
+    node: Node;
+
+    mergeToNodeIndex: number;
+    matrix: Mat4;
 }
 
 
@@ -40,7 +50,7 @@ if (EDITOR) {
     let app = (window as any).__cocos_sync_io__;
     if (!app) {
         app = (window as any).__cocos_sync_io__ = io('8877')
-        app.on('connection', socket => {
+        app.on('connection', (socket: any) => {
             log('CocosSync Connected!');
 
             socket.on('disconnect', () => {
@@ -68,17 +78,19 @@ if (EDITOR) {
         });
     }
 
-    let _sceneData: SyncSceneData = null;
+    let _sceneData: SyncSceneData | null = null;
 
     let _totalNodeCount = 0;
     let _totalComponentCount = 0;
     let _nodeCount = 0;
     let _componentCount = 0;
 
+    let _mergeList: MergeStatics[] = [];
     let _nodeList: SyncNodeData[] = [];
     let _rootNodeList: SyncNodeData[] = [];
     let _currentNodeIndex = 0;
     function collectSceneData (data: SyncSceneData) {
+        _mergeList.length = 0;
         _nodeList.length = 0;
         _rootNodeList.length = 0;
         _currentNodeIndex = 0;
@@ -97,6 +109,27 @@ if (EDITOR) {
         }
     }
     function collectNodeData (data: SyncNodeData) {
+        let parentData = _nodeList[data.parentIndex];
+        if (parentData) {
+            if (parentData.needMerge) {
+                data.mergeToNodeIndex = data.parentIndex;
+            }
+            else if (parentData.mergeToNodeIndex >= 0) {
+                data.mergeToNodeIndex = parentData.mergeToNodeIndex;
+            }
+
+            if (data.mergeToNodeIndex >= 0) {
+                if (!data.matrix) {
+                    Quat.fromEuler(_tempQuat, data.eulerAngles.x, data.eulerAngles.y, data.eulerAngles.z);
+                    data.matrix = Mat4.fromRTS(new Mat4, _tempQuat, data.position, data.scale);
+
+                    if (parentData.matrix) {
+                        data.matrix = Mat4.multiply(data.matrix, parentData.matrix, data.matrix);
+                    }
+                }
+            }
+        }
+
         let index = _nodeList.length;
         _nodeList.push(data);
 
@@ -109,19 +142,19 @@ if (EDITOR) {
     }
 
 
-    function syncAssets (cb) {
+    function syncAssets (cb: Function) {
         let count = 0;
-        let total = _sceneData.assets.length;
+        let total = _sceneData!.assets.length;
 
-        asset.clear();
+        SyncAssets.clear();
         if (total <= 0) {
             return cb();
         }
 
-        _sceneData.assets.forEach(async dataStr => {
+        _sceneData!.assets.forEach(async dataStr => {
             let data: SyncAssetData = JSON.parse(dataStr);
 
-            await asset.sync(data, _sceneData.assetBasePath);
+            await SyncAssets.sync(data, _sceneData!.assetBasePath);
 
             count++;
             if (count >= total) {
@@ -137,18 +170,23 @@ if (EDITOR) {
         for (let i = 0; i < 1000; i++) {
             let node = _nodeList[_currentNodeIndex];
             if (node) {
-                let parent: Node;
-                let finded = true;
-                if (node.parentIndex !== -1) {
-                    let parentData = _nodeList[node.parentIndex];
-                    if (!parentData) {
-                        warn('Can not find parent node data with index : ' + node.parentIndex);
-                        finded = false;
-                    }
-                    parent = parentData.node;
+                let parent: Node | null = null;
+                if (node.mergeToNodeIndex >= 0) {
+                    mergeNodeData(node);
                 }
-                if (finded) {
-                    syncNodeData(node, parent);
+                else {
+                    let finded = true;
+                    if (node.parentIndex !== -1) {
+                        let parentData = _nodeList[node.parentIndex];
+                        if (!parentData) {
+                            warn('Can not find parent node data with index : ' + node.parentIndex);
+                            finded = false;
+                        }
+                        parent = parentData.node;
+                    }
+                    if (finded) {
+                        syncNodeData(node, parent);
+                    }
                 }
             }
             else {
@@ -156,9 +194,7 @@ if (EDITOR) {
             }
 
             if (++_currentNodeIndex >= _nodeList.length) {
-                // for (let ri = 0; ri < _rootNodeList.length; ri++) {
-                //     _rootNodeList[ri].node.parent = director.getScene() as any;
-                // }
+                finishMerge();
 
                 log(`End sync : ${Date.now() - _startTime} ms`);
 
@@ -184,6 +220,49 @@ if (EDITOR) {
         syncDatasFrame();
     }
 
+    function finishMerge () {
+        for (let i = 0; i < _mergeList.length; i++) {
+            _mergeList[i].rebuild();
+        }
+    }
+
+    function mergeNodeData (data: SyncNodeData) {
+        _nodeCount++;
+
+        if (!data.components) {
+            return;
+        }
+
+        let root = _nodeList[data.mergeToNodeIndex];
+        let rootNode = root && root.node;
+        if (!root || !rootNode) {
+            error('Can not find node by mergeToNodeIndex : ', data.mergeToNodeIndex);
+            return;
+        }
+
+        for (let i = 0, l = data.components.length; i < l; i++) {
+            _componentCount++;
+
+            let cdata: SyncComponentData = JSON.parse(data.components[i]);
+            if (cdata.name !== SyncMeshRenderer.clsName) {
+                continue;
+            }
+
+            let mrData = (cdata as SyncMeshRendererData);
+            let materials = mrData.materilas.map(uuid => {
+                return SyncAssets.get(uuid) as Material;
+            })
+            let m = SyncAssets.get(mrData.mesh) as Mesh;
+
+            let mergeInfo = rootNode.getComponent(MergeStatics);
+            if (mergeInfo) {
+                mergeInfo.addData(m, data.matrix, materials);
+            }
+
+            break;
+        }
+    }
+
     function syncNodeData (data: SyncNodeData, parent: Node | null = null) {
         parent = parent || director.getScene() as any;
         let guid = data.uuid;
@@ -201,9 +280,9 @@ if (EDITOR) {
         }
 
         node.parent = parent;
-        node.setPosition(data.position);
-        node.setScale(data.scale);
-        node.eulerAngles = data.eulerAngles;
+        node.setPosition(data.position as Vec3);
+        node.setScale(data.scale as Vec3);
+        node.eulerAngles = data.eulerAngles as Vec3;
 
         data.node = node;
 
@@ -212,8 +291,16 @@ if (EDITOR) {
         if (data.components) {
             for (let i = 0, l = data.components.length; i < l; i++) {
                 let cdata: SyncComponentData = JSON.parse(data.components[i]);
-                component.sync(cdata, node);
+                SyncComponents.sync(cdata, node);
                 _componentCount++;
+            }
+        }
+
+
+        if (data.needMerge) {
+            let comp = node.getComponent(MergeStatics);
+            if (comp) {
+                _mergeList.push(comp);
             }
         }
 

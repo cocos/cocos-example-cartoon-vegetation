@@ -27,26 +27,32 @@ export class SyncMesh extends SyncAsset {
         let dstPath = path.join(path.dirname(data.dstPath), basenameNoExt, data.meshName + '.gltf');
 
         await new Promise((resolve, reject) => {
+            let content;
+            let mtime;
+
             if (fse.existsSync(dstPath)) {
                 const srcStats = fse.statSync(data.srcPath);
 
-                let content;
                 try {
                     content = fse.readJSONSync(dstPath);
                 }
                 catch (err) {
                 }
 
-                if (content && srcStats.mtime.toJSON() === content.__mtime__) {
+                mtime = srcStats.mtime.toJSON();
+                if (content && mtime === content.__mtime__) {
                     resolve();
                     return;
                 }
             }
 
+
             let gltf = toGltfMesh(data);
 
+            (gltf as any).__mtime__ = mtime;
+
             fse.ensureDirSync(path.dirname(dstPath));
-            fse.writeJSON(dstPath, gltf, err => {
+            fse.writeJSON(dstPath, gltf, (err: any) => {
                 if (err) {
                     return reject(err);
                 }

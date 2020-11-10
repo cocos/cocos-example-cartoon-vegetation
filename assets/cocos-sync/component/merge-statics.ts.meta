@@ -2,7 +2,7 @@
   "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
-  "uuid": "d733c542-49cb-4cb1-93bb-69ad2170224c",
+  "uuid": "a83f264f-460d-43d2-97a3-80460a585085",
   "files": [
     ".js",
     ".trans"
@@ -10,7 +10,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/cocos-sync/asset/asset.js",
+    "moduleId": "project:///assets/cocos-sync/component/merge-statics.js",
     "importerSettings": 4
   }
 }
