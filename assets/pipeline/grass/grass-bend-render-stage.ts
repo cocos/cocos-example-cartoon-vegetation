@@ -169,9 +169,7 @@ export class GrassBendRenderStage extends RenderStage {
         for (let i = 0; i < grassBenders.length; ++i) {
             const ro = grassBenders[i].getComponent(ModelComponent);
             if (!ro || !ro.model) continue;
-            const subModels = ro.model.subModels;
-
-            commitBuffer(subModels, cmdBuff, device, renderPass, _phaseID);
+            commitBuffer(ro.model, cmdBuff, device, renderPass, _phaseID);
         }
 
         cmdBuff.endRenderPass();
