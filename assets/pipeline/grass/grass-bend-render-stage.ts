@@ -1,10 +1,11 @@
-import { _decorator, RenderStage, GFXRect, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo, GFXRenderPassInfo, GFXColorAttachment, GFXDepthStencilAttachment } from "cc";
+import { _decorator, RenderStage, GFXRect, GFXColor, GFXCommandBuffer, ForwardPipeline, RenderView, ModelComponent, Material, renderer, PipelineStateManager, GFXRenderPass, GFXFormat, GFXLoadOp, GFXStoreOp, GFXTextureLayout, GFXShaderStageFlagBit, GFXDescriptorType, pipeline, GFXType, GFXFilter, GFXAddress, RenderFlow, RenderPipeline, director, Vec4, GFXBufferUsageBit, GFXMemoryUsageBit, GFXClearFlag, GFXCullMode, RenderTexture, GFXUniformSampler, GFXDescriptorSetLayoutBinding, GFXUniformBlock, GFXUniform, GFXBufferInfo, GFXRenderPassInfo, GFXColorAttachment, GFXDepthStencilAttachment, getPhaseID } from "cc";
 const { SetIndex } = pipeline;
 const { ccclass, type } = _decorator;
 
 import { GrassBender } from "./src/grass-bender";
 import { GrassBenderRenderer } from "./src/grass-bender-renderer";
 import { UBOGrassBend, UNIFORM_GRASS_BEND_MAP_BINDING } from '../ubo';
+import { commitBuffer } from "../utils/stage";
 
 const tempVec4 = new Vec4;
 
@@ -25,6 +26,8 @@ _colorAttachment.endLayout = GFXTextureLayout.SHADER_READONLY_OPTIMAL;
 _colorAttachment.format = GFXFormat.RGBA32F;
 const _depthStencilAttachment = new GFXDepthStencilAttachment();
 const _renderPassInfo = new GFXRenderPassInfo([_colorAttachment], _depthStencilAttachment);
+
+const _phaseID = getPhaseID('grass-bend');
 
 
 @ccclass("GrassBendRenderStage")
@@ -129,7 +132,7 @@ export class GrassBendRenderStage extends RenderStage {
 
         let renderTexture = this._renderTexture;
         this._grassBendRenderer.renderCamera.targetTexture = renderTexture;
-        
+
         const pipeline = this._pipeline as ForwardPipeline;
         const device = pipeline.device;
         const camera = view.camera;
@@ -162,29 +165,32 @@ export class GrassBendRenderStage extends RenderStage {
         let m = 0; let p = 0;
         for (let i = 0; i < grassBenders.length; ++i) {
             const ro = grassBenders[i].getComponent(ModelComponent);
+            if (!ro || !ro.model) continue;
             const subModels = ro.model.subModels;
-            for (m = 0; m < subModels.length; m++) {
-                const subModel = subModels[m];
-                
-                let grassBendStartIdx = 0;
 
-                const shaderHandle = renderer.SubModelPool.get(subModel.handle, renderer.SubModelView.SHADER_0 + grassBendStartIdx);
-                const shader = renderer.ShaderPool.get(shaderHandle as any);
-                if (!shader) {
-                    continue;
-                }
-                
-                const hPass = subModel.passes[grassBendStartIdx].handle;
-                const ia = subModel.inputAssembler;
-                const pso = PipelineStateManager.getOrCreatePipelineState(device, hPass, shader, renderPass, ia);
+            commitBuffer(subModels, cmdBuff, device, renderPass, _phaseID);
+            // for (m = 0; m < subModels.length; m++) {
+            //     const subModel = subModels[m];
 
-                const descriptorSet = renderer.DSPool.get(renderer.PassPool.get(hPass, renderer.PassView.DESCRIPTOR_SET));
-                cmdBuff.bindPipelineState(pso);
-                cmdBuff.bindDescriptorSet(SetIndex.MATERIAL, descriptorSet);
-                cmdBuff.bindDescriptorSet(SetIndex.LOCAL, subModel.descriptorSet);
-                cmdBuff.bindInputAssembler(ia);
-                cmdBuff.draw(ia);
-            }
+            //     let grassBendStartIdx = 0;
+
+            //     const shaderHandle = renderer.SubModelPool.get(subModel.handle, renderer.SubModelView.SHADER_0 + grassBendStartIdx);
+            //     const shader = renderer.ShaderPool.get(shaderHandle as any);
+            //     if (!shader) {
+            //         continue;
+            //     }
+
+            //     const hPass = subModel.passes[grassBendStartIdx].handle;
+            //     const ia = subModel.inputAssembler;
+            //     const pso = PipelineStateManager.getOrCreatePipelineState(device, hPass, shader, renderPass, ia);
+
+            //     const descriptorSet = renderer.DSPool.get(renderer.PassPool.get(hPass, renderer.PassView.DESCRIPTOR_SET));
+            //     cmdBuff.bindPipelineState(pso);
+            //     cmdBuff.bindDescriptorSet(SetIndex.MATERIAL, descriptorSet);
+            //     cmdBuff.bindDescriptorSet(SetIndex.LOCAL, subModel.descriptorSet);
+            //     cmdBuff.bindInputAssembler(ia);
+            //     cmdBuff.draw(ia);
+            // }
         }
 
         cmdBuff.endRenderPass();

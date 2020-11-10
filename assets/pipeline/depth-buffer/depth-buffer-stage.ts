@@ -5,6 +5,7 @@ const { SetIndex, UBOShadow } = pipeline;
 import { DepthBufferObject } from './depth-buffer-object';
 import { UNIFORM_DEPTH_BUFFER_MAP_BINDING, UBOCustomCommon } from '../ubo';
 import { EDITOR } from "cce.env";
+import { commitBuffer } from "../utils/stage";
 
 
 const colors: GFXColor[] = [{ x: 1, y: 1, z: 1, w: 1 }];
@@ -129,36 +130,6 @@ export class DepthBufferStage extends RenderStage {
         }
     }
 
-    commitBuffer (subModels: renderer.scene.SubModel[], cmdBuff: GFXCommandBuffer, device: GFXDevice, renderPass: GFXRenderPass) {
-        for (let m = 0; m < subModels.length; m++) {
-            const subModel = subModels[m];
-
-            for (let pi = 0; pi < subModel.passes.length; pi++) {
-                const pass = subModel.passes[pi];
-                if (pass.phase !== _phaseID) {
-                    continue;
-                }
-
-                const shaderHandle = renderer.SubModelPool.get(subModel.handle, renderer.SubModelView.SHADER_0 + pi);
-                const shader = renderer.ShaderPool.get(shaderHandle as any);
-                if (!shader) {
-                    continue;
-                }
-
-                const hPass = pass.handle;
-                const ia = subModel.inputAssembler;
-                const pso = PipelineStateManager.getOrCreatePipelineState(device, pass, shader, renderPass, ia);
-
-                const descriptorSet = renderer.DSPool.get(renderer.PassPool.get(hPass, renderer.PassView.DESCRIPTOR_SET));
-                cmdBuff.bindPipelineState(pso);
-                cmdBuff.bindDescriptorSet(SetIndex.MATERIAL, descriptorSet);
-                cmdBuff.bindDescriptorSet(SetIndex.LOCAL, subModel.descriptorSet);
-                cmdBuff.bindInputAssembler(ia);
-                cmdBuff.draw(ia);
-            }
-        }
-    }
-
     render (view: RenderView) {
         if (!this.enabled) {
             return;
@@ -202,7 +173,7 @@ export class DepthBufferStage extends RenderStage {
             const mc = depthBufferObjects[i].getComponent(ModelComponent);
             if (mc) {
                 const subModels = mc.model!.subModels;
-                this.commitBuffer(subModels, cmdBuff, device, renderPass);
+                commitBuffer(subModels, cmdBuff, device, renderPass, _phaseID);
                 continue;
             }
 
@@ -211,7 +182,7 @@ export class DepthBufferStage extends RenderStage {
                 const blocks = tr.getBlocks();
                 for (let bi = 0; bi < blocks.length; bi++) {
                     const subModels: renderer.scene.SubModel[] = (blocks[bi] as any)._renderable._model.subModels;
-                    this.commitBuffer(subModels, cmdBuff, device, renderPass);
+                    commitBuffer(subModels, cmdBuff, device, renderPass, _phaseID);
                     continue;
                 }
             }
