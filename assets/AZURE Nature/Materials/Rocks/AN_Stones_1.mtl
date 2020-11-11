@@ -8,7 +8,48 @@
   },
   "_techIdx": 0,
   "_defines": [
-    {}
+    {
+      "USE_INSTANCING": true
+    },
+    {
+      "USE_INSTANCING": true
+    },
+    {
+      "USE_INSTANCING": true
+    }
   ],
-  "_props": []
+  "_states": [
+    {
+      "rasterizerState": {},
+      "depthStencilState": {},
+      "blendState": {
+        "targets": [
+          {}
+        ]
+      }
+    },
+    {
+      "rasterizerState": {},
+      "depthStencilState": {},
+      "blendState": {
+        "targets": [
+          {}
+        ]
+      }
+    },
+    {
+      "rasterizerState": {},
+      "depthStencilState": {},
+      "blendState": {
+        "targets": [
+          {}
+        ]
+      }
+    }
+  ],
+  "_props": [
+    {},
+    {},
+    {}
+  ]
 }
