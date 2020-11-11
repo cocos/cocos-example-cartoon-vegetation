@@ -119,6 +119,10 @@ if (EDITOR) {
             }
 
             if (data.mergeToNodeIndex >= 0) {
+                if (!parentData.matrix) {
+                    Quat.fromEuler(_tempQuat, parentData.eulerAngles.x, parentData.eulerAngles.y, parentData.eulerAngles.z);
+                    parentData.matrix = Mat4.fromRTS(new Mat4, _tempQuat, parentData.position, parentData.scale);
+                }
                 if (!data.matrix) {
                     Quat.fromEuler(_tempQuat, data.eulerAngles.x, data.eulerAngles.y, data.eulerAngles.z);
                     data.matrix = Mat4.fromRTS(new Mat4, _tempQuat, data.position, data.scale);

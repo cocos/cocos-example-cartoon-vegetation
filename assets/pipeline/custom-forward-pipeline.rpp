@@ -43,6 +43,9 @@
     "_tag": 0,
     "_stages": [
       {
+        "__id__": 12
+      },
+      {
         "__id__": 4
       },
       {
@@ -126,5 +129,11 @@
     "stages": [
       "default"
     ]
+  },
+  {
+    "__type__": "InstanceBlockStage",
+    "_name": "InstanceBlockStage",
+    "_priority": 0,
+    "_tag": 0
   }
 ]

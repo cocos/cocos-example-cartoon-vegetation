@@ -1,0 +1,16 @@
+{
+  "ver": "4.0.3",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "a59888c3-8194-4522-9ded-d12de0792dec",
+  "files": [
+    ".js",
+    ".trans"
+  ],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/pipeline/folige/instance-block-stage.js",
+    "importerSettings": 4
+  }
+}
