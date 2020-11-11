@@ -179,23 +179,6 @@ export class MergeStatics extends Component {
             return;
         }
 
-        // let merged = new Mesh;
-        // let matrices = block._matrices;
-        // for (let mi = 0; mi < matrices.length; mi++) {
-        //     let matrix = matrices[mi];
-        //     merged.merge(mesh!, matrix);
-        // }
-
-        // let blockNode = new Node(block.blockName);
-
-        // let meshRenderer = blockNode.addComponent(MeshRenderer);
-        // for (let mi = 0; mi < data.materials.length; mi++) {
-        //     meshRenderer.setMaterial(data.materials[mi], mi);
-        // }
-        // meshRenderer.mesh = merged;
-
-        // blockNode.parent = meshChild;
-
         let mr = meshChild.getComponent(MeshRenderer);
         let model = mr!.model!;
         let subModels = model.subModels!;

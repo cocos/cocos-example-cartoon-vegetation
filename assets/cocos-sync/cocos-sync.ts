@@ -302,7 +302,7 @@ if (EDITOR) {
 
 
         if (data.needMerge) {
-            let comp = node.getComponent(MergeStatics);
+            let comp = node.getComponent('MergeStatics');
             if (comp) {
                 _mergeList.push(comp);
             }
