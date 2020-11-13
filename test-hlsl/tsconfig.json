@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "types": ["node"],
+    "esModuleInterop": true
+  }
+}
