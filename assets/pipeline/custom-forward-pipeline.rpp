@@ -43,9 +43,6 @@
     "_tag": 0,
     "_stages": [
       {
-        "__id__": 12
-      },
-      {
         "__id__": 4
       },
       {
@@ -70,8 +67,8 @@
     "_tag": 0
   },
   {
-    "__type__": "ForwardStage",
-    "_name": "ForwardStage",
+    "__type__": "InstanceBlockStage",
+    "_name": "InstanceBlockStage",
     "_priority": 1,
     "_tag": 0,
     "renderQueues": [
@@ -129,11 +126,5 @@
     "stages": [
       "default"
     ]
-  },
-  {
-    "__type__": "InstanceBlockStage",
-    "_name": "InstanceBlockStage",
-    "_priority": 0,
-    "_tag": 0
   }
 ]

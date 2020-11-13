@@ -1,7 +1,7 @@
 import { _decorator, RenderView, ForwardStage, ForwardPipeline, Color, Camera, gfx, pipeline, director, renderer, PipelineStateManager } from "cc";
 import { MergeStatics } from "../../cocos-sync/component/merge-statics";
 const { ccclass, property } = _decorator;
-const { SetIndex, UBOShadow } = pipeline;
+const { SetIndex } = pipeline;
 
 const colors: Color[] = [new Color(0, 0, 0, 1)];
 
@@ -33,7 +33,7 @@ export class InstanceBlockStage extends ForwardStage {
 
     }
 
-    render (view: RenderView) {
+    renderInstanceBlocks (view: RenderView) {
         let instancedQueue = (this as any)._instancedQueue;
         instancedQueue.queue.clear();
 
@@ -97,30 +97,20 @@ export class InstanceBlockStage extends ForwardStage {
 
         instancedQueue.recordCommandBuffer(device, renderPass, cmdBuff);
 
-        // const it = instancedQueue.queue.values(); let res = it.next();
-        // while (!res.done) {
-        //     const { instances, pass, hasPendingModels } = res.value;
-        //     // if (hasPendingModels) {
-        //     cmdBuff.bindDescriptorSet(SetIndex.MATERIAL, pass.descriptorSet);
-        //     let lastPSO: gfx.PipelineState | null = null;
-        //     for (let b = 0; b < instances.length; ++b) {
-        //         const instance = instances[b];
-        //         if (!instance.count) { continue; }
-        //         const shader = renderer.ShaderPool.get(instance.hShader);
-        //         const pso = PipelineStateManager.getOrCreatePipelineState(device, pass, shader, renderPass, instance.ia);
-        //         if (lastPSO !== pso) {
-        //             cmdBuff.bindPipelineState(pso);
-        //             lastPSO = pso;
-        //         }
-        //         cmdBuff.bindDescriptorSet(SetIndex.LOCAL, renderer.DSPool.get(instance.hDescriptorSet), res.value.dynamicOffsets);
-        //         cmdBuff.bindInputAssembler(instance.ia);
-        //         cmdBuff.draw(instance.ia);
-        //     }
-        //     // }
-        //     res = it.next();
-        // }
-
         cmdBuff.endRenderPass();
+        instancedQueue.queue.clear();
+    }
+
+    render (view: RenderView) {
+        this.renderInstanceBlocks(view);
+
+        // should not clear the already draw content
+        let clearFlag = view.camera.clearFlag;
+        view.camera.clearFlag = 0;
+
+        super.render(view);
+
+        view.camera.clearFlag = clearFlag;
     }
 
     rebuild () {
