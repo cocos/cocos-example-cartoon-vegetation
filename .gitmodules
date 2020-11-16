@@ -1,0 +1,6 @@
+[submodule "assets/advanced-pipeline"]
+	path = assets/advanced-pipeline
+	url = git@github.com:2youyou2/advanced-pipeline.git
+[submodule "assets/advance-pipeline"]
+	path = assets/advance-pipeline
+	url = git@github.com:2youyou2/advance-pipeline.git

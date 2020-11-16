@@ -1,5 +1,0 @@
-
-#pragma builtin(global)
-layout(set = 0, binding = 5) uniform CCCustomCommon {
-    vec4 cc_projection_params; // near, far, 1/near, 1/far
-};
