@@ -3,8 +3,6 @@ const { ccclass, property, type, executeInEditMode } = _decorator
 
 import { SyncComponentData, SyncComponent, register } from "./component";
 
-let _tempVec3 = new Vec3;
-
 export interface SyncMergeStatiscData extends SyncComponentData {
     mergeSize: number;
 }
