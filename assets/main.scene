@@ -7694,6 +7694,7 @@
     "_far": 100,
     "_aspect": 1,
     "_orthoSize": 30,
+    "_maxReceived": 4,
     "_size": {
       "__type__": "cc.Vec2",
       "x": 1024,
@@ -7719,7 +7720,7 @@
       "b": 200,
       "a": 255
     },
-    "_enabled": false,
+    "_enabled": true,
     "_fogDensity": 0.2,
     "_fogStart": 6,
     "_fogEnd": 60,
