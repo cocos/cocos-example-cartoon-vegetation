@@ -109,6 +109,10 @@ export class InstanceBlockStage extends ForwardStage {
         view.camera.clearFlag = 0;
 
         super.render(view);
+        
+        // clear instance queue
+        let instancedQueue = (this as any)._instancedQueue;
+        instancedQueue.clear();
 
         view.camera.clearFlag = clearFlag;
     }
