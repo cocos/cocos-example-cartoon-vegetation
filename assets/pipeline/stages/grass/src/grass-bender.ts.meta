@@ -2,7 +2,7 @@
   "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
-  "uuid": "5f9a4583-dc11-49d2-bba9-417d1784a7ca",
+  "uuid": "ddff1e5b-4912-4c88-93c7-cf6692bf4efa",
   "files": [
     ".js",
     ".trans"
@@ -10,7 +10,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/pipeline/grass/grass-bend-render-stage.js",
+    "moduleId": "project:///assets/pipeline/stages/grass/src/grass-bender.js",
     "importerSettings": 4
   }
 }

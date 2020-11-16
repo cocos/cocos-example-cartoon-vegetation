@@ -2,7 +2,7 @@
   "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
-  "uuid": "ddff1e5b-4912-4c88-93c7-cf6692bf4efa",
+  "uuid": "2c14b25f-1626-4749-ba3b-3cd2f3590f01",
   "files": [
     ".js",
     ".trans"
@@ -10,7 +10,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/pipeline/grass/src/grass-bender.js",
+    "moduleId": "project:///assets/cocos-sync/component/sync-merge-statics.js",
     "importerSettings": 4
   }
 }

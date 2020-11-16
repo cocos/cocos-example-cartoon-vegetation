@@ -2,7 +2,7 @@
   "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
-  "uuid": "00b5e54a-3037-438d-9efb-7b41d6872325",
+  "uuid": "a59888c3-8194-4522-9ded-d12de0792dec",
   "files": [
     ".js",
     ".trans"
@@ -10,7 +10,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/pipeline/depth-buffer/depth-buffer-object.js",
+    "moduleId": "project:///assets/pipeline/stages/folige/instance-block-stage.js",
     "importerSettings": 4
   }
 }

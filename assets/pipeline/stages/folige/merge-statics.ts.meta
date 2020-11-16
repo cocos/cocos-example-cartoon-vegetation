@@ -2,7 +2,7 @@
   "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
-  "uuid": "ed0ac30f-245e-4fcf-a9d6-095d12108644",
+  "uuid": "0a4861d6-30ec-4ba3-bc26-6ded50544757",
   "files": [
     ".js",
     ".trans"
@@ -10,7 +10,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/pipeline/water/material/textures/test-water.js",
+    "moduleId": "project:///assets/pipeline/stages/folige/merge-statics.js",
     "importerSettings": 4
   }
 }

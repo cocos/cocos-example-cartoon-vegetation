@@ -3,9 +3,9 @@ const { ccclass, type, property } = _decorator;
 const { SetIndex, UBOShadow } = pipeline;
 
 import { DepthBufferObject } from './depth-buffer-object';
-import { UNIFORM_DEPTH_BUFFER_MAP_BINDING, UBOCustomCommon } from '../ubo';
+import { UNIFORM_DEPTH_BUFFER_MAP_BINDING, UBOCustomCommon } from '../../defines/ubo';
 import { EDITOR } from "cce.env";
-import { commitBuffer } from "../utils/stage";
+import { commitBuffer } from "../../utils/stage";
 
 
 const colors: GFXColor[] = [{ x: 1, y: 1, z: 1, w: 1 }];
@@ -83,7 +83,7 @@ export class DepthBufferStage extends RenderStage {
             const samplerHash = renderer.genSamplerHash(_samplerInfo);
             const sampler = renderer.samplerLib.getSampler(device, samplerHash);
             pipeline.descriptorSet.bindSampler(UNIFORM_DEPTH_BUFFER_MAP_BINDING, sampler);
-            pipeline.descriptorSet.bindTexture(UNIFORM_DEPTH_BUFFER_MAP_BINDING, renderTexture.getGFXTexture());
+            pipeline.descriptorSet.bindTexture(UNIFORM_DEPTH_BUFFER_MAP_BINDING, renderTexture.getGFXTexture()!);
         }
 
         let buffer = pipeline.descriptorSet.getBuffer(UBOCustomCommon.BINDING);

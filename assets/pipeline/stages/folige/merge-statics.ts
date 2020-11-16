@@ -1,28 +1,10 @@
-import { CCObject, Component, EditBox, find, getPhaseID, InstancedBuffer, log, Mat4, Material, Mesh, MeshRenderer, Node, Vec3, _decorator } from "cc";
-import { EDITOR } from "cce.env";
-import { InstanceBlockStage } from "../../pipeline/folige/instance-block-stage";
-import { cce } from "../utils/editor";
-const { ccclass, property, type, executeInEditMode } = _decorator
-
-import { SyncComponentData, SyncComponent, register } from "./component";
+import { CCObject, Component, getPhaseID, InstancedBuffer, log, Mat4, Material, Mesh, MeshRenderer, Node, Vec3, _decorator } from 'cc';
+import { EDITOR } from 'cce.env';
+import { InstanceBlockStage } from './instance-block-stage';
+const { ccclass, executeInEditMode, property, type } = _decorator;
 
 const _phaseID = getPhaseID('default');
-
-let _tempVec3 = new Vec3;
-
-export interface SyncMergeStatiscData extends SyncComponentData {
-    mergeSize: number;
-}
-
-@register
-export class SyncMergeStatisc extends SyncComponent {
-    static clsName = 'MergeStatics';
-
-    static import (comp: MergeStatics, data: SyncMergeStatiscData) {
-        comp.clear();
-        comp.mergeSize = data.mergeSize;
-    }
-}
+const _tempVec3 = new Vec3;
 
 @ccclass('MergeBlockData')
 export class MergeBlockData extends CCObject {
@@ -46,6 +28,7 @@ export class MergeData extends CCObject {
     @type(MergeBlockData)
     blocks: MergeBlockData[] = [];
 }
+
 
 @ccclass('MergeStatics')
 @executeInEditMode
@@ -137,7 +120,7 @@ export class MergeStatics extends Component {
         }
 
         if (EDITOR) {
-            cce.Engine.repaintInEditMode();
+            (window as any).cce.Engine.repaintInEditMode();
         }
 
         let data = this.datas[this._rebuildIndex];

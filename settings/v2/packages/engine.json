@@ -71,7 +71,8 @@
       "webview",
       "tween",
       "terrain",
-      "tiled-map"
+      "tiled-map",
+      "spine"
     ],
     "noDeprecatedFeatures": {
       "value": false,

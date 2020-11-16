@@ -2,7 +2,7 @@
   "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
-  "uuid": "76f55004-697b-4a5a-a93e-4aa0b50803dc",
+  "uuid": "2d387e19-26a5-4f3e-a159-9ab2fc3ea946",
   "files": [
     ".js",
     ".trans"
@@ -10,7 +10,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/pipeline/ubo.js",
+    "moduleId": "project:///assets/pipeline/stages/depth-buffer/depth-buffer-stage.js",
     "importerSettings": 4
   }
 }

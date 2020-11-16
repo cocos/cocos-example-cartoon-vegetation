@@ -26,9 +26,6 @@
       },
       {
         "__id__": 355
-      },
-      {
-        "__id__": 8
       }
     ],
     "_active": true,
@@ -240,9 +237,7 @@
     "__type__": "cc.Node",
     "_name": "Groups",
     "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
+    "_parent": null,
     "_children": [
       {
         "__id__": 9
@@ -4051,7 +4046,6 @@
       "__id__": 8
     },
     "_enabled": true,
-    "__prefab": null,
     "mergeSize": 150,
     "datas": [
       {
@@ -140757,6 +140751,7 @@
     "_far": 30,
     "_aspect": 1,
     "_orthoSize": 5,
+    "_maxReceived": 4,
     "_size": {
       "__type__": "cc.Vec2",
       "x": 512,

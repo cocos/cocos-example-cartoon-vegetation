@@ -1,5 +1,5 @@
 import { _decorator, RenderView, ForwardStage, ForwardPipeline, Color, Camera, gfx, pipeline, director, renderer, PipelineStateManager } from "cc";
-import { MergeStatics } from "../../cocos-sync/component/merge-statics";
+import { MergeStatics } from './merge-statics';
 const { ccclass, property } = _decorator;
 const { SetIndex } = pipeline;
 

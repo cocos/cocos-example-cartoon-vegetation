@@ -4,8 +4,8 @@ const { ccclass, type } = _decorator;
 
 import { GrassBender } from "./src/grass-bender";
 import { GrassBenderRenderer } from "./src/grass-bender-renderer";
-import { UBOGrassBend, UNIFORM_GRASS_BEND_MAP_BINDING } from '../ubo';
-import { commitBuffer } from "../utils/stage";
+import { UBOGrassBend, UNIFORM_GRASS_BEND_MAP_BINDING } from '../../defines/ubo';
+import { commitBuffer } from "../../utils/stage";
 
 const tempVec4 = new Vec4;
 
@@ -90,7 +90,7 @@ export class GrassBendRenderStage extends RenderStage {
             const samplerHash = renderer.genSamplerHash(_samplerInfo);
             const sampler = renderer.samplerLib.getSampler(device, samplerHash);
             pipeline.descriptorSet.bindSampler(UNIFORM_GRASS_BEND_MAP_BINDING, sampler);
-            pipeline.descriptorSet.bindTexture(UNIFORM_GRASS_BEND_MAP_BINDING, renderTexture.getGFXTexture());
+            pipeline.descriptorSet.bindTexture(UNIFORM_GRASS_BEND_MAP_BINDING, renderTexture.getGFXTexture()!);
         }
         else if (renderTexture.width !== width || renderTexture.height !== height) {
             renderTexture.resize(width, height);

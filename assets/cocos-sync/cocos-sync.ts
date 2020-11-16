@@ -9,7 +9,6 @@ import { SyncComponentData } from "./component/component";
 import { cce, io, path, projectAssetPath } from "./utils/editor";
 import { GuidProvider } from "./utils/guid-provider";
 import { SyncMeshRenderer, SyncMeshRendererData } from "./component/mesh-renderer";
-import { MergeData, MergeStatics } from "./component/merge-statics";
 
 let _tempQuat = new Quat();
 let _tempVec3 = new Vec3();
@@ -85,7 +84,7 @@ if (EDITOR) {
     let _nodeCount = 0;
     let _componentCount = 0;
 
-    let _mergeList: MergeStatics[] = [];
+    let _mergeList: any[] = [];
     let _nodeList: SyncNodeData[] = [];
     let _rootNodeList: SyncNodeData[] = [];
     let _currentNodeIndex = 0;
@@ -258,9 +257,9 @@ if (EDITOR) {
             })
             let m = SyncAssets.get(mrData.mesh) as Mesh;
 
-            let mergeInfo = rootNode.getComponent(MergeStatics);
+            let mergeInfo = rootNode.getComponent('MergeStatics');
             if (mergeInfo) {
-                mergeInfo.addData(m, data.matrix, materials);
+                (mergeInfo as any).addData(m, data.matrix, materials);
             }
 
             break;

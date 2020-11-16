@@ -2,7 +2,7 @@
   "ver": "4.0.3",
   "importer": "typescript",
   "imported": true,
-  "uuid": "dd671742-064c-4f70-8ea0-f711e4938c84",
+  "uuid": "ed0ac30f-245e-4fcf-a9d6-095d12108644",
   "files": [
     ".js",
     ".trans"
@@ -10,7 +10,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/pipeline/grass/src/grass-bender-renderer.js",
+    "moduleId": "project:///assets/pipeline/materials/water/material/textures/test-water.js",
     "importerSettings": 4
   }
 }
