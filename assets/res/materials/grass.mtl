@@ -10,12 +10,10 @@
   "_defines": [
     {
       "USE_INSTANCING": true,
+      "Mask_Type": 2,
       "USE_MAIN_TXTURE": true
     },
-    {
-      "USE_INSTANCING": true,
-      "USE_MAIN_TXTURE": true
-    }
+    {}
   ],
   "_states": [
     {
@@ -29,17 +27,7 @@
         "cullMode": 0
       }
     },
-    {
-      "blendState": {
-        "targets": [
-          {}
-        ]
-      },
-      "depthStencilState": {},
-      "rasterizerState": {
-        "cullMode": 0
-      }
-    }
+    {}
   ],
   "_props": [
     {
@@ -54,8 +42,8 @@
       },
       "windStrength": 0.4,
       "windSwinging": 0.4,
-      "windRandVertex": 0.7,
-      "windGustStrength": 0.2,
+      "windRandVertex": 0.4,
+      "windGustStrength": 0.35,
       "windGustFrequency": 0.3,
       "windGustTint": 0.03,
       "mainTexture": {
@@ -76,7 +64,7 @@
         "a": 255
       },
       "randomDarken": 0.5,
-      "translucency": 0.5
+      "translucency": 0.55
     },
     {}
   ]

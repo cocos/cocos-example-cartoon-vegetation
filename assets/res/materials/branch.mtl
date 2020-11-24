@@ -11,9 +11,7 @@
     {
       "USE_MAIN_TXTURE": true
     },
-    {
-      "USE_MAIN_TXTURE": true
-    }
+    {}
   ],
   "_states": [
     {
@@ -27,17 +25,7 @@
         "cullMode": 0
       }
     },
-    {
-      "blendState": {
-        "targets": [
-          {}
-        ]
-      },
-      "depthStencilState": {},
-      "rasterizerState": {
-        "cullMode": 0
-      }
-    }
+    {}
   ],
   "_props": [
     {
@@ -61,7 +49,7 @@
         "a": 255
       },
       "ambientOcclusion": 1,
-      "translucency": 0.45,
+      "translucency": 0.5,
       "shadowIntensity": 0.3
     },
     {}

@@ -72,7 +72,8 @@
       "tween",
       "terrain",
       "tiled-map",
-      "spine"
+      "spine",
+      "dragonbones"
     ],
     "noDeprecatedFeatures": {
       "value": false,

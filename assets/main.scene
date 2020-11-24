@@ -226,7 +226,7 @@
     "_target": {
       "__id__": 8
     },
-    "radiusScaleSpeed": 4,
+    "radiusScaleSpeed": 2,
     "minRadius": 2,
     "maxRadius": 20,
     "followTargetRotationY": true,
@@ -236,7 +236,7 @@
       "y": 0,
       "z": 0
     },
-    "_targetRadius": 3,
+    "_targetRadius": 4,
     "_id": "9aheaYgPVJt79wD7PpHu6d"
   },
   {

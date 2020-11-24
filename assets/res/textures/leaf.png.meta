@@ -2,7 +2,7 @@
   "ver": "1.0.21",
   "importer": "image",
   "imported": true,
-  "uuid": "ff77df07-1557-469f-bec6-48f32d03b1ce",
+  "uuid": "65b0ca13-2d7d-4dce-b01e-4f8ce4e7f00d",
   "files": [
     ".png",
     ".json"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "ff77df07-1557-469f-bec6-48f32d03b1ce@6c48a",
-      "displayName": "GrassField",
+      "uuid": "65b0ca13-2d7d-4dce-b01e-4f8ce4e7f00d@6c48a",
+      "displayName": "leaf",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -19,10 +19,10 @@
         "wrapModeT": "repeat",
         "minfilter": "linear",
         "magfilter": "linear",
-        "mipfilter": "linear",
+        "mipfilter": "none",
         "anisotropy": 1,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "ff77df07-1557-469f-bec6-48f32d03b1ce"
+        "imageUuidOrDatabaseUri": "65b0ca13-2d7d-4dce-b01e-4f8ce4e7f00d"
       },
       "ver": "1.0.20",
       "imported": true,
@@ -35,6 +35,6 @@
   "userData": {
     "hasAlpha": true,
     "type": "texture",
-    "redirect": "ff77df07-1557-469f-bec6-48f32d03b1ce@6c48a"
+    "redirect": "65b0ca13-2d7d-4dce-b01e-4f8ce4e7f00d@6c48a"
   }
 }
