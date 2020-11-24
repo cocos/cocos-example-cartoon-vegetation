@@ -2,9 +2,9 @@
   "ver": "1.0.0",
   "importer": "*",
   "imported": true,
-  "uuid": "9515b6f8-31ab-4fce-ad57-e8a4d992657e",
+  "uuid": "4ec93436-30dd-452a-a048-7da7abe80dad",
   "files": [
-    ".tx",
+    ".md",
     ".json"
   ],
   "subMetas": {},

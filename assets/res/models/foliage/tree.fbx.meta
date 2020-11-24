@@ -134,12 +134,12 @@
       ],
       "subMetas": {}
     },
-    "8b50d": {
+    "74dd3": {
       "importer": "gltf-scene",
-      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@8b50d",
+      "uuid": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@74dd3",
       "displayName": "",
-      "id": "8b50d",
-      "name": "SGS_Tree.prefab",
+      "id": "74dd3",
+      "name": "tree.prefab",
       "userData": {
         "gltfIndex": 0
       },
@@ -162,7 +162,7 @@
         "uri": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@45a98"
       }
     ],
-    "redirect": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@8b50d",
+    "redirect": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@74dd3",
     "assetFinder": {
       "meshes": [
         "7d07b7ab-d9e6-4895-b204-4826d1ab112b@52a8e"
@@ -177,7 +177,7 @@
         "7d07b7ab-d9e6-4895-b204-4826d1ab112b@d54d8"
       ],
       "scenes": [
-        "7d07b7ab-d9e6-4895-b204-4826d1ab112b@8b50d"
+        "7d07b7ab-d9e6-4895-b204-4826d1ab112b@74dd3"
       ]
     },
     "legacyFbxImporter": true

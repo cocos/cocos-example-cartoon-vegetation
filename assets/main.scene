@@ -4845,7 +4845,7 @@
     "_mesh": {
       "__uuid__": "08abf66c-2cd7-4016-ad1f-9856c7a51a85@01512"
     },
-    "_shadowCastingMode": 0,
+    "_shadowCastingMode": 1,
     "_shadowReceivingMode": 1,
     "_enableMorph": true,
     "_skeleton": {
@@ -4962,7 +4962,7 @@
     "_mesh": {
       "__uuid__": "08abf66c-2cd7-4016-ad1f-9856c7a51a85@eca75"
     },
-    "_shadowCastingMode": 0,
+    "_shadowCastingMode": 1,
     "_shadowReceivingMode": 1,
     "_enableMorph": true,
     "_skeleton": {
@@ -5096,9 +5096,7 @@
     "__asset": {
       "__uuid__": "3944311f-2c07-4ba1-a06d-36a13762e081"
     },
-    "_effectAsset": {
-      "__uuid__": "c4637090-842c-46b9-93b9-8c12924ce87b"
-    },
+    "_effectAsset": null,
     "_layers": [
       {
         "__id__": 174
@@ -6851,7 +6849,7 @@
   {
     "__type__": "cc.SkyboxInfo",
     "_envmap": {
-      "__uuid__": "d492b2d6-b8fe-462a-8957-0c75329f2cec@b47c0"
+      "__uuid__": "ff3b16db-d74d-4bc8-9602-e6962297cbf3@b47c0"
     },
     "_isRGBE": false,
     "_enabled": true,

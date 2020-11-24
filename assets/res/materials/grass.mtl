@@ -52,10 +52,11 @@
         "x": 1,
         "y": 0
       },
-      "windSpeed": 6,
-      "windStrength": 0.3,
+      "windStrength": 0.4,
+      "windSwinging": 0.4,
+      "windRandVertex": 0.7,
       "windGustStrength": 0.2,
-      "windGustFrequency": 0.5,
+      "windGustFrequency": 0.3,
       "windGustTint": 0.03,
       "mainTexture": {
         "__uuid__": "ff77df07-1557-469f-bec6-48f32d03b1ce@6c48a"

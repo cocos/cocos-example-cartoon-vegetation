@@ -38,12 +38,12 @@
       ],
       "subMetas": {}
     },
-    "23bbf": {
+    "b9a49": {
       "importer": "gltf-scene",
-      "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a@23bbf",
+      "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a@b9a49",
       "displayName": "",
-      "id": "23bbf",
-      "name": "SGS_DemoRock.prefab",
+      "id": "b9a49",
+      "name": "rock.prefab",
       "userData": {
         "gltfIndex": 0
       },
@@ -57,7 +57,7 @@
   },
   "userData": {
     "imageMetas": [],
-    "redirect": "2e347903-e768-4bc9-af84-ffd45a50d30a@23bbf",
+    "redirect": "2e347903-e768-4bc9-af84-ffd45a50d30a@b9a49",
     "assetFinder": {
       "meshes": [
         "2e347903-e768-4bc9-af84-ffd45a50d30a@0893a"
@@ -68,7 +68,7 @@
         "2e347903-e768-4bc9-af84-ffd45a50d30a@7a3ca"
       ],
       "scenes": [
-        "2e347903-e768-4bc9-af84-ffd45a50d30a@23bbf"
+        "2e347903-e768-4bc9-af84-ffd45a50d30a@b9a49"
       ]
     },
     "legacyFbxImporter": true
