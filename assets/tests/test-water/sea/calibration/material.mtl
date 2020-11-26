@@ -8,7 +8,10 @@
   },
   "_techIdx": 0,
   "_defines": [
-    {},
+    {
+      "USE_NORMAL_MAP": true,
+      "USE_ALBEDO_MAP": true
+    },
     {},
     {}
   ],
@@ -22,27 +25,18 @@
       "depthStencilState": {},
       "rasterizerState": {}
     },
-    {
-      "blendState": {
-        "targets": [
-          {}
-        ]
-      },
-      "depthStencilState": {},
-      "rasterizerState": {}
-    },
-    {
-      "blendState": {
-        "targets": [
-          {}
-        ]
-      },
-      "depthStencilState": {},
-      "rasterizerState": {}
-    }
+    {},
+    {}
   ],
   "_props": [
-    {},
+    {
+      "mainTexture": {
+        "__uuid__": "8ee2b3cb-3584-498c-b287-46716c2efdbc@6c48a"
+      },
+      "normalMap": {
+        "__uuid__": "ca15e015-207f-492a-bb5e-40bdcd80023f@6c48a"
+      }
+    },
     {},
     {}
   ]
