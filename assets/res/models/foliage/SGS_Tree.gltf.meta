@@ -1,0 +1,39 @@
+{
+  "ver": "2.0.2",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "7c3f7750-8681-4c01-97c8-b6a60bd2e05e",
+  "files": [],
+  "subMetas": {
+    "52a8e": {
+      "importer": "gltf-mesh",
+      "uuid": "7c3f7750-8681-4c01-97c8-b6a60bd2e05e@52a8e",
+      "displayName": "",
+      "id": "52a8e",
+      "name": "SGS_Tree.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "assetFinder": {
+      "meshes": [
+        "7c3f7750-8681-4c01-97c8-b6a60bd2e05e@52a8e"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": []
+    }
+  }
+}

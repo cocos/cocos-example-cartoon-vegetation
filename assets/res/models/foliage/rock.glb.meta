@@ -1,16 +1,32 @@
 {
   "ver": "2.0.2",
-  "importer": "fbx",
+  "importer": "gltf",
   "imported": true,
-  "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a",
+  "uuid": "b869a275-0310-4f5c-9d0b-8d73294f9b3e",
   "files": [],
   "subMetas": {
-    "0893a": {
-      "importer": "gltf-mesh",
-      "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a@0893a",
+    "99038": {
+      "importer": "gltf-material",
+      "uuid": "b869a275-0310-4f5c-9d0b-8d73294f9b3e@99038",
       "displayName": "",
-      "id": "0893a",
-      "name": "SGS_DemoRock.mesh",
+      "id": "99038",
+      "name": "rock.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "27f50": {
+      "importer": "gltf-mesh",
+      "uuid": "b869a275-0310-4f5c-9d0b-8d73294f9b3e@27f50",
+      "displayName": "",
+      "id": "27f50",
+      "name": "rock.mesh",
       "userData": {
         "gltfIndex": 0
       },
@@ -22,25 +38,9 @@
       ],
       "subMetas": {}
     },
-    "7a3ca": {
-      "importer": "gltf-material",
-      "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a@7a3ca",
-      "displayName": "",
-      "id": "7a3ca",
-      "name": "lambert2.material",
-      "userData": {
-        "gltfIndex": 0
-      },
-      "ver": "1.0.14",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "b9a49": {
       "importer": "gltf-scene",
-      "uuid": "2e347903-e768-4bc9-af84-ffd45a50d30a@b9a49",
+      "uuid": "b869a275-0310-4f5c-9d0b-8d73294f9b3e@b9a49",
       "displayName": "",
       "id": "b9a49",
       "name": "rock.prefab",
@@ -57,20 +57,20 @@
   },
   "userData": {
     "imageMetas": [],
-    "redirect": "2e347903-e768-4bc9-af84-ffd45a50d30a@b9a49",
+    "legacyFbxImporter": false,
+    "redirect": "b869a275-0310-4f5c-9d0b-8d73294f9b3e@b9a49",
     "assetFinder": {
       "meshes": [
-        "2e347903-e768-4bc9-af84-ffd45a50d30a@0893a"
+        "b869a275-0310-4f5c-9d0b-8d73294f9b3e@27f50"
       ],
       "skeletons": [],
       "textures": [],
       "materials": [
-        "2e347903-e768-4bc9-af84-ffd45a50d30a@7a3ca"
+        "b869a275-0310-4f5c-9d0b-8d73294f9b3e@99038"
       ],
       "scenes": [
-        "2e347903-e768-4bc9-af84-ffd45a50d30a@b9a49"
+        "b869a275-0310-4f5c-9d0b-8d73294f9b3e@b9a49"
       ]
-    },
-    "legacyFbxImporter": true
+    }
   }
 }

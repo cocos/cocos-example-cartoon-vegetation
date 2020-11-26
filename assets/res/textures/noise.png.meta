@@ -2,7 +2,7 @@
   "ver": "1.0.21",
   "importer": "image",
   "imported": true,
-  "uuid": "15c65b59-20a1-4f7a-a92b-095da12d5e36",
+  "uuid": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022",
   "files": [
     ".png",
     ".json"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "15c65b59-20a1-4f7a-a92b-095da12d5e36@6c48a",
-      "displayName": "SGS_TerrainCliff",
+      "uuid": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022@6c48a",
+      "displayName": "noise",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 1,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "15c65b59-20a1-4f7a-a92b-095da12d5e36"
+        "imageUuidOrDatabaseUri": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022"
       },
       "ver": "1.0.20",
       "imported": true,
@@ -35,6 +35,6 @@
   "userData": {
     "hasAlpha": false,
     "type": "texture",
-    "redirect": "15c65b59-20a1-4f7a-a92b-095da12d5e36@6c48a"
+    "redirect": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022@6c48a"
   }
 }
