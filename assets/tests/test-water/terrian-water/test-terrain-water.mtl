@@ -31,9 +31,9 @@
       "depthDistance": 1.2,
       "shallowColor": {
         "__type__": "cc.Color",
-        "r": 174,
-        "g": 113,
-        "b": 209,
+        "r": 178,
+        "g": 168,
+        "b": 184,
         "a": 56
       },
       "deepColor": {
