@@ -39,7 +39,7 @@
     "_prefab": null,
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 237
+      "__id__": 244
     },
     "_id": "32cf1dc5-7fff-49bc-b60f-5b89e43e4356"
   },
@@ -60,9 +60,9 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 18.987,
+      "x": 26.553,
       "y": 15.494,
-      "z": 40.574
+      "z": 44.942
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -6131,9 +6131,18 @@
       },
       {
         "__id__": 228
+      },
+      {
+        "__id__": 232
+      },
+      {
+        "__id__": 236
+      },
+      {
+        "__id__": 240
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [],
     "_prefab": null,
     "_lpos": {
@@ -6197,9 +6206,9 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 2,
-      "y": 2,
-      "z": 2
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
     },
     "_layer": 1073741824,
     "_euler": {
@@ -6232,7 +6241,7 @@
       "__id__": 214
     },
     "_mesh": {
-      "__uuid__": "8dd5d4d4-2c61-4c28-8e9f-97030260bce9@bbae8"
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@52a8e"
     },
     "_shadowCastingMode": 1,
     "_shadowReceivingMode": 1,
@@ -6310,9 +6319,9 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 3,
-      "y": 3,
-      "z": 3
+      "x": 0.3,
+      "y": 0.3,
+      "z": 0.3
     },
     "_layer": 1073741824,
     "_euler": {
@@ -6345,7 +6354,7 @@
       "__id__": 218
     },
     "_mesh": {
-      "__uuid__": "8dd5d4d4-2c61-4c28-8e9f-97030260bce9@bbae8"
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@52a8e"
     },
     "_shadowCastingMode": 1,
     "_shadowReceivingMode": 1,
@@ -6423,9 +6432,9 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 3.5,
-      "y": 3.5,
-      "z": 3.5
+      "x": 0.6,
+      "y": 0.6,
+      "z": 0.6
     },
     "_layer": 1073741824,
     "_euler": {
@@ -6458,7 +6467,7 @@
       "__id__": 222
     },
     "_mesh": {
-      "__uuid__": "8dd5d4d4-2c61-4c28-8e9f-97030260bce9@bbae8"
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@52a8e"
     },
     "_shadowCastingMode": 1,
     "_shadowReceivingMode": 1,
@@ -6536,9 +6545,9 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 1.8,
-      "y": 1.8,
-      "z": 1.8
+      "x": 0.8,
+      "y": 0.8,
+      "z": 0.8
     },
     "_layer": 1073741824,
     "_euler": {
@@ -6571,7 +6580,7 @@
       "__id__": 226
     },
     "_mesh": {
-      "__uuid__": "8dd5d4d4-2c61-4c28-8e9f-97030260bce9@bbae8"
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@52a8e"
     },
     "_shadowCastingMode": 1,
     "_shadowReceivingMode": 1,
@@ -6618,116 +6627,27 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "tree",
+    "_name": "tree-001",
     "_objFlags": 0,
     "_parent": {
       "__id__": 211
-    },
-    "_children": [
-      {
-        "__id__": 229
-      }
-    ],
-    "_active": true,
-    "_components": [],
-    "_prefab": {
-      "__id__": 236
-    },
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": 31.989,
-      "y": 0,
-      "z": 19.121
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 0.3,
-      "y": 0.3,
-      "z": 0.3
-    },
-    "_layer": 1073741824,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_id": "0dOefyLEVPq7bBS3pYmxcc"
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "RootNode",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 228
-    },
-    "_children": [
-      {
-        "__id__": 230
-      }
-    ],
-    "_active": true,
-    "_components": [],
-    "_prefab": {
-      "__id__": 235
-    },
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
-    "_layer": 1073741824,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_id": "1drlnmM9JNc7+RQejJDpQP"
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "SGS_Tree",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 229
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
+        "__id__": 229
+      },
+      {
         "__id__": 231
       }
     ],
-    "_prefab": {
-      "__id__": 234
-    },
+    "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
+      "x": 45.062,
       "y": 0,
-      "z": 0
+      "z": 25.983
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -6738,9 +6658,9 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 100,
-      "y": 100,
-      "z": 100
+      "x": 0.463,
+      "y": 0.463,
+      "z": 0.463
     },
     "_layer": 1073741824,
     "_euler": {
@@ -6749,19 +6669,17 @@
       "y": 0,
       "z": 0
     },
-    "_id": "64I7JeuyBFTY07BrYZda0S"
+    "_id": "7d87r9VWZB1IhVJWKhSO9M"
   },
   {
     "__type__": "cc.MeshRenderer",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 230
+      "__id__": 228
     },
     "_enabled": true,
-    "__prefab": {
-      "__id__": 232
-    },
+    "__prefab": null,
     "_materials": [
       {
         "__uuid__": "d39835c2-b2d8-4308-9220-cd6513723d55"
@@ -6772,19 +6690,15 @@
     ],
     "_visFlags": 0,
     "lightmapSettings": {
-      "__id__": 233
+      "__id__": 230
     },
     "_mesh": {
-      "__uuid__": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@52a8e"
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@52a8e"
     },
-    "_shadowCastingMode": 0,
+    "_shadowCastingMode": 1,
     "_shadowReceivingMode": 1,
     "_enableMorph": true,
-    "_id": "1dJv9f4JJOW6eO86V/lxLM"
-  },
-  {
-    "__type__": "cc.CompPrefabInfo ",
-    "fileId": "1dJv9f4JJOW6eO86V/lxLM"
+    "_id": "20FPbh21NKS42dPyCVKV2C"
   },
   {
     "__type__": "cc.ModelLightmapSettings",
@@ -6803,60 +6717,379 @@
     "_lightmapSize": 64
   },
   {
-    "__type__": "cc.PrefabInfo",
-    "root": {
+    "__type__": "cc.CapsuleCollider",
+    "_name": "SGS_Tree<CapsuleCollider>",
+    "_objFlags": 0,
+    "node": {
       "__id__": 228
     },
-    "asset": {
-      "__uuid__": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@74dd3"
+    "_enabled": true,
+    "__prefab": null,
+    "_material": null,
+    "_isTrigger": false,
+    "_center": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0.1,
+      "z": 0
     },
-    "fileId": "01WAwVliZLqKfQGy/Q2hTX",
-    "sync": false,
-    "_synced": {
-      "default": false,
-      "serializable": false
-    }
+    "_radius": 0.02,
+    "_cylinderHeight": 0.2,
+    "_direction": 1,
+    "_id": "2a4FPZfRdOpJ7dgmG3KjnI"
   },
   {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 228
+    "__type__": "cc.Node",
+    "_name": "tree-002",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 211
     },
-    "asset": {
-      "__uuid__": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@74dd3"
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 233
+      },
+      {
+        "__id__": 235
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 40.373,
+      "y": 0,
+      "z": 29.237
     },
-    "fileId": "0eRoaPG3JH/bYZeh+1+EWI",
-    "sync": false,
-    "_synced": {
-      "default": false,
-      "serializable": false
-    }
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 0.463,
+      "y": 0.463,
+      "z": 0.463
+    },
+    "_layer": 1073741824,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "98hE1azglMQoaHCs7PLRBe"
   },
   {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 228
+    "__type__": "cc.MeshRenderer",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 232
     },
-    "asset": {
-      "__uuid__": "7d07b7ab-d9e6-4895-b204-4826d1ab112b@74dd3"
+    "_enabled": true,
+    "__prefab": null,
+    "_materials": [
+      {
+        "__uuid__": "d39835c2-b2d8-4308-9220-cd6513723d55"
+      },
+      {
+        "__uuid__": "152e1e7e-8f11-41a4-b8e4-2c7fb8c1016d"
+      }
+    ],
+    "_visFlags": 0,
+    "lightmapSettings": {
+      "__id__": 234
     },
-    "fileId": "90/hmc+oJGVIT37jX7cGK7",
-    "sync": false,
-    "_synced": {}
+    "_mesh": {
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@52a8e"
+    },
+    "_shadowCastingMode": 1,
+    "_shadowReceivingMode": 1,
+    "_enableMorph": true,
+    "_id": "ecS2Z/whRNS4negP5GaoB1"
+  },
+  {
+    "__type__": "cc.ModelLightmapSettings",
+    "texture": null,
+    "uvParam": {
+      "__type__": "cc.Vec4",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 0
+    },
+    "_bakeable": false,
+    "_castShadow": false,
+    "_receiveShadow": false,
+    "_recieveShadow": false,
+    "_lightmapSize": 64
+  },
+  {
+    "__type__": "cc.CapsuleCollider",
+    "_name": "SGS_Tree<CapsuleCollider>",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 232
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_material": null,
+    "_isTrigger": false,
+    "_center": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0.1,
+      "z": 0
+    },
+    "_radius": 0.02,
+    "_cylinderHeight": 0.2,
+    "_direction": 1,
+    "_id": "c6PNqjTO9BAbD0sVbcBa2E"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "tree-003",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 211
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 237
+      },
+      {
+        "__id__": 239
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 22.068,
+      "y": 0,
+      "z": 42.785
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 0.374,
+      "y": 0.374,
+      "z": 0.374
+    },
+    "_layer": 1073741824,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "81DNwaN2xGyrdN9NG5wRZt"
+  },
+  {
+    "__type__": "cc.MeshRenderer",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 236
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_materials": [
+      {
+        "__uuid__": "d39835c2-b2d8-4308-9220-cd6513723d55"
+      },
+      {
+        "__uuid__": "152e1e7e-8f11-41a4-b8e4-2c7fb8c1016d"
+      }
+    ],
+    "_visFlags": 0,
+    "lightmapSettings": {
+      "__id__": 238
+    },
+    "_mesh": {
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@52a8e"
+    },
+    "_shadowCastingMode": 1,
+    "_shadowReceivingMode": 1,
+    "_enableMorph": true,
+    "_id": "dbmVY5+yBClY5bdIZfPP2k"
+  },
+  {
+    "__type__": "cc.ModelLightmapSettings",
+    "texture": null,
+    "uvParam": {
+      "__type__": "cc.Vec4",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 0
+    },
+    "_bakeable": false,
+    "_castShadow": false,
+    "_receiveShadow": false,
+    "_recieveShadow": false,
+    "_lightmapSize": 64
+  },
+  {
+    "__type__": "cc.CapsuleCollider",
+    "_name": "SGS_Tree<CapsuleCollider>",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 236
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_material": null,
+    "_isTrigger": false,
+    "_center": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0.1,
+      "z": 0
+    },
+    "_radius": 0.02,
+    "_cylinderHeight": 0.2,
+    "_direction": 1,
+    "_id": "daEBylNEFC9YcUEOAxCrKv"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "tree-004",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 211
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 241
+      },
+      {
+        "__id__": 243
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 24.36,
+      "y": 0,
+      "z": 44.246
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 0.374,
+      "y": 0.374,
+      "z": 0.374
+    },
+    "_layer": 1073741824,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "48XWajA39Kx7ibk1yOh0go"
+  },
+  {
+    "__type__": "cc.MeshRenderer",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 240
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_materials": [
+      {
+        "__uuid__": "d39835c2-b2d8-4308-9220-cd6513723d55"
+      },
+      {
+        "__uuid__": "152e1e7e-8f11-41a4-b8e4-2c7fb8c1016d"
+      }
+    ],
+    "_visFlags": 0,
+    "lightmapSettings": {
+      "__id__": 242
+    },
+    "_mesh": {
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@52a8e"
+    },
+    "_shadowCastingMode": 1,
+    "_shadowReceivingMode": 1,
+    "_enableMorph": true,
+    "_id": "281wc1T9REGa2pdWsOQ7y3"
+  },
+  {
+    "__type__": "cc.ModelLightmapSettings",
+    "texture": null,
+    "uvParam": {
+      "__type__": "cc.Vec4",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 0
+    },
+    "_bakeable": false,
+    "_castShadow": false,
+    "_receiveShadow": false,
+    "_recieveShadow": false,
+    "_lightmapSize": 64
+  },
+  {
+    "__type__": "cc.CapsuleCollider",
+    "_name": "SGS_Tree<CapsuleCollider>",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 240
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_material": null,
+    "_isTrigger": false,
+    "_center": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0.1,
+      "z": 0
+    },
+    "_radius": 0.02,
+    "_cylinderHeight": 0.2,
+    "_direction": 1,
+    "_id": "a79dXexaxNQZGSJpKrbKuT"
   },
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 238
+      "__id__": 245
     },
     "shadows": {
-      "__id__": 239
+      "__id__": 246
     },
     "_skybox": {
-      "__id__": 240
+      "__id__": 247
     },
     "fog": {
-      "__id__": 241
+      "__id__": 248
     }
   },
   {
