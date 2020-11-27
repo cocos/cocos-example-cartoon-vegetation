@@ -1,30 +1,13 @@
 {
   "ver": "2.0.2",
-  "importer": "fbx",
+  "importer": "gltf",
   "imported": true,
-  "uuid": "675694b9-bbd2-4a65-8532-0dc5d45d8aba",
+  "uuid": "217e8420-c2e8-4373-a701-05c35d4ccd4d",
   "files": [],
   "subMetas": {
-    "30732": {
-      "importer": "gltf-skeleton",
-      "uuid": "675694b9-bbd2-4a65-8532-0dc5d45d8aba@30732",
-      "displayName": "",
-      "id": "30732",
-      "name": "UnnamedSkeleton-0.skeleton",
-      "userData": {
-        "gltfIndex": 0,
-        "jointsLength": 52
-      },
-      "ver": "1.0.1",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "01512": {
       "importer": "gltf-mesh",
-      "uuid": "675694b9-bbd2-4a65-8532-0dc5d45d8aba@01512",
+      "uuid": "217e8420-c2e8-4373-a701-05c35d4ccd4d@01512",
       "displayName": "",
       "id": "01512",
       "name": "Beta_Joints.mesh",
@@ -41,7 +24,7 @@
     },
     "eca75": {
       "importer": "gltf-mesh",
-      "uuid": "675694b9-bbd2-4a65-8532-0dc5d45d8aba@eca75",
+      "uuid": "217e8420-c2e8-4373-a701-05c35d4ccd4d@eca75",
       "displayName": "",
       "id": "eca75",
       "name": "Beta_Surface.mesh",
@@ -58,7 +41,7 @@
     },
     "8c1f0": {
       "importer": "gltf-animation",
-      "uuid": "675694b9-bbd2-4a65-8532-0dc5d45d8aba@8c1f0",
+      "uuid": "217e8420-c2e8-4373-a701-05c35d4ccd4d@8c1f0",
       "displayName": "",
       "id": "8c1f0",
       "name": "Yawn.animation",
@@ -68,7 +51,7 @@
         "sample": 30,
         "span": {
           "from": 0,
-          "to": 8.291666984558105
+          "to": 8.366666793823242
         },
         "events": []
       },
@@ -80,15 +63,15 @@
       ],
       "subMetas": {}
     },
-    "f1394": {
+    "f9d1d": {
       "importer": "gltf-skeleton",
-      "uuid": "675694b9-bbd2-4a65-8532-0dc5d45d8aba@f1394",
+      "uuid": "217e8420-c2e8-4373-a701-05c35d4ccd4d@f9d1d",
       "displayName": "",
-      "id": "f1394",
-      "name": "UnnamedSkeleton-1.skeleton",
+      "id": "f9d1d",
+      "name": "Armature.skeleton",
       "userData": {
-        "gltfIndex": 1,
-        "jointsLength": 52
+        "gltfIndex": 0,
+        "jointsLength": 67
       },
       "ver": "1.0.1",
       "imported": true,
@@ -99,7 +82,7 @@
     },
     "0f0f9": {
       "importer": "gltf-material",
-      "uuid": "675694b9-bbd2-4a65-8532-0dc5d45d8aba@0f0f9",
+      "uuid": "217e8420-c2e8-4373-a701-05c35d4ccd4d@0f0f9",
       "displayName": "",
       "id": "0f0f9",
       "name": "Beta_Joints_MAT.material",
@@ -115,7 +98,7 @@
     },
     "124e8": {
       "importer": "gltf-material",
-      "uuid": "675694b9-bbd2-4a65-8532-0dc5d45d8aba@124e8",
+      "uuid": "217e8420-c2e8-4373-a701-05c35d4ccd4d@124e8",
       "displayName": "",
       "id": "124e8",
       "name": "asdf1:Beta_HighLimbsGeoSG2.material",
@@ -131,7 +114,7 @@
     },
     "9b738": {
       "importer": "gltf-scene",
-      "uuid": "675694b9-bbd2-4a65-8532-0dc5d45d8aba@9b738",
+      "uuid": "217e8420-c2e8-4373-a701-05c35d4ccd4d@9b738",
       "displayName": "",
       "id": "9b738",
       "name": "Yawn.prefab",
@@ -151,36 +134,35 @@
     "legacyFbxImporter": false,
     "animationImportSettings": [
       {
-        "name": "mixamo.com",
-        "duration": 8.291666984558105,
+        "name": "Yawn",
+        "duration": 8.366666793823242,
         "fps": 30,
         "splits": [
           {
             "name": "Yawn",
             "from": 0,
-            "to": 8.291666984558105,
+            "to": 8.366666793823242,
             "wrapMode": 2
           }
         ]
       }
     ],
-    "redirect": "675694b9-bbd2-4a65-8532-0dc5d45d8aba@9b738",
+    "redirect": "217e8420-c2e8-4373-a701-05c35d4ccd4d@9b738",
     "assetFinder": {
       "meshes": [
-        "675694b9-bbd2-4a65-8532-0dc5d45d8aba@01512",
-        "675694b9-bbd2-4a65-8532-0dc5d45d8aba@eca75"
+        "217e8420-c2e8-4373-a701-05c35d4ccd4d@01512",
+        "217e8420-c2e8-4373-a701-05c35d4ccd4d@eca75"
       ],
       "skeletons": [
-        "675694b9-bbd2-4a65-8532-0dc5d45d8aba@30732",
-        "675694b9-bbd2-4a65-8532-0dc5d45d8aba@f1394"
+        "217e8420-c2e8-4373-a701-05c35d4ccd4d@f9d1d"
       ],
       "textures": [],
       "materials": [
-        "675694b9-bbd2-4a65-8532-0dc5d45d8aba@0f0f9",
-        "675694b9-bbd2-4a65-8532-0dc5d45d8aba@124e8"
+        "217e8420-c2e8-4373-a701-05c35d4ccd4d@0f0f9",
+        "217e8420-c2e8-4373-a701-05c35d4ccd4d@124e8"
       ],
       "scenes": [
-        "675694b9-bbd2-4a65-8532-0dc5d45d8aba@9b738"
+        "217e8420-c2e8-4373-a701-05c35d4ccd4d@9b738"
       ]
     }
   }

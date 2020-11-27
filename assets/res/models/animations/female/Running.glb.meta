@@ -1,30 +1,13 @@
 {
   "ver": "2.0.2",
-  "importer": "fbx",
+  "importer": "gltf",
   "imported": true,
-  "uuid": "7f2ae697-9390-4c64-8edc-359dac17f2c8",
+  "uuid": "a4982699-b3f5-4a52-bc0c-6d2041baf4c6",
   "files": [],
   "subMetas": {
-    "30732": {
-      "importer": "gltf-skeleton",
-      "uuid": "7f2ae697-9390-4c64-8edc-359dac17f2c8@30732",
-      "displayName": "",
-      "id": "30732",
-      "name": "UnnamedSkeleton-0.skeleton",
-      "userData": {
-        "gltfIndex": 0,
-        "jointsLength": 52
-      },
-      "ver": "1.0.1",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "01512": {
       "importer": "gltf-mesh",
-      "uuid": "7f2ae697-9390-4c64-8edc-359dac17f2c8@01512",
+      "uuid": "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@01512",
       "displayName": "",
       "id": "01512",
       "name": "Beta_Joints.mesh",
@@ -41,7 +24,7 @@
     },
     "eca75": {
       "importer": "gltf-mesh",
-      "uuid": "7f2ae697-9390-4c64-8edc-359dac17f2c8@eca75",
+      "uuid": "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@eca75",
       "displayName": "",
       "id": "eca75",
       "name": "Beta_Surface.mesh",
@@ -56,19 +39,19 @@
       ],
       "subMetas": {}
     },
-    "846f8": {
+    "b84cf": {
       "importer": "gltf-animation",
-      "uuid": "7f2ae697-9390-4c64-8edc-359dac17f2c8@846f8",
+      "uuid": "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@b84cf",
       "displayName": "",
-      "id": "846f8",
-      "name": "JumpingUp.animation",
+      "id": "b84cf",
+      "name": "Running.animation",
       "userData": {
         "gltfIndex": 0,
-        "wrapMode": 1,
+        "wrapMode": 2,
         "sample": 30,
         "span": {
           "from": 0,
-          "to": 0.2083333283662796
+          "to": 0.6666666865348816
         },
         "events": []
       },
@@ -80,15 +63,15 @@
       ],
       "subMetas": {}
     },
-    "f1394": {
+    "f9d1d": {
       "importer": "gltf-skeleton",
-      "uuid": "7f2ae697-9390-4c64-8edc-359dac17f2c8@f1394",
+      "uuid": "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@f9d1d",
       "displayName": "",
-      "id": "f1394",
-      "name": "UnnamedSkeleton-1.skeleton",
+      "id": "f9d1d",
+      "name": "Armature.skeleton",
       "userData": {
-        "gltfIndex": 1,
-        "jointsLength": 52
+        "gltfIndex": 0,
+        "jointsLength": 67
       },
       "ver": "1.0.1",
       "imported": true,
@@ -99,7 +82,7 @@
     },
     "0f0f9": {
       "importer": "gltf-material",
-      "uuid": "7f2ae697-9390-4c64-8edc-359dac17f2c8@0f0f9",
+      "uuid": "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@0f0f9",
       "displayName": "",
       "id": "0f0f9",
       "name": "Beta_Joints_MAT.material",
@@ -115,7 +98,7 @@
     },
     "124e8": {
       "importer": "gltf-material",
-      "uuid": "7f2ae697-9390-4c64-8edc-359dac17f2c8@124e8",
+      "uuid": "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@124e8",
       "displayName": "",
       "id": "124e8",
       "name": "asdf1:Beta_HighLimbsGeoSG2.material",
@@ -129,12 +112,12 @@
       ],
       "subMetas": {}
     },
-    "bd6a9": {
+    "3c231": {
       "importer": "gltf-scene",
-      "uuid": "7f2ae697-9390-4c64-8edc-359dac17f2c8@bd6a9",
+      "uuid": "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@3c231",
       "displayName": "",
-      "id": "bd6a9",
-      "name": "JumpingUp.prefab",
+      "id": "3c231",
+      "name": "Running.prefab",
       "userData": {
         "gltfIndex": 0
       },
@@ -151,36 +134,35 @@
     "legacyFbxImporter": false,
     "animationImportSettings": [
       {
-        "name": "mixamo.com",
-        "duration": 0.2083333283662796,
+        "name": "Running",
+        "duration": 0.6666666865348816,
         "fps": 30,
         "splits": [
           {
-            "name": "JumpingUp",
+            "name": "Running",
             "from": 0,
-            "to": 0.2083333283662796,
-            "wrapMode": 1
+            "to": 0.6666666865348816,
+            "wrapMode": 2
           }
         ]
       }
     ],
-    "redirect": "7f2ae697-9390-4c64-8edc-359dac17f2c8@bd6a9",
+    "redirect": "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@3c231",
     "assetFinder": {
       "meshes": [
-        "7f2ae697-9390-4c64-8edc-359dac17f2c8@01512",
-        "7f2ae697-9390-4c64-8edc-359dac17f2c8@eca75"
+        "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@01512",
+        "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@eca75"
       ],
       "skeletons": [
-        "7f2ae697-9390-4c64-8edc-359dac17f2c8@30732",
-        "7f2ae697-9390-4c64-8edc-359dac17f2c8@f1394"
+        "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@f9d1d"
       ],
       "textures": [],
       "materials": [
-        "7f2ae697-9390-4c64-8edc-359dac17f2c8@0f0f9",
-        "7f2ae697-9390-4c64-8edc-359dac17f2c8@124e8"
+        "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@0f0f9",
+        "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@124e8"
       ],
       "scenes": [
-        "7f2ae697-9390-4c64-8edc-359dac17f2c8@bd6a9"
+        "a4982699-b3f5-4a52-bc0c-6d2041baf4c6@3c231"
       ]
     }
   }
