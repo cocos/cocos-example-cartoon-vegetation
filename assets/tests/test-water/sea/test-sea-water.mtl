@@ -54,6 +54,20 @@
       "foamDensity": 0.7,
       "foamTile": 7,
       "foamContrast": 0.7,
+      "waveVisuals": {
+        "__type__": "cc.Vec4",
+        "x": 0.167,
+        "y": 7,
+        "z": 0.7,
+        "w": 1
+      },
+      "waveDirections": {
+        "__type__": "cc.Vec4",
+        "x": 0.1,
+        "y": 0.3,
+        "z": 0.6,
+        "w": 0.67
+      },
       "causticStrength": 0.015,
       "causticScale": 2,
       "causticSpeed": 0.2,

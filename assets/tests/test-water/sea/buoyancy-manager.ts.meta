@@ -1,0 +1,17 @@
+{
+  "ver": "4.0.9",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "a1e9e10a-10b2-4492-96e6-8e523c859adf",
+  "files": [
+    ".js",
+    "editor.js",
+    ".trans"
+  ],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/tests/test-water/sea/buoyancy-manager.js",
+    "importerSettings": 4
+  }
+}
