@@ -11,7 +11,8 @@
     {
       "USE_INSTANCING": true,
       "Mask_Type": 2,
-      "USE_MAIN_TXTURE": true
+      "USE_MAIN_TXTURE": true,
+      "USE_FIXED_NORMAL": true
     },
     {}
   ],
