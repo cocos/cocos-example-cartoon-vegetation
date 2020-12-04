@@ -1,8 +1,8 @@
 {
-  "ver": "4.0.9",
+  "ver": "4.0.10",
   "importer": "typescript",
   "imported": true,
-  "uuid": "fd99d0fc-a46d-4416-b15a-d0cb562f66b5",
+  "uuid": "a1e9e10a-10b2-4492-96e6-8e523c859adf",
   "files": [
     ".js",
     "editor.js",
@@ -11,7 +11,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/tests/test-water/sea/buoyancy-point.js",
+    "moduleId": "project:///assets/tests/test-water/buoyancy/buoyancy-manager.js",
     "importerSettings": 4
   }
 }
