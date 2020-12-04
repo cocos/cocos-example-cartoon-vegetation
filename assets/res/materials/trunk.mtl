@@ -8,10 +8,10 @@
   },
   "_techIdx": 0,
   "_defines": [
-    {},
     {
-      "USE_MAIN_TXTURE": true
-    }
+      "USE_FIXED_NORMAL": true
+    },
+    {}
   ],
   "_states": [
     {
@@ -23,15 +23,7 @@
       "depthStencilState": {},
       "rasterizerState": {}
     },
-    {
-      "blendState": {
-        "targets": [
-          {}
-        ]
-      },
-      "depthStencilState": {},
-      "rasterizerState": {}
-    }
+    {}
   ],
   "_props": [
     {

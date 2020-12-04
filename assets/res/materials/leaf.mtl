@@ -9,7 +9,8 @@
   "_techIdx": 0,
   "_defines": [
     {
-      "USE_MAIN_TXTURE": true
+      "USE_MAIN_TXTURE": true,
+      "USE_FIXED_NORMAL": true
     },
     {}
   ],
