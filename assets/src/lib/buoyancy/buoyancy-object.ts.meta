@@ -2,7 +2,7 @@
   "ver": "4.0.10",
   "importer": "typescript",
   "imported": true,
-  "uuid": "fd99d0fc-a46d-4416-b15a-d0cb562f66b5",
+  "uuid": "65ff055d-7327-497b-a923-d07dc4ee8b27",
   "files": [
     ".js",
     "editor.js",
@@ -11,7 +11,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/tests/test-water/buoyancy/buoyancy-point.js",
+    "moduleId": "project:///assets/src/lib/buoyancy/buoyancy-object.js",
     "importerSettings": 4
   }
 }

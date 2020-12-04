@@ -4969,7 +4969,6 @@
       "__id__": 161
     },
     "_enabled": true,
-    "__prefab": null,
     "density": 0.75,
     "dragInWater": 0.8,
     "angularDragInWater": 0.8,
@@ -5218,7 +5217,6 @@
       "__id__": 177
     },
     "_enabled": true,
-    "__prefab": null,
     "density": 0.75,
     "dragInWater": 0.8,
     "angularDragInWater": 0.8,
@@ -5624,7 +5622,6 @@
       "__id__": 187
     },
     "_enabled": true,
-    "__prefab": null,
     "density": 0.75,
     "dragInWater": 0.8,
     "angularDragInWater": 0.8,
@@ -6044,7 +6041,6 @@
       "__id__": 203
     },
     "_enabled": true,
-    "__prefab": null,
     "density": 0.75,
     "dragInWater": 0.8,
     "angularDragInWater": 0.8,
@@ -6151,7 +6147,6 @@
       "__id__": 220
     },
     "_enabled": true,
-    "__prefab": null,
     "waterMaterial": {
       "__uuid__": "827c37ed-1c0e-4878-a35f-1cc35b475614"
     },

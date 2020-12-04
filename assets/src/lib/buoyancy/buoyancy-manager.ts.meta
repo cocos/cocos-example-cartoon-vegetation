@@ -11,7 +11,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/tests/test-water/buoyancy/buoyancy-manager.js",
+    "moduleId": "project:///assets/src/lib/buoyancy/buoyancy-manager.js",
     "importerSettings": 4
   }
 }

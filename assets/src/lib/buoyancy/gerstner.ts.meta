@@ -2,7 +2,7 @@
   "ver": "4.0.10",
   "importer": "typescript",
   "imported": true,
-  "uuid": "65ff055d-7327-497b-a923-d07dc4ee8b27",
+  "uuid": "7451295f-0b70-47f5-b4a9-84568e3ba13b",
   "files": [
     ".js",
     "editor.js",
@@ -11,7 +11,7 @@
   "subMetas": {},
   "userData": {
     "importAsPlugin": false,
-    "moduleId": "project:///assets/tests/test-water/buoyancy/buoyancy-object.js",
+    "moduleId": "project:///assets/src/lib/buoyancy/gerstner.js",
     "importerSettings": 4
   }
 }
