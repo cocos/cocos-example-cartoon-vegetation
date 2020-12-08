@@ -45,12 +45,12 @@
           ],
           "subMetas": {}
         },
-        "40c10": {
+        "e9a6d": {
           "importer": "texture-cube-face",
-          "uuid": "16a1afb9-9ee9-4a1a-b405-7a64ac72756c@b47c0@40c10",
+          "uuid": "16a1afb9-9ee9-4a1a-b405-7a64ac72756c@b47c0@e9a6d",
           "displayName": "",
-          "id": "40c10",
-          "name": "back",
+          "id": "e9a6d",
+          "name": "front",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,
@@ -60,12 +60,12 @@
           ],
           "subMetas": {}
         },
-        "e9a6d": {
+        "40c10": {
           "importer": "texture-cube-face",
-          "uuid": "16a1afb9-9ee9-4a1a-b405-7a64ac72756c@b47c0@e9a6d",
+          "uuid": "16a1afb9-9ee9-4a1a-b405-7a64ac72756c@b47c0@40c10",
           "displayName": "",
-          "id": "e9a6d",
-          "name": "front",
+          "id": "40c10",
+          "name": "back",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,

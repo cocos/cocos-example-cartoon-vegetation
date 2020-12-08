@@ -30,12 +30,12 @@
         ".json"
       ],
       "subMetas": {
-        "7d38f": {
+        "e9a6d": {
           "importer": "texture-cube-face",
-          "uuid": "d3aad83d-3d6b-455c-b721-e642d51cf7c6@b47c0@7d38f",
+          "uuid": "d3aad83d-3d6b-455c-b721-e642d51cf7c6@b47c0@e9a6d",
           "displayName": "",
-          "id": "7d38f",
-          "name": "bottom",
+          "id": "e9a6d",
+          "name": "front",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,
@@ -60,27 +60,12 @@
           ],
           "subMetas": {}
         },
-        "e9a6d": {
+        "7d38f": {
           "importer": "texture-cube-face",
-          "uuid": "d3aad83d-3d6b-455c-b721-e642d51cf7c6@b47c0@e9a6d",
+          "uuid": "d3aad83d-3d6b-455c-b721-e642d51cf7c6@b47c0@7d38f",
           "displayName": "",
-          "id": "e9a6d",
-          "name": "front",
-          "userData": {},
-          "ver": "1.0.0",
-          "imported": true,
-          "files": [
-            ".png",
-            ".json"
-          ],
-          "subMetas": {}
-        },
-        "bb97f": {
-          "importer": "texture-cube-face",
-          "uuid": "d3aad83d-3d6b-455c-b721-e642d51cf7c6@b47c0@bb97f",
-          "displayName": "",
-          "id": "bb97f",
-          "name": "top",
+          "id": "7d38f",
+          "name": "bottom",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,
@@ -96,6 +81,21 @@
           "displayName": "",
           "id": "74afd",
           "name": "right",
+          "userData": {},
+          "ver": "1.0.0",
+          "imported": true,
+          "files": [
+            ".png",
+            ".json"
+          ],
+          "subMetas": {}
+        },
+        "bb97f": {
+          "importer": "texture-cube-face",
+          "uuid": "d3aad83d-3d6b-455c-b721-e642d51cf7c6@b47c0@bb97f",
+          "displayName": "",
+          "id": "bb97f",
+          "name": "top",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,

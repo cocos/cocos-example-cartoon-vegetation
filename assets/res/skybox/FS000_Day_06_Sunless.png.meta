@@ -30,21 +30,6 @@
         ".json"
       ],
       "subMetas": {
-        "7d38f": {
-          "importer": "texture-cube-face",
-          "uuid": "ff3b16db-d74d-4bc8-9602-e6962297cbf3@b47c0@7d38f",
-          "displayName": "",
-          "id": "7d38f",
-          "name": "bottom",
-          "userData": {},
-          "ver": "1.0.0",
-          "imported": true,
-          "files": [
-            ".png",
-            ".json"
-          ],
-          "subMetas": {}
-        },
         "40c10": {
           "importer": "texture-cube-face",
           "uuid": "ff3b16db-d74d-4bc8-9602-e6962297cbf3@b47c0@40c10",
@@ -75,6 +60,21 @@
           ],
           "subMetas": {}
         },
+        "7d38f": {
+          "importer": "texture-cube-face",
+          "uuid": "ff3b16db-d74d-4bc8-9602-e6962297cbf3@b47c0@7d38f",
+          "displayName": "",
+          "id": "7d38f",
+          "name": "bottom",
+          "userData": {},
+          "ver": "1.0.0",
+          "imported": true,
+          "files": [
+            ".png",
+            ".json"
+          ],
+          "subMetas": {}
+        },
         "74afd": {
           "importer": "texture-cube-face",
           "uuid": "ff3b16db-d74d-4bc8-9602-e6962297cbf3@b47c0@74afd",
@@ -90,12 +90,12 @@
           ],
           "subMetas": {}
         },
-        "bb97f": {
+        "8fd34": {
           "importer": "texture-cube-face",
-          "uuid": "ff3b16db-d74d-4bc8-9602-e6962297cbf3@b47c0@bb97f",
+          "uuid": "ff3b16db-d74d-4bc8-9602-e6962297cbf3@b47c0@8fd34",
           "displayName": "",
-          "id": "bb97f",
-          "name": "top",
+          "id": "8fd34",
+          "name": "left",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,
@@ -105,12 +105,12 @@
           ],
           "subMetas": {}
         },
-        "8fd34": {
+        "bb97f": {
           "importer": "texture-cube-face",
-          "uuid": "ff3b16db-d74d-4bc8-9602-e6962297cbf3@b47c0@8fd34",
+          "uuid": "ff3b16db-d74d-4bc8-9602-e6962297cbf3@b47c0@bb97f",
           "displayName": "",
-          "id": "8fd34",
-          "name": "left",
+          "id": "bb97f",
+          "name": "top",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,

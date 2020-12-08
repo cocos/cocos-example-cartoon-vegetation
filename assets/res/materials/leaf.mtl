@@ -10,6 +10,7 @@
   "_defines": [
     {
       "USE_MAIN_TXTURE": true,
+      "USE_BEND": true,
       "USE_FIXED_NORMAL": true
     },
     {}
