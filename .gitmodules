@@ -1,3 +1,6 @@
 [submodule "assets/libs/advanced-pipeline"]
 	path = assets/libs/advanced-pipeline
 	url = git@github.com:2youyou2/advanced-pipeline.git
+[submodule "assets/libs/spline-tool"]
+	path = assets/libs/spline-tool
+	url = git@github.com:2youyou2/spline-tool.git
