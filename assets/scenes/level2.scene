@@ -166900,8 +166900,8 @@
       "b": 0,
       "a": 48
     },
-    "_autoAdapt": true,
-    "_pcf": 1,
+    "_autoAdapt": false,
+    "_pcf": 0,
     "_bias": 0.001,
     "_near": 1,
     "_far": 50,
@@ -166936,7 +166936,7 @@
     "_enabled": true,
     "_fogDensity": 0.2,
     "_fogStart": -10,
-    "_fogEnd": 150,
+    "_fogEnd": 100,
     "_fogAtten": 5,
     "_fogTop": 1.5,
     "_fogRange": 1.2
