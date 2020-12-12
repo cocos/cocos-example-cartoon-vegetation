@@ -30,9 +30,9 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 135.02,
-      "y": 8.286,
-      "z": 114.316
+      "x": 0,
+      "y": 0,
+      "z": 0
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -131,11 +131,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "c822ppP11IRpU83L8cOaJS",
-    "sync": false,
-    "_synced": {
-      "default": false,
-      "serializable": false
-    }
+    "fileId": "",
+    "sync": false
   }
 ]

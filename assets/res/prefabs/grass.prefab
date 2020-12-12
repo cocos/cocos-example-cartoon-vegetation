@@ -27,9 +27,9 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 3.974,
+      "x": 0,
       "y": 0,
-      "z": 3.461
+      "z": 0
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -109,11 +109,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "92I7NLaFpBI5dvN+SEcOgE",
-    "sync": false,
-    "_synced": {
-      "default": false,
-      "serializable": false
-    }
+    "fileId": "",
+    "sync": false
   }
 ]
