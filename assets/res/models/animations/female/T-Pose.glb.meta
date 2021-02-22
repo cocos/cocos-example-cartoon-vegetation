@@ -1,5 +1,5 @@
 {
-  "ver": "2.0.4",
+  "ver": "2.0.10",
   "importer": "gltf",
   "imported": true,
   "uuid": "ca22eb28-705c-418d-b299-3e46203add28",
@@ -161,7 +161,7 @@
       "userData": {
         "gltfIndex": 0
       },
-      "ver": "1.0.11",
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

@@ -193,7 +193,7 @@
     "_shutter": 7,
     "_iso": 0,
     "_screenScale": 1,
-    "_visibility": 1822425087,
+    "_visibility": 1820327943,
     "_targetTexture": null,
     "_id": "7dWQTpwS5LrIHnc1zAPUtf"
   },
@@ -653,7 +653,7 @@
     "_id": "addV5/8M1KHJIl58ARzlVQ"
   },
   {
-    "__type__": "cc.CompPrefabInfo ",
+    "__type__": "cc.CompPrefabInfo",
     "fileId": "addV5/8M1KHJIl58ARzlVQ"
   },
   {

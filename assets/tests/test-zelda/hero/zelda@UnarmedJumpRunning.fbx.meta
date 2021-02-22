@@ -1,5 +1,5 @@
 {
-  "ver": "2.0.4",
+  "ver": "2.0.10",
   "importer": "fbx",
   "imported": true,
   "uuid": "4adb6837-2b37-4721-abc2-c18cb5186479",
@@ -409,7 +409,7 @@
       "userData": {
         "gltfIndex": 0
       },
-      "ver": "1.0.11",
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"
