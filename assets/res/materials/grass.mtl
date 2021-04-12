@@ -19,14 +19,14 @@
   ],
   "_states": [
     {
+      "rasterizerState": {
+        "cullMode": 0
+      },
+      "depthStencilState": {},
       "blendState": {
         "targets": [
           {}
         ]
-      },
-      "depthStencilState": {},
-      "rasterizerState": {
-        "cullMode": 0
       }
     },
     {}
@@ -34,6 +34,10 @@
   "_props": [
     {
       "alphaTest": 0.8,
+      "randMap": {
+        "__uuid__": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022@6c48a"
+      },
+      "randMapTiling": 0.015,
       "windMap": {
         "__uuid__": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022@6c48a"
       },
@@ -47,7 +51,7 @@
       "windRandVertex": 0.4,
       "windGustStrength": 0.35,
       "windGustFrequency": 0.3,
-      "windGustTint": 0.03,
+      "windGustTint": 0.85,
       "mainTexture": {
         "__uuid__": "ff77df07-1557-469f-bec6-48f32d03b1ce@6c48a"
       },
@@ -66,7 +70,7 @@
         "a": 255
       },
       "randomDarken": 0.5,
-      "translucency": 0.55
+      "translucency": 0.57
     },
     {}
   ]
