@@ -9,6 +9,11 @@ cd cartoon-vegetation
 git submodule update --init
 ```
 
+## Characters
+
+- The character is from https://twitter.com/artstoff 
+- The character animations are auto binding by https://www.mixamo.com/
+
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/1862402/114335753-02cc6180-9b80-11eb-8a36-e55458de5ee9.png)
