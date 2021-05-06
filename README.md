@@ -2,6 +2,8 @@
 
 Cartoon Vegetation based on Cocos Creator 3.0.
 
+preview: https://www.youtube.com/watch?v=AuXAnqPT1WE
+
 ## Install
 ```
 git clone git@github.com:cocos-creator/cartoon-vegetation.git
