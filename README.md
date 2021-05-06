@@ -2,7 +2,6 @@
 
 Cartoon Vegetation based on Cocos Creator 3.0.
 
-preview: https://www.youtube.com/watch?v=AuXAnqPT1WE
 
 ## Install
 ```
@@ -15,6 +14,12 @@ git submodule update --init
 
 - The character is from https://twitter.com/artstoff 
 - The character animations are auto binding by https://www.mixamo.com/
+
+## preview
+
+Youtube : https://www.youtube.com/watch?v=AuXAnqPT1WE
+
+bilibili : https://www.bilibili.com/video/bv1xf4y1a71i
 
 ## Screenshots
 
