@@ -1,6 +1,6 @@
 # cartoon-vegetation
 
-Cartoon Vegetation based on Cocos Creator 3.0.1, not support native platform now.
+Cartoon Vegetation based on Cocos Creator 3.1.0.
 
 
 ## Install
