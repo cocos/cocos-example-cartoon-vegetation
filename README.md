@@ -1,11 +1,25 @@
 # cartoon-vegetation
 
+Cartoon Vegetation based on Cocos Creator 3.0.1, not support native platform now.
+
+
 ## Install
 ```
 git clone git@github.com:cocos-creator/cartoon-vegetation.git
 cd cartoon-vegetation
 git submodule update --init
 ```
+
+## Characters
+
+- The character is from https://twitter.com/artstoff 
+- The character animations are auto binding by https://www.mixamo.com/
+
+## preview
+
+Youtube : https://www.youtube.com/watch?v=AuXAnqPT1WE
+
+bilibili : https://www.bilibili.com/video/bv1xf4y1a71i
 
 ## Screenshots
 
