@@ -4,7 +4,8 @@
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "6344a1ee-c7fd-4789-be43-f6e278dd25f9"
+    "__uuid__": "6344a1ee-c7fd-4789-be43-f6e278dd25f9",
+    "__expectedType__": "cc.EffectAsset"
   },
   "_techIdx": 0,
   "_defines": [
@@ -18,22 +19,24 @@
   ],
   "_states": [
     {
+      "rasterizerState": {
+        "cullMode": 0
+      },
+      "depthStencilState": {},
       "blendState": {
         "targets": [
           {}
         ]
-      },
-      "depthStencilState": {},
-      "rasterizerState": {
-        "cullMode": 0
       }
     },
     {}
   ],
   "_props": [
     {
+      "shadowIntensity": 0.3,
       "windMap": {
-        "__uuid__": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022@6c48a"
+        "__uuid__": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022@6c48a",
+        "__expectedType__": "cc.Texture2D"
       },
       "windSpeed": 2,
       "windStrength": 0.05,
@@ -42,7 +45,8 @@
       "windGustTint": 0,
       "bendPerspectiveCorrection": 0,
       "mainTexture": {
-        "__uuid__": "65b0ca13-2d7d-4dce-b01e-4f8ce4e7f00d@6c48a"
+        "__uuid__": "65b0ca13-2d7d-4dce-b01e-4f8ce4e7f00d@6c48a",
+        "__expectedType__": "cc.Texture2D"
       },
       "hueColor": {
         "__type__": "cc.Color",
@@ -52,8 +56,7 @@
         "a": 255
       },
       "ambientOcclusion": 1,
-      "translucency": 0.5,
-      "shadowIntensity": 0.3
+      "translucency": 0.5
     },
     {}
   ]

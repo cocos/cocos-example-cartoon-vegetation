@@ -5,7 +5,7 @@ const { ccclass, property, executeInEditMode, type } = _decorator;
 @executeInEditMode
 export class DistributeGrid extends Component {
     @type(Material)
-    _material: Material = null;
+    _material: Material | null = null;
     @type(Material)
     get material () {
         return this._material;
@@ -27,7 +27,7 @@ export class DistributeGrid extends Component {
     }
 
     @type(Prefab)
-    _template: Prefab = null;
+    _template: Prefab | null = null;
     @type(Prefab)
     get template () {
         return this._template;

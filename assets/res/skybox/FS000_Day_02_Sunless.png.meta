@@ -24,27 +24,12 @@
         "isRGBE": false,
         "imageDatabaseUri": "db://assets/res/skybox/FS000_Day_02_Sunless.png"
       },
-      "ver": "1.0.9",
+      "ver": "1.0.10",
       "imported": true,
       "files": [
         ".json"
       ],
       "subMetas": {
-        "7d38f": {
-          "importer": "texture-cube-face",
-          "uuid": "d404b73f-5382-4a31-8aa5-eda8a41e3d46@b47c0@7d38f",
-          "displayName": "",
-          "id": "7d38f",
-          "name": "bottom",
-          "userData": {},
-          "ver": "1.0.0",
-          "imported": true,
-          "files": [
-            ".png",
-            ".json"
-          ],
-          "subMetas": {}
-        },
         "e9a6d": {
           "importer": "texture-cube-face",
           "uuid": "d404b73f-5382-4a31-8aa5-eda8a41e3d46@b47c0@e9a6d",
@@ -81,6 +66,21 @@
           "displayName": "",
           "id": "bb97f",
           "name": "top",
+          "userData": {},
+          "ver": "1.0.0",
+          "imported": true,
+          "files": [
+            ".png",
+            ".json"
+          ],
+          "subMetas": {}
+        },
+        "7d38f": {
+          "importer": "texture-cube-face",
+          "uuid": "d404b73f-5382-4a31-8aa5-eda8a41e3d46@b47c0@7d38f",
+          "displayName": "",
+          "id": "7d38f",
+          "name": "bottom",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,

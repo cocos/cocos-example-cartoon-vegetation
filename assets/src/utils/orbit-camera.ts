@@ -1,4 +1,5 @@
-import { Component, _decorator, systemEvent, SystemEvent, SystemEventType, Vec3, EventTouch, Touch, Quat, ToneMapFlow, Vec2, Node, EventMouse, lerp } from 'cc'
+import { Component, _decorator, systemEvent, SystemEvent, SystemEventType, Vec3, EventTouch, Touch, Quat, Vec2, Node, EventMouse, lerp } from 'cc'
+import { EDITOR } from 'cc/env';
 const { ccclass, property, type } = _decorator;
 
 let tempVec3 = new Vec3
@@ -21,7 +22,7 @@ export default class OrbitCamera extends Component {
     autoRotate = false;
     @property
     autoRotateSpeed = 90;
-    
+
     @property
     rotateSpeed = 1;
     @property
@@ -29,7 +30,7 @@ export default class OrbitCamera extends Component {
     @property
     xRotationRange = new Vec2(5, 70);
     @type(Node)
-    _target: Node = null;
+    _target: Node | null = null;
 
     @property
     get radius () {
@@ -52,12 +53,12 @@ export default class OrbitCamera extends Component {
     set target (v) {
         this._target = v;
         this._targetRotation.set(this._targetEuler);
-        this._targetCenter.set(v.worldPosition);
+        this._targetCenter.set(v!.worldPosition);
     }
 
     @type(Vec3)
     get targetRotation (): Vec3 {
-        if (!CC_EDITOR) {
+        if (!EDITOR) {
             this._targetEuler.set(this._targetRotation);
         }
         return this._targetEuler;
@@ -98,7 +99,7 @@ export default class OrbitCamera extends Component {
         let targetRotation = this._targetRotation.set(this._targetEuler);
         if (this.followTargetRotationY) {
             targetRotation = tempVec3_2.set(targetRotation);
-            Quat.toEuler(tempVec3, this.target.worldRotation);
+            Quat.toEuler(tempVec3, this.target!.worldRotation);
             targetRotation.y += tempVec3.y;
         }
         Quat.fromEuler(this._rotation, targetRotation.x, targetRotation.y, targetRotation.z);
@@ -109,7 +110,7 @@ export default class OrbitCamera extends Component {
         }
 
         this._radius = this.radius;
-        
+
         this.limitRotation()
     }
 
@@ -118,13 +119,13 @@ export default class OrbitCamera extends Component {
     }
     onTouchMove (touch?: Touch, event?: EventTouch) {
         if (!this._touched) return;
-        let delta = touch.getDelta()
+        let delta = touch!.getDelta()
 
         Quat.fromEuler(tempQuat, this._targetRotation.x, this._targetRotation.y, this._targetRotation.z);
-        
+
         Quat.rotateX(tempQuat, tempQuat, -delta.y * DeltaFactor);
         Quat.rotateAround(tempQuat, tempQuat, Vec3.UP, -delta.x * DeltaFactor);
-        
+
         Quat.toEuler(this._targetRotation, tempQuat);
 
         this.limitRotation()

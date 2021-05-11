@@ -1,5 +1,5 @@
 {
-  "ver": "2.0.12",
+  "ver": "2.0.14",
   "importer": "fbx",
   "imported": true,
   "uuid": "a0f59757-2f16-4fdc-a04b-e5ded58c4182",
@@ -1052,7 +1052,7 @@
         "minfilter": "linear",
         "magfilter": "linear",
         "mipfilter": "none",
-        "anisotropy": 1,
+        "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@d2212"
       },
@@ -1075,7 +1075,7 @@
         "minfilter": "linear",
         "magfilter": "linear",
         "mipfilter": "none",
-        "anisotropy": 1,
+        "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@d5e81"
       },
@@ -1098,7 +1098,7 @@
         "minfilter": "linear",
         "magfilter": "linear",
         "mipfilter": "none",
-        "anisotropy": 1,
+        "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@1792b"
       },
@@ -1121,7 +1121,7 @@
         "minfilter": "linear",
         "magfilter": "linear",
         "mipfilter": "none",
-        "anisotropy": 1,
+        "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@49010"
       },
@@ -1144,7 +1144,7 @@
         "minfilter": "linear",
         "magfilter": "linear",
         "mipfilter": "none",
-        "anisotropy": 1,
+        "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@39d6e"
       },

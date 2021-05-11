@@ -24,18 +24,18 @@
         "isRGBE": false,
         "imageDatabaseUri": "db://assets/res/skybox/FS000_Day_05_Sunless.png"
       },
-      "ver": "1.0.9",
+      "ver": "1.0.10",
       "imported": true,
       "files": [
         ".json"
       ],
       "subMetas": {
-        "7d38f": {
+        "e9a6d": {
           "importer": "texture-cube-face",
-          "uuid": "eb729d44-c649-437b-bda7-5057f77bb62c@b47c0@7d38f",
+          "uuid": "eb729d44-c649-437b-bda7-5057f77bb62c@b47c0@e9a6d",
           "displayName": "",
-          "id": "7d38f",
-          "name": "bottom",
+          "id": "e9a6d",
+          "name": "front",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,
@@ -45,12 +45,12 @@
           ],
           "subMetas": {}
         },
-        "e9a6d": {
+        "40c10": {
           "importer": "texture-cube-face",
-          "uuid": "eb729d44-c649-437b-bda7-5057f77bb62c@b47c0@e9a6d",
+          "uuid": "eb729d44-c649-437b-bda7-5057f77bb62c@b47c0@40c10",
           "displayName": "",
-          "id": "e9a6d",
-          "name": "front",
+          "id": "40c10",
+          "name": "back",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,
@@ -75,12 +75,12 @@
           ],
           "subMetas": {}
         },
-        "40c10": {
+        "7d38f": {
           "importer": "texture-cube-face",
-          "uuid": "eb729d44-c649-437b-bda7-5057f77bb62c@b47c0@40c10",
+          "uuid": "eb729d44-c649-437b-bda7-5057f77bb62c@b47c0@7d38f",
           "displayName": "",
-          "id": "40c10",
-          "name": "back",
+          "id": "7d38f",
+          "name": "bottom",
           "userData": {},
           "ver": "1.0.0",
           "imported": true,
