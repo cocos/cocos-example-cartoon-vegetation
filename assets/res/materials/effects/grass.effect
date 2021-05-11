@@ -69,7 +69,6 @@ CCProgram shared-ubos %{
   #if USE_BEND
     #include <bend>
   #endif
-
 }%
 
 CCProgram get-mask %{
