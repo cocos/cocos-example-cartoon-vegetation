@@ -66,7 +66,6 @@ export class DistributeGrid extends Component {
         let rowLength = Math.pow(this.count, 0.5) | 0;
         this.node.removeAllChildren();
         for (let i = 0; i < this.count; i++) {
-            // let c = instantiate(this.template);
 
             let c = new Node();
             let mr = c.addComponent(MeshRenderer);

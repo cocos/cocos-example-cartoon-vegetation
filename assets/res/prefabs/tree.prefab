@@ -22,17 +22,20 @@
         "__id__": 2
       },
       {
-        "__id__": 4
+        "__id__": 5
+      },
+      {
+        "__id__": 7
       }
     ],
     "_prefab": {
-      "__id__": 5
+      "__id__": 11
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
+      "x": 42.962,
       "y": 0,
-      "z": 0
+      "z": 16.893
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -65,7 +68,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 6
+      "__id__": 3
     },
     "_materials": [
       {
@@ -77,15 +80,19 @@
     ],
     "_visFlags": 0,
     "lightmapSettings": {
-      "__id__": 3
+      "__id__": 4
     },
     "_mesh": {
-      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@52a8e"
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@bbae8"
     },
     "_shadowCastingMode": 1,
     "_shadowReceivingMode": 1,
     "_enableMorph": true,
     "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "f9NG3roxZB77ieUnThgGyD"
   },
   {
     "__type__": "cc.ModelLightmapSettings",
@@ -112,7 +119,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 7
+      "__id__": 6
     },
     "_material": null,
     "_isTrigger": false,
@@ -128,6 +135,49 @@
     "_id": ""
   },
   {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "a1vaQIzexOJo12GBaOLB6e"
+  },
+  {
+    "__type__": "3c93bBUilhMIZi2Tams1LPw",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 8
+    },
+    "lods": [
+      {
+        "__id__": 9
+      },
+      {
+        "__id__": 10
+      }
+    ],
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "a5HcPi+f5HroVmLhbI2XJh"
+  },
+  {
+    "__type__": "LodConfig",
+    "mesh": {
+      "__uuid__": "569eb3d0-31b0-463c-9ea5-3da97c0dfd0a@bbae8"
+    },
+    "distance": 15
+  },
+  {
+    "__type__": "LodConfig",
+    "mesh": {
+      "__uuid__": "766814ca-33f2-410b-953d-abb2a7f14b45@72bf8"
+    },
+    "distance": 100
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -135,15 +185,6 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "",
-    "sync": false
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "23xHm3r9lKDLBiEKockEz7"
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "45y4LbjQVPV76CYyKX2fdy"
+    "fileId": "66EHDfgCtPXblldOoax3QJ"
   }
 ]

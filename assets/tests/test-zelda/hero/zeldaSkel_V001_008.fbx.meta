@@ -1,5 +1,5 @@
 {
-  "ver": "2.0.10",
+  "ver": "2.0.12",
   "importer": "fbx",
   "imported": true,
   "uuid": "a0f59757-2f16-4fdc-a04b-e5ded58c4182",
@@ -1056,7 +1056,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@d2212"
       },
-      "ver": "1.0.20",
+      "ver": "1.0.21",
       "imported": true,
       "files": [
         ".json"
@@ -1079,7 +1079,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@d5e81"
       },
-      "ver": "1.0.20",
+      "ver": "1.0.21",
       "imported": true,
       "files": [
         ".json"
@@ -1102,7 +1102,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@1792b"
       },
-      "ver": "1.0.20",
+      "ver": "1.0.21",
       "imported": true,
       "files": [
         ".json"
@@ -1125,7 +1125,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@49010"
       },
-      "ver": "1.0.20",
+      "ver": "1.0.21",
       "imported": true,
       "files": [
         ".json"
@@ -1148,7 +1148,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "a0f59757-2f16-4fdc-a04b-e5ded58c4182@39d6e"
       },
-      "ver": "1.0.20",
+      "ver": "1.0.21",
       "imported": true,
       "files": [
         ".json"

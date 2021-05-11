@@ -2,12 +2,12 @@
   "ver": "2.0.12",
   "importer": "gltf",
   "imported": true,
-  "uuid": "06c62dab-f05a-40d3-81a6-7ceda5d737bf",
+  "uuid": "442d19cd-0c1f-48e4-94b6-b3f412684b96",
   "files": [],
   "subMetas": {
     "ef5e1": {
       "importer": "gltf-mesh",
-      "uuid": "06c62dab-f05a-40d3-81a6-7ceda5d737bf@ef5e1",
+      "uuid": "442d19cd-0c1f-48e4-94b6-b3f412684b96@ef5e1",
       "displayName": "",
       "id": "ef5e1",
       "name": "grass.mesh",
@@ -24,7 +24,7 @@
     },
     "28aae": {
       "importer": "gltf-material",
-      "uuid": "06c62dab-f05a-40d3-81a6-7ceda5d737bf@28aae",
+      "uuid": "442d19cd-0c1f-48e4-94b6-b3f412684b96@28aae",
       "displayName": "",
       "id": "28aae",
       "name": "GrassAtlas.material",
@@ -38,12 +38,12 @@
       ],
       "subMetas": {}
     },
-    "3022b": {
+    "f9677": {
       "importer": "gltf-scene",
-      "uuid": "06c62dab-f05a-40d3-81a6-7ceda5d737bf@3022b",
+      "uuid": "442d19cd-0c1f-48e4-94b6-b3f412684b96@f9677",
       "displayName": "",
-      "id": "3022b",
-      "name": "grass.prefab",
+      "id": "f9677",
+      "name": "grass-lod1.prefab",
       "userData": {
         "gltfIndex": 0
       },
@@ -58,18 +58,18 @@
   "userData": {
     "imageMetas": [],
     "legacyFbxImporter": false,
-    "redirect": "06c62dab-f05a-40d3-81a6-7ceda5d737bf@3022b",
+    "redirect": "442d19cd-0c1f-48e4-94b6-b3f412684b96@f9677",
     "assetFinder": {
       "meshes": [
-        "06c62dab-f05a-40d3-81a6-7ceda5d737bf@ef5e1"
+        "442d19cd-0c1f-48e4-94b6-b3f412684b96@ef5e1"
       ],
       "skeletons": [],
       "textures": [],
       "materials": [
-        "06c62dab-f05a-40d3-81a6-7ceda5d737bf@28aae"
+        "442d19cd-0c1f-48e4-94b6-b3f412684b96@28aae"
       ],
       "scenes": [
-        "06c62dab-f05a-40d3-81a6-7ceda5d737bf@3022b"
+        "442d19cd-0c1f-48e4-94b6-b3f412684b96@f9677"
       ]
     }
   }

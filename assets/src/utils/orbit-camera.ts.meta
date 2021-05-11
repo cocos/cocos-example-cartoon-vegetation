@@ -1,5 +1,5 @@
 {
-  "ver": "4.0.21",
+  "ver": "4.0.22",
   "importer": "typescript",
   "imported": true,
   "uuid": "6be7df01-865a-4916-86ed-324c4c5ef55a",
@@ -8,6 +8,7 @@
   "userData": {
     "importAsPlugin": false,
     "moduleId": "project:///assets/src/utils/orbit-camera.js",
-    "importerSettings": 4
+    "importerSettings": 4,
+    "simulateGlobals": []
   }
 }
