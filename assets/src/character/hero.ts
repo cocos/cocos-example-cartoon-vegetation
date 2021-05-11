@@ -1,6 +1,7 @@
 
-import { _decorator, Component, Node, Vec3, Vec2, Animation, lerp, AnimationClip, AnimationState, animation, AnimationComponent, RigidBody } from 'cc';
+import { _decorator, Component, Node, Vec3, Vec2, Animation, lerp, AnimationClip, AnimationState, animation, AnimationComponent, RigidBody, ColliderComponent, ICollisionEvent, BoxCollider } from 'cc';
 import input from '../utils/input';
+import { JoyStick } from '../utils/joy-stick';
 const { ccclass, property, type } = _decorator;
 
 let tempVec3 = new Vec3;
@@ -19,6 +20,9 @@ export class Hero extends Component {
     @type(RigidBody)
     rigidBody: RigidBody = null;
 
+    @type(JoyStick)
+    joyStick: JoyStick | null = null;
+
     @property
     jumpForce = 5;
 
@@ -32,8 +36,25 @@ export class Hero extends Component {
 
     _currentAnim = '';
 
+    _currentCollider: ColliderComponent | null = null;
+
     start () {
         this.animation.on(AnimationComponent.EventType.STOP, this.onAnimationStop.bind(this))
+        let collider = this.getComponent(BoxCollider);
+        if (collider) {
+            collider.on('onCollisionEnter', this.onCollision, this);
+            collider.on('onCollisionStay', this.onCollision, this);
+            collider.on('onCollisionExit', this.onCollisionExit, this);
+        }
+    }
+
+    onCollision (event: ICollisionEvent) {
+        let otherCollider = event.otherCollider;
+        this._currentCollider = otherCollider;
+    }
+
+    onCollisionExit (event: ICollisionEvent) {
+        this._currentCollider = null;
     }
 
     play (name) {
@@ -65,6 +86,8 @@ export class Hero extends Component {
         let speedAmount = this.moveSpeed;
         if (input.key.shift) {
             speedAmount = this.runSpeed;
+        } else if (this.joyStick) {
+            speedAmount = this.moveSpeed + (this.runSpeed - this.moveSpeed) * this.joyStick.magnitude;
         }
 
         this.targetSpeed.x = this.targetSpeed.z = 0;
@@ -75,9 +98,12 @@ export class Hero extends Component {
         else if (input.key.right) {
             this.targetRotation -= 90 * deltaTime;
         }
+        else if (this.joyStick) {
+            this.targetRotation += this.joyStick.rotation * deltaTime;
+        }
 
         let targetRotationRad = this.targetRotation * Math.PI / 180;
-        if (input.key.up) {
+        if (input.key.up || (this.joyStick && this.joyStick.magnitude > 0)) {
             this.targetSpeed.x = speedAmount * Math.sin(targetRotationRad);
             this.targetSpeed.z = speedAmount * Math.cos(targetRotationRad);
             moving = true;
@@ -90,7 +116,7 @@ export class Hero extends Component {
         Vec3.lerp(speed, speed, this.targetSpeed, deltaTime * 5);
 
 
-        if (input.key.space) {
+        if (input.key.space || (this.joyStick && this.joyStick.jump)) {
             if (!this.jumping) {
                 this.jumping = true;
                 this.rigidBody.applyImpulse(tempVec3.set(0, this.jumpForce, 0));
@@ -101,7 +127,7 @@ export class Hero extends Component {
 
         }
         else if (moving) {
-            if (input.key.shift) {
+            if (Math.abs(this.runSpeed - speedAmount) <= 5) {
                 this.play('FastRun');
             }
             else {
@@ -128,15 +154,17 @@ export class Hero extends Component {
         else if (this.speed.y > 3) {
             this.jumping = true;
             if (this._currentAnim !== 'JumpingUp') {
+                this._currentAnim = 'JumpingUp';
                 this.play('JumpingUp')
             }
         }
         else if (this._currentAnim === 'JumpingDown') {
             this.jumping = false;
+        } else if (this._currentAnim === 'JumpingUp' && this._currentCollider) {
+            this.jumping = false;
         }
 
         // model
         this.animation.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
-
     }
 }
