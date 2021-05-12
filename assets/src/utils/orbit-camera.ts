@@ -1,4 +1,4 @@
-import { Component, _decorator, systemEvent, SystemEvent, SystemEventType, Vec3, EventTouch, Touch, Quat, Vec2, Node, EventMouse, lerp } from 'cc'
+import { Component, _decorator, systemEvent, SystemEvent, SystemEventType, Vec3, EventTouch, Touch, Quat, Vec2, Node, EventMouse, lerp, director, Canvas } from 'cc'
 import { EDITOR } from 'cc/env';
 const { ccclass, property, type } = _decorator;
 
@@ -86,15 +86,30 @@ export default class OrbitCamera extends Component {
     private _radius = 10;
 
     start () {
-        if (this.enableTouch) {
-            systemEvent.on(SystemEventType.TOUCH_START, this.onTouchStart, this)
-            systemEvent.on(SystemEventType.TOUCH_MOVE, this.onTouchMove, this)
-            systemEvent.on(SystemEventType.TOUCH_END, this.onTouchEnd, this)
+        let canvas = director.getScene()!.getComponentInChildren(Canvas);
+        if (canvas && canvas.node) {
+            if (this.enableTouch) {
+                canvas.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this)
+                canvas.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this)
+                canvas.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this)
+            }
+
+            if (this.enableScaleRadius) {
+                canvas.node.on(Node.EventType.MOUSE_WHEEL, this.onMouseWhee, this)
+            }
+        }
+        else {
+            if (this.enableTouch) {
+                systemEvent.on(SystemEventType.TOUCH_START, this.onTouchStart, this)
+                systemEvent.on(SystemEventType.TOUCH_MOVE, this.onTouchMove, this)
+                systemEvent.on(SystemEventType.TOUCH_END, this.onTouchEnd, this)
+            }
+
+            if (this.enableScaleRadius) {
+                systemEvent.on(SystemEventType.MOUSE_WHEEL, this.onMouseWhee, this)
+            }
         }
 
-        if (this.enableScaleRadius) {
-            systemEvent.on(SystemEventType.MOUSE_WHEEL, this.onMouseWhee, this)
-        }
 
         let targetRotation = this._targetRotation.set(this._targetEuler);
         if (this.followTargetRotationY) {
