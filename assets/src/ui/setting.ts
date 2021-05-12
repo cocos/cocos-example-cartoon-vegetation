@@ -77,5 +77,10 @@ export class Settings extends Component {
             globals.shadows.shadowMapSize = new Vec2(512, 512);
             globals.shadows.pcf = PCF_TYPE.X5;
         }
+
+        // hack, TODO: remove when engine fixed dirty flag 
+        this.scheduleOnce(() => {
+            director.root!.pipeline.pipelineSceneData.shadows.shadowMapDirty = false;
+        })
     }
 }
