@@ -1,6 +1,7 @@
 
 import { _decorator, Component, Node, Mesh, MeshRenderer, Vec3, Camera, find } from 'cc';
 import { EDITOR } from 'cc/env';
+import { Config } from './config';
 const { ccclass, property, type, executeInEditMode } = _decorator;
 
 const vec3_tmp1 = new Vec3;
@@ -34,19 +35,21 @@ export class Lod extends Component {
             return;
         }
 
-        let distance = Vec3.distance(this.node.getWorldPosition(vec3_tmp1), this.target.getWorldPosition(vec3_tmp2));
-
         let lods = this.lods;
         let lodLevel = lods.length - 1;
-        for (let i = 0; i < lods.length; i++) {
-            if (distance < lods[i].distance) {
-                lodLevel = i;
-                break;
-            }
-        }
 
-        if (EDITOR) {
+        if (EDITOR || !Config.lod) {
             lodLevel = 0;
+        }
+        else {
+            let distance = Vec3.distance(this.node.getWorldPosition(vec3_tmp1), this.target.getWorldPosition(vec3_tmp2));
+
+            for (let i = 0; i < lods.length; i++) {
+                if (distance < lods[i].distance) {
+                    lodLevel = i;
+                    break;
+                }
+            }
         }
 
         let lod = lods[lodLevel];
