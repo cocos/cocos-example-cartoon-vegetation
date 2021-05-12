@@ -1,6 +1,7 @@
 
 import { _decorator, Component, Node, Mesh, MeshRenderer, Vec3, Camera, find } from 'cc';
-const { ccclass, property, type } = _decorator;
+import { EDITOR } from 'cc/env';
+const { ccclass, property, type, executeInEditMode } = _decorator;
 
 const vec3_tmp1 = new Vec3;
 const vec3_tmp2 = new Vec3;
@@ -15,6 +16,7 @@ export class LodConfig {
 }
 
 @ccclass('Lod')
+@executeInEditMode
 export class Lod extends Component {
     @type(LodConfig)
     lods: LodConfig[] = []
@@ -41,6 +43,10 @@ export class Lod extends Component {
                 lodLevel = i;
                 break;
             }
+        }
+
+        if (EDITOR) {
+            lodLevel = 0;
         }
 
         let lod = lods[lodLevel];

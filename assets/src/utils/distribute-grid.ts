@@ -1,5 +1,43 @@
 import { _decorator, Component, Node, Material, ModelComponent, Prefab, instantiate, CCObject, utils, Mesh, MeshRenderer } from 'cc';
+import { Lod, LodConfig } from './lod';
 const { ccclass, property, executeInEditMode, type } = _decorator;
+
+
+function mergeMesh (node: Node, outMesh: Mesh) {
+    let mr = node.getComponent(MeshRenderer);
+    if (mr && mr.mesh) {
+        outMesh.merge(mr.mesh, node.worldMatrix);
+    }
+
+    for (let i = 0; i < node.children.length; i++) {
+        mergeMesh(node.children[i], outMesh);
+    }
+}
+
+
+@ccclass('LodTemplate')
+export class LodTemplate {
+    @type(Prefab)
+    template: Prefab | null = null;
+
+    @property
+    distance = 1;
+
+    _mesh: Mesh | null = null;
+    getMesh () {
+        if (!this.template) {
+            return null;
+        }
+
+        if (!this._mesh) {
+            this._mesh = new Mesh();
+            let c = instantiate(this.template);
+            mergeMesh(c, this._mesh);
+        }
+
+        return this._mesh;
+    }
+}
 
 @ccclass('DistributeGrid')
 @executeInEditMode
@@ -48,6 +86,11 @@ export class DistributeGrid extends Component {
         this.distribute();
     }
 
+    @type(LodTemplate)
+    lods: LodTemplate[] = [];
+
+    @type(Node)
+    lodTarget: Node | null = null;
 
     onEnable () {
         this.distribute();
@@ -59,9 +102,16 @@ export class DistributeGrid extends Component {
             return;
         }
 
-        let mesh: Mesh = new Mesh;
-        let c = instantiate(this.template);
-        this.mergeMesh(c, mesh);
+        // let mesh: Mesh = new Mesh;
+        // let c = instantiate(this.template);
+        // mergeMesh(c, mesh);
+
+        let lods = this.lods.map(l => {
+            let lod = new LodConfig();
+            lod.mesh = l.getMesh();
+            lod.distance = l.distance;
+            return lod;
+        })
 
         let rowLength = Math.pow(this.count, 0.5) | 0;
         this.node.removeAllChildren();
@@ -69,22 +119,18 @@ export class DistributeGrid extends Component {
 
             let c = new Node();
             let mr = c.addComponent(MeshRenderer);
-            mr.mesh = mesh;
+
+            let lod = c.addComponent(Lod);
+            lod.lods = lods
+            lod.target = this.lodTarget;
+
+
+            // mr.mesh = mesh;
+
             c.setPosition(i % rowLength * this.space, 0, Math.floor(i / rowLength) * this.space);
             c._objFlags |= CCObject.Flags.DontSave | CCObject.Flags.HideInHierarchy;
 
             c.parent = this.node;
-        }
-    }
-
-    mergeMesh (node: Node, mesh: Mesh) {
-        let mr = node.getComponent(MeshRenderer);
-        if (mr && mr.mesh) {
-            mesh.merge(mr.mesh, node.worldMatrix);
-        }
-
-        for (let i = 0; i < node.children.length; i++) {
-            this.mergeMesh(node.children[i], mesh);
         }
     }
 
