@@ -1,10 +1,10 @@
-import { _decorator, Component, Node, Camera, renderer, Color, CCObject, Vec3, gfx, Material, RenderTexture, Vec4, Layers } from 'cc';
+import { _decorator, Component, Node, Camera, renderer, Color, CCObject, Vec3, gfx, Material, RenderTexture, Vec4, Layers, director } from 'cc';
 import { EDITOR } from 'cc/env';
 const { ccclass, property, executeInEditMode, type } = _decorator;
 
 const neutralVector = new Color(0.5 * 255, 0, 0.5 * 255, 0);
 
-const _colorAttachment = new gfx.ColorAttachment(gfx.Format.RGBA32F);
+const _colorAttachment = new gfx.ColorAttachment(gfx.Format.RGBA16F);
 const _depthStencilAttachment = new gfx.DepthStencilAttachment();
 const _renderPassInfo = new gfx.RenderPassInfo([_colorAttachment], _depthStencilAttachment);
 
@@ -87,12 +87,6 @@ export class GrassBenderRenderer extends Component {
             camera.priority = -100;
             camera.targetTexture = this._renderTexture;
 
-            if (EDITOR) {
-                (globalThis.cce).Camera._camera.visibility &= ~bitmask;
-                (globalThis.cce).Camera._camera._uiEditorCamera.visibility &= ~bitmask;
-                (globalThis.cce).Camera._camera._uiEditorGizmoCamera.visibility &= ~bitmask;
-            }
-
             this._renderCamera = camera;
         }
     }
@@ -116,8 +110,24 @@ export class GrassBenderRenderer extends Component {
     }
 
     start () {
+        this.setEditorCameraVisibility();
+
+        if (!director.root!.device.hasFeature(gfx.Feature.TEXTURE_HALF_FLOAT)) {
+            this.node.active = false;
+            return;
+        }
+
         this._createRenderTexture();
         this._createRenderCamera();
+    }
+
+    setEditorCameraVisibility () {
+        if (EDITOR) {
+            const bitmask = this.node.layer;
+            (globalThis.cce).Camera._camera.visibility &= ~bitmask;
+            (globalThis.cce).Camera._camera._uiEditorCamera.visibility &= ~bitmask;
+            (globalThis.cce).Camera._camera._uiEditorGizmoCamera.visibility &= ~bitmask;
+        }
     }
 
     update (deltaTime: number) {
@@ -131,8 +141,8 @@ export class GrassBenderRenderer extends Component {
             if (EDITOR) {
                 this._renderCamera.targetTexture = this._renderTexture;
             }
-        }
 
-        this._updateMaterials()
+            this._updateMaterials()
+        }
     }
 }
