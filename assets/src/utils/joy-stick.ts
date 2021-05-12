@@ -1,9 +1,10 @@
 
-import { _decorator, Component, Node, Vec3, Vec2, EventTouch, UITransform, view } from 'cc';
+import { _decorator, Component, Node, Vec3, Vec2, EventTouch, UITransform, view, Widget, math } from 'cc';
 const { ccclass, property } = _decorator;
 
 let _tempVec3 = new Vec3;
 let _tempVec2 = new Vec2;
+let _tempSize = new math.Size;
 
 @ccclass('JoyStick')
 export class JoyStick extends Component {
@@ -15,14 +16,22 @@ export class JoyStick extends Component {
     control: Node | null = null;
 
     @property({type: Node})
+    controlBg: Node | null = null;
+
+    @property({type: Node})
     jumpBtn: Node | null = null;
+
+    @property({type: Node})
+    jumpWidget: Node | null = null;
 
     direction: Vec3 = new Vec3;
     magnitude: number = 0;
     rotation: number = 0;
     jump = false;
 
-    _uiTransform: UITransform | null = null;
+    _currentScreenVerticle = true;
+    _originRadius = 0;
+    _originSize = 0;
 
     start () {
         this.node.on(Node.EventType.TOUCH_MOVE, this.touchMove, this);
@@ -35,7 +44,46 @@ export class JoyStick extends Component {
             this.jumpBtn.on(Node.EventType.TOUCH_END, this.jumpStop, this);
         }
 
-        this._uiTransform = this.getComponent(UITransform);
+        this._originSize = this.node.getComponent(UITransform)?.contentSize.width || 0;
+        this._originRadius = this.maxRadius;
+        this.updateScreen();
+    }
+
+    update () {
+        this.updateScreen();
+    }
+
+    updateScreen () {
+        let size = view.getFrameSize();
+        let preScreenVerticle = this._currentScreenVerticle;
+        if (size.width > size.height) {
+            this._currentScreenVerticle = false;
+        } else {
+            this._currentScreenVerticle = true;
+        }
+
+        let scaleValue = 0.6;
+        if (preScreenVerticle != this._currentScreenVerticle) {
+            if (this._currentScreenVerticle) {
+                this.control?.setScale(Vec3.ONE);
+                this.controlBg?.setScale(Vec3.ONE);
+                this.maxRadius = this._originRadius;
+                this.jumpWidget?.setScale(Vec3.ONE);
+
+                _tempSize.set(this._originSize, this._originSize);
+                this.node.getComponent(UITransform)?.setContentSize(_tempSize);
+            } else {
+                _tempVec3.set(scaleValue, scaleValue, scaleValue);
+
+                _tempSize.set(this._originSize * scaleValue, this._originSize * scaleValue);
+                this.node.getComponent(UITransform)?.setContentSize(_tempSize);
+
+                this.maxRadius = scaleValue * this._originRadius;
+                this.control?.setScale(_tempVec3);
+                this.controlBg?.setScale(_tempVec3);
+                this.jumpWidget?.setScale(_tempVec3);
+            }
+        }
     }
 
     touchMove (event: EventTouch) {

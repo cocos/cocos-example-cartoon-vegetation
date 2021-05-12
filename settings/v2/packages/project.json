@@ -5,7 +5,12 @@
     "allowDeclareFields": false
   },
   "general": {
-    "renderPipeline": "fd8ec536-a354-4a17-9c74-4f3883c378c8"
+    "renderPipeline": "fd8ec536-a354-4a17-9c74-4f3883c378c8",
+    "designResolution": {
+      "width": 960,
+      "height": 640,
+      "fitHeight": false
+    }
   },
   "layer": [
     {
