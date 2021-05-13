@@ -12,7 +12,8 @@ export class ButtonToToggle extends Component {
     }
 
     changeToggle () {
-        if (this.toggle) {
+        let btn = this.node.getComponent(Button);
+        if (btn && btn.interactable && this.toggle) {
             this.toggle.isChecked = !this.toggle.isChecked;
         }
     }

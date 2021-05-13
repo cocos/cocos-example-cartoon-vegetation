@@ -1,5 +1,6 @@
-import { _decorator, Component, Node, Camera, renderer, Color, CCObject, Vec3, gfx, Material, RenderTexture, Vec4, Layers, director } from 'cc';
+import { _decorator, Component, Node, Camera, renderer, Color, CCObject, Vec3, gfx, Material, RenderTexture, Vec4, Layers, director, builtinResMgr, Texture2D } from 'cc';
 import { EDITOR } from 'cc/env';
+import { Config } from '../utils/config';
 const { ccclass, property, executeInEditMode, type } = _decorator;
 
 const neutralVector = new Color(0.5 * 255, 0, 0.5 * 255, 0);
@@ -112,13 +113,21 @@ export class GrassBenderRenderer extends Component {
     start () {
         this.setEditorCameraVisibility();
 
-        if (!director.root!.device.hasFeature(gfx.Feature.TEXTURE_HALF_FLOAT)) {
+        if (!Config.supportBendGrass) {
             this.node.active = false;
             return;
         }
 
         this._createRenderTexture();
         this._createRenderCamera();
+    }
+
+    onDisable () {
+        let materials = this.bendMaterials;
+        this._grass_bend_uv.w = 0;
+        for (let i = 0; i < materials.length; i++) {
+            materials[i].setProperty('grass_bend_uv', this._grass_bend_uv);
+        }
     }
 
     setEditorCameraVisibility () {

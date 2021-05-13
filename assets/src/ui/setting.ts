@@ -1,5 +1,6 @@
 
 import { _decorator, Component, Node, Button, setDisplayStats, isDisplayStats, director, Size, Vec2, Toggle, gfx, game, sys } from 'cc';
+import { GrassBenderRenderer } from '../grass/grass-bender-renderer';
 import { Config } from '../utils/config';
 const { ccclass, property, type } = _decorator;
 
@@ -28,13 +29,23 @@ export class Settings extends Component {
     qualityToggle: Toggle | null = null;
 
     @type(Toggle)
-    floatTextureToggle: Toggle | null = null;
+    bendGrassToggle: Toggle | null = null;
+
+    @type(Button)
+    bendGrassButton: Button | null = null;
+
+    @type(GrassBenderRenderer)
+    grassBenderRenderer: GrassBenderRenderer | null = null;
 
     start () {
         this.node.on(Node.EventType.TOUCH_END, this.showSettings, this);
 
-        if (this.floatTextureToggle) {
-            this.floatTextureToggle.setIsCheckedWithoutNotify(director.root!.device.hasFeature(gfx.Feature.TEXTURE_HALF_FLOAT));
+        if (this.bendGrassToggle) {
+            if (this.bendGrassButton) {
+                this.bendGrassButton.interactable = Config.supportBendGrass;
+            }
+            this.bendGrassToggle.interactable = Config.supportBendGrass;
+            this.bendGrassToggle.setIsCheckedWithoutNotify(Config.bendGrass);
         }
         if (this.lodToggle) {
             this.lodToggle.setIsCheckedWithoutNotify(Config.lod);
@@ -52,6 +63,10 @@ export class Settings extends Component {
         setDisplayStats(Config.debug);
         this.setHighQuality(Config.highQuality);
         this.setHighFps(Config.highFps);
+
+        if (this.grassBenderRenderer) {
+            this.grassBenderRenderer.node.active = Config.bendGrass;
+        }
     }
 
     showSettings () {
@@ -77,6 +92,13 @@ export class Settings extends Component {
     toggleHighFps () {
         Config.highFps = !Config.highFps;
         this.setHighFps(Config.highFps);
+    }
+
+    toggleBendGrass () {
+        Config.bendGrass = !Config.bendGrass;
+        if (this.grassBenderRenderer) {
+            this.grassBenderRenderer.node.active = Config.bendGrass;
+        }
     }
 
     setHighQuality (highQuality: boolean) {
