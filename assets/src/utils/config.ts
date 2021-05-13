@@ -1,6 +1,7 @@
 
 export const Config = {
     lod: true,
-    fps: false,
+    debug: false,
+    highFps: true,
     highQuality: false
 }

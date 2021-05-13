@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, Button, setDisplayStats, isDisplayStats, director, Size, Vec2, Toggle, gfx } from 'cc';
+import { _decorator, Component, Node, Button, setDisplayStats, isDisplayStats, director, Size, Vec2, Toggle, gfx, game, sys } from 'cc';
 import { Config } from '../utils/config';
 const { ccclass, property, type } = _decorator;
 
@@ -19,6 +19,9 @@ export class Settings extends Component {
     lodToggle: Toggle | null = null;
 
     @type(Toggle)
+    debugToggle: Toggle | null = null;
+
+    @type(Toggle)
     fpsToggle: Toggle | null = null;
 
     @type(Toggle)
@@ -31,20 +34,24 @@ export class Settings extends Component {
         this.node.on(Node.EventType.TOUCH_END, this.showSettings, this);
 
         if (this.floatTextureToggle) {
-            this.floatTextureToggle.isChecked = director.root!.device.hasFeature(gfx.Feature.TEXTURE_HALF_FLOAT);
+            this.floatTextureToggle.setIsCheckedWithoutNotify(director.root!.device.hasFeature(gfx.Feature.TEXTURE_HALF_FLOAT));
         }
         if (this.lodToggle) {
-            this.lodToggle.isChecked = Config.lod;
+            this.lodToggle.setIsCheckedWithoutNotify(Config.lod);
         }
-        if (this.fpsToggle) {
-            this.fpsToggle.isChecked = Config.fps;
+        if (this.debugToggle) {
+            this.debugToggle.setIsCheckedWithoutNotify(Config.debug);
         }
         if (this.qualityToggle) {
-            this.qualityToggle.isChecked = Config.highQuality;
+            this.qualityToggle.setIsCheckedWithoutNotify(Config.highQuality);
+        }
+        if (this.fpsToggle) {
+            this.fpsToggle.setIsCheckedWithoutNotify(Config.highFps);
         }
 
-        setDisplayStats(Config.fps);
+        setDisplayStats(Config.debug);
         this.setHighQuality(Config.highQuality);
+        this.setHighFps(Config.highFps);
     }
 
     showSettings () {
@@ -57,14 +64,19 @@ export class Settings extends Component {
         Config.lod = !Config.lod;
     }
 
-    toggleFps () {
-        Config.fps = !Config.fps;
-        setDisplayStats(Config.fps);
+    toggleDebug () {
+        Config.debug = !Config.debug;
+        setDisplayStats(Config.debug);
     }
 
     toggleQuality () {
         Config.highQuality = !Config.highQuality;
         this.setHighQuality(Config.highQuality);
+    }
+
+    toggleHighFps () {
+        Config.highFps = !Config.highFps;
+        this.setHighFps(Config.highFps);
     }
 
     setHighQuality (highQuality: boolean) {
@@ -82,5 +94,14 @@ export class Settings extends Component {
         this.scheduleOnce(() => {
             director.root!.pipeline.pipelineSceneData.shadows.shadowMapDirty = false;
         })
+    }
+
+    setHighFps (highFps) {
+        if (highFps) {
+            game.setFrameRate(60)
+        }
+        else {
+            game.setFrameRate(30)
+        }
     }
 }
