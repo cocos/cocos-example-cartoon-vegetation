@@ -1,7 +1,8 @@
 
-import { _decorator, Component, Node, Vec3, Vec2, Animation, lerp, AnimationClip, AnimationState, animation, AnimationComponent, RigidBody, ColliderComponent, ICollisionEvent, BoxCollider } from 'cc';
+import { _decorator, Component, Node, Vec3, Vec2, Animation, lerp, AnimationClip, AnimationState, animation, AnimationComponent, RigidBody, ColliderComponent, ICollisionEvent, BoxCollider, sys, systemEvent, SystemEventType, EventKeyboard, macro } from 'cc';
 import input from '../utils/input';
 import { JoyStick } from '../utils/joy-stick';
+import OrbitCamera from '../utils/orbit-camera';
 const { ccclass, property, type } = _decorator;
 
 let tempVec3 = new Vec3;
@@ -15,16 +16,22 @@ export class Hero extends Component {
     runSpeed = 20;
 
     @type(Animation)
-    animation: Animation = null;
+    animation: Animation | null = null;
 
     @type(RigidBody)
-    rigidBody: RigidBody = null;
+    rigidBody: RigidBody | null = null;
 
     @type(JoyStick)
     joyStick: JoyStick | null = null;
 
     @property
     jumpForce = 5;
+
+    @type(Node)
+    contentNode: Node | null = null;
+
+    @type(OrbitCamera)
+    orbitCamera: OrbitCamera | null = null;
 
     jumping = false;
 
@@ -39,12 +46,52 @@ export class Hero extends Component {
     _currentCollider: ColliderComponent | null = null;
 
     start () {
-        this.animation.on(AnimationComponent.EventType.STOP, this.onAnimationStop.bind(this))
+        this.animation!.on(AnimationComponent.EventType.STOP, this.onAnimationStop.bind(this))
         let collider = this.getComponent(BoxCollider);
         if (collider) {
             collider.on('onCollisionEnter', this.onCollision, this);
             collider.on('onCollisionStay', this.onCollision, this);
             collider.on('onCollisionExit', this.onCollisionExit, this);
+        }
+
+        systemEvent.on(SystemEventType.KEY_UP, this.onKeyUp, this);
+        systemEvent.on(SystemEventType.KEY_UP, this.onKeyDown, this);
+
+        if (!sys.isMobile && this.joyStick) {
+            this.joyStick.node.active = false;
+            this.joyStick = null;
+        }
+
+        if (this.joyStick) {
+            this.joyStick.node.on(Node.EventType.TOUCH_START, this.onJoyStickTouchStart, this);
+        }
+    }
+
+    onKeyDown (event: EventKeyboard) {
+        switch (event.keyCode) {
+            case macro.KEY.up:
+            case macro.KEY.w:
+            case macro.KEY.down:
+            case macro.KEY.s: {
+                if (this.orbitCamera) {
+                    this.orbitCamera.resetTargetRotation()
+                }
+                break;
+            }
+        }
+    }
+    onKeyUp (event: EventKeyboard) {
+        switch (event.keyCode) {
+            case macro.KEY.down:
+            case macro.KEY.s:
+                this.targetRotation += 180;
+                break;
+        }
+    }
+
+    onJoyStickTouchStart () {
+        if (this.orbitCamera) {
+            this.orbitCamera.resetTargetRotation()
         }
     }
 
@@ -87,7 +134,7 @@ export class Hero extends Component {
         if (input.key.shift) {
             speedAmount = this.runSpeed;
         } else if (this.joyStick) {
-            speedAmount = this.moveSpeed + (this.runSpeed - this.moveSpeed) * this.joyStick.magnitude;
+            speedAmount = this.moveSpeed + (this.runSpeed * 0.8 - this.moveSpeed) * this.joyStick.magnitude;
         }
 
         this.targetSpeed.x = this.targetSpeed.z = 0;
@@ -99,7 +146,7 @@ export class Hero extends Component {
             this.targetRotation -= 90 * deltaTime;
         }
         else if (this.joyStick) {
-            this.targetRotation += this.joyStick.rotation * deltaTime;
+            this.targetRotation = this.joyStick.rotation;
         }
 
         let targetRotationRad = this.targetRotation * Math.PI / 180;
@@ -108,10 +155,14 @@ export class Hero extends Component {
             this.targetSpeed.z = speedAmount * Math.cos(targetRotationRad);
             moving = true;
         }
-        // else if (input.key.down) {
-        //     this.targetSpeed.x = -speedAmount;
-        //     moving = true;
-        // }
+
+        let reverseRotation = 0;
+        if (input.key.down) {
+            this.targetSpeed.x = -speedAmount * Math.sin(targetRotationRad);
+            this.targetSpeed.z = -speedAmount * Math.cos(targetRotationRad);
+            moving = true;
+            reverseRotation = 180;
+        }
 
         Vec3.lerp(speed, speed, this.targetSpeed, deltaTime * 5);
 
@@ -119,7 +170,7 @@ export class Hero extends Component {
         if (input.key.space || (this.joyStick && this.joyStick.jump)) {
             if (!this.jumping) {
                 this.jumping = true;
-                this.rigidBody.applyImpulse(tempVec3.set(0, this.jumpForce, 0));
+                this.rigidBody!.applyImpulse(tempVec3.set(0, this.jumpForce, 0));
             }
         }
 
@@ -139,11 +190,16 @@ export class Hero extends Component {
             this.play('Yawn');
         }
 
-        this.rotation = this.targetRotation;//lerp(this.rotation, this.targetRotation, deltaTime * 5);
+        if (this.joyStick) {
+            this.rotation = this.targetRotation + reverseRotation;
+        }
+        else {
+            this.rotation = lerp(this.rotation, this.targetRotation + reverseRotation, deltaTime * 5);
+        }
 
-        this.rigidBody.getLinearVelocity(tempVec3);
+        this.rigidBody!.getLinearVelocity(tempVec3);
         speed.y = tempVec3.y;
-        this.rigidBody.setLinearVelocity(speed);
+        this.rigidBody!.setLinearVelocity(speed);
 
         if (this.speed.y < -3) {
             if (this._currentAnim !== 'JumpingDown') {
@@ -164,7 +220,11 @@ export class Hero extends Component {
             this.jumping = false;
         }
 
-        // model
-        this.animation.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
+        if (this.joyStick) {
+            this.contentNode!.eulerAngles = tempVec3.set(0, this.rotation, 0);
+        }
+        else {
+            this.animation!.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
+        }
     }
 }

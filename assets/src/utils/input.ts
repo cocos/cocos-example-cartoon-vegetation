@@ -53,7 +53,7 @@ class Input {
         }
     }
 
-    onKeyUp (event) {
+    onKeyUp (event: EventKeyboard) {
         switch (event.keyCode) {
             case macro.KEY.left:
             case macro.KEY.a:

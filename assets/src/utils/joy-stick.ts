@@ -12,16 +12,16 @@ export class JoyStick extends Component {
     @property
     maxRadius = 10;
 
-    @property({type: Node})
+    @property({ type: Node })
     control: Node | null = null;
 
-    @property({type: Node})
+    @property({ type: Node })
     controlBg: Node | null = null;
 
-    @property({type: Node})
+    @property({ type: Node })
     jumpBtn: Node | null = null;
 
-    @property({type: Node})
+    @property({ type: Node })
     jumpWidget: Node | null = null;
 
     direction: Vec3 = new Vec3;

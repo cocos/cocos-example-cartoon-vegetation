@@ -43,7 +43,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 461
+      "__id__": 465
     },
     "_id": "32cf1dc5-7fff-49bc-b60f-5b89e43e4356"
   },
@@ -1204,6 +1204,10 @@
       "__id__": 72
     },
     "jumpForce": 5,
+    "contentNode": null,
+    "orbitCamera": {
+      "__id__": 7
+    },
     "_id": "1evGtg1qBEmZLm7mNkKSEV"
   },
   {
@@ -9348,6 +9352,12 @@
       },
       {
         "__id__": 459
+      },
+      {
+        "__id__": 461
+      },
+      {
+        "__id__": 463
       }
     ]
   },
@@ -9396,18 +9406,62 @@
     ]
   },
   {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 70
+    },
+    "sourceInfo": null,
+    "propertyPath": [
+      "reverseRotationNode"
+    ],
+    "target": {
+      "__id__": 53
+    },
+    "targetInfo": {
+      "__id__": 462
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "9edxunRY1T34Pb8J+wILc+"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 70
+    },
+    "sourceInfo": null,
+    "propertyPath": [
+      "contentNode"
+    ],
+    "target": {
+      "__id__": 53
+    },
+    "targetInfo": {
+      "__id__": 464
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "9edxunRY1T34Pb8J+wILc+"
+    ]
+  },
+  {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 462
+      "__id__": 466
     },
     "shadows": {
-      "__id__": 463
+      "__id__": 467
     },
     "_skybox": {
-      "__id__": 464
+      "__id__": 468
     },
     "fog": {
-      "__id__": 465
+      "__id__": 469
     }
   },
   {

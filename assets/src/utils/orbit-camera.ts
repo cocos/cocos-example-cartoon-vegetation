@@ -111,13 +111,8 @@ export default class OrbitCamera extends Component {
         }
 
 
-        let targetRotation = this._targetRotation.set(this._targetEuler);
-        if (this.followTargetRotationY) {
-            targetRotation = tempVec3_2.set(targetRotation);
-            Quat.toEuler(tempVec3, this.target!.worldRotation);
-            targetRotation.y += tempVec3.y;
-        }
-        Quat.fromEuler(this._rotation, targetRotation.x, targetRotation.y, targetRotation.z);
+        this.resetTargetRotation();
+        Quat.fromEuler(this._rotation, this._targetRotation.x, this._targetRotation.y, this._targetRotation.z);
 
         if (this.target) {
             this._targetCenter.set(this.target.worldPosition);
@@ -127,6 +122,15 @@ export default class OrbitCamera extends Component {
         this._radius = this.radius;
 
         this.limitRotation()
+    }
+
+    resetTargetRotation () {
+        let targetRotation = this._targetRotation.set(this._targetEuler);
+        if (this.followTargetRotationY) {
+            targetRotation = tempVec3_2.set(targetRotation);
+            Quat.toEuler(tempVec3, this.target!.worldRotation);
+            targetRotation.y += tempVec3.y;
+        }
     }
 
     onTouchStart () {
