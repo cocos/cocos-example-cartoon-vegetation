@@ -52,27 +52,27 @@ export default class OrbitCamera extends Component {
     }
     set target (v) {
         this._target = v;
-        this._targetRotation.set(this._targetEuler);
+        this._targetRotation.set(this._startRotation);
         this._targetCenter.set(v!.worldPosition);
     }
 
     @type(Vec3)
     get targetRotation (): Vec3 {
         if (!EDITOR) {
-            this._targetEuler.set(this._targetRotation);
+            this._startRotation.set(this._targetRotation);
         }
-        return this._targetEuler;
+        return this._startRotation;
     }
     set targetRotation (v: Vec3) {
         this._targetRotation.set(v);
-        this._targetEuler.set(v);
+        this._startRotation.set(v);
     }
 
     @property
     followTargetRotationY = true;
 
     @type(Vec3)
-    private _targetEuler = new Vec3;
+    private _startRotation = new Vec3;
 
     private _center = new Vec3;
     private _targetCenter = new Vec3;
@@ -125,7 +125,7 @@ export default class OrbitCamera extends Component {
     }
 
     resetTargetRotation () {
-        let targetRotation = this._targetRotation.set(this._targetEuler);
+        let targetRotation = this._targetRotation.set(this._startRotation);
         if (this.followTargetRotationY) {
             targetRotation = tempVec3_2.set(targetRotation);
             Quat.toEuler(tempVec3, this.target!.worldRotation);

@@ -27,9 +27,6 @@ export class Hero extends Component {
     @property
     jumpForce = 5;
 
-    @type(Node)
-    contentNode: Node | null = null;
-
     @type(OrbitCamera)
     orbitCamera: OrbitCamera | null = null;
 
@@ -55,10 +52,9 @@ export class Hero extends Component {
         }
 
         systemEvent.on(SystemEventType.KEY_UP, this.onKeyUp, this);
-        systemEvent.on(SystemEventType.KEY_UP, this.onKeyDown, this);
+        systemEvent.on(SystemEventType.KEY_DOWN, this.onKeyDown, this);
 
         if (!sys.isMobile && this.joyStick) {
-            this.joyStick.node.active = false;
             this.joyStick = null;
         }
 
@@ -74,7 +70,7 @@ export class Hero extends Component {
             case macro.KEY.down:
             case macro.KEY.s: {
                 if (this.orbitCamera) {
-                    this.orbitCamera.resetTargetRotation()
+                    // this.orbitCamera.resetTargetRotation()
                 }
                 break;
             }
@@ -91,7 +87,7 @@ export class Hero extends Component {
 
     onJoyStickTouchStart () {
         if (this.orbitCamera) {
-            this.orbitCamera.resetTargetRotation()
+            // this.orbitCamera.resetTargetRotation()
         }
     }
 
@@ -140,13 +136,14 @@ export class Hero extends Component {
         this.targetSpeed.x = this.targetSpeed.z = 0;
 
         if (input.key.left) {
-            this.targetRotation += 90 * deltaTime;
+            this.targetRotation += 180 * deltaTime;
         }
         else if (input.key.right) {
-            this.targetRotation -= 90 * deltaTime;
+            this.targetRotation -= 180 * deltaTime;
         }
         else if (this.joyStick) {
-            this.targetRotation = this.joyStick.rotation;
+            // keep joystrick angle is relative to current camera view angle
+            this.targetRotation = this.joyStick.rotation + this.orbitCamera!.targetRotation.y;
         }
 
         let targetRotationRad = this.targetRotation * Math.PI / 180;
@@ -220,11 +217,6 @@ export class Hero extends Component {
             this.jumping = false;
         }
 
-        if (this.joyStick) {
-            this.contentNode!.eulerAngles = tempVec3.set(0, this.rotation, 0);
-        }
-        else {
-            this.animation!.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
-        }
+        this.animation!.node.eulerAngles = tempVec3.set(0, this.rotation, 0);
     }
 }

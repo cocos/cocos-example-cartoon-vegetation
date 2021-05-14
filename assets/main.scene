@@ -232,8 +232,8 @@
     "radiusScaleSpeed": 2,
     "minRadius": 2,
     "maxRadius": 20,
-    "followTargetRotationY": true,
-    "_targetEuler": {
+    "followTargetRotationY": false,
+    "_startRotation": {
       "__type__": "cc.Vec3",
       "x": 2,
       "y": 0,
@@ -1204,7 +1204,6 @@
       "__id__": 72
     },
     "jumpForce": 5,
-    "contentNode": null,
     "orbitCamera": {
       "__id__": 7
     },
@@ -1826,7 +1825,7 @@
         "__id__": 196
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 227
