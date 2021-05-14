@@ -92,3 +92,10 @@ function onApplicationCreated(application) {
 }
 
  wx.showShareMenu()
+
+ wx.onShareAppMessage(function () {
+  return {
+    imageUrlId: "XG6zojV3Rc+mtAZJ6TRaFg==",
+    imageUrl: "https://mmocgame.qpic.cn/wechatgame/8RcaBwOH9otmbE1oN5bJsEEZk2QwaFoOX6icVfmUTYEvRjB2LwLeD66Is6wmviaCPN/0"
+  }
+})
