@@ -62,9 +62,9 @@ export class JoyStick extends Component {
             this._currentScreenVerticle = true;
         }
 
-        let scaleValue = 0.6;
+        let scaleValue = 2;
         if (preScreenVerticle != this._currentScreenVerticle) {
-            if (this._currentScreenVerticle) {
+            if (!this._currentScreenVerticle) {
                 this.control?.setScale(Vec3.ONE);
                 this.controlBg?.setScale(Vec3.ONE);
                 this.maxRadius = this._originRadius;

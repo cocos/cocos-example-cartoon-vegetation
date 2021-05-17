@@ -2,7 +2,7 @@
   "ver": "1.0.21",
   "importer": "image",
   "imported": true,
-  "uuid": "33ddb0c8-80f1-4d78-a616-ba1a9e03b285",
+  "uuid": "a4870433-49cc-4b8b-b132-24cd5e21b0f9",
   "files": [
     ".png",
     ".json"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "33ddb0c8-80f1-4d78-a616-ba1a9e03b285@6c48a",
-      "displayName": "shank01",
+      "uuid": "a4870433-49cc-4b8b-b132-24cd5e21b0f9@6c48a",
+      "displayName": "textBox01",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "33ddb0c8-80f1-4d78-a616-ba1a9e03b285"
+        "imageUuidOrDatabaseUri": "a4870433-49cc-4b8b-b132-24cd5e21b0f9"
       },
       "ver": "1.0.21",
       "imported": true,
@@ -33,8 +33,8 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "33ddb0c8-80f1-4d78-a616-ba1a9e03b285@f9941",
-      "displayName": "shank01",
+      "uuid": "a4870433-49cc-4b8b-b132-24cd5e21b0f9@f9941",
+      "displayName": "textBox01",
       "id": "f9941",
       "name": "spriteFrame",
       "userData": {
@@ -45,17 +45,17 @@
         "offsetY": 0,
         "trimX": 0,
         "trimY": 0,
-        "width": 121,
-        "height": 121,
-        "rawWidth": 121,
-        "rawHeight": 121,
+        "width": 177,
+        "height": 71,
+        "rawWidth": 177,
+        "rawHeight": 71,
         "borderTop": 0,
         "borderBottom": 0,
         "borderLeft": 0,
         "borderRight": 0,
         "packable": true,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "33ddb0c8-80f1-4d78-a616-ba1a9e03b285@6c48a",
+        "imageUuidOrDatabaseUri": "a4870433-49cc-4b8b-b132-24cd5e21b0f9@6c48a",
         "atlasUuid": ""
       },
       "ver": "1.0.9",
@@ -69,6 +69,6 @@
   "userData": {
     "hasAlpha": true,
     "type": "sprite-frame",
-    "redirect": "33ddb0c8-80f1-4d78-a616-ba1a9e03b285@f9941"
+    "redirect": "a4870433-49cc-4b8b-b132-24cd5e21b0f9@f9941"
   }
 }
