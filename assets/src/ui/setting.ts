@@ -104,12 +104,12 @@ export class Settings extends Component {
     setHighQuality (highQuality: boolean) {
         const globals = director.getScene()!.globals;
         if (highQuality) {
-            globals.shadows.shadowMapSize = new Vec2(1024, 1024);
-            globals.shadows.pcf = PCF_TYPE.X25;
+            globals.shadows.shadowMapSize = new Vec2(4096, 4096);
+            // globals.shadows.pcf = PCF_TYPE.X25;
         }
         else {
             globals.shadows.shadowMapSize = new Vec2(512, 512);
-            globals.shadows.pcf = PCF_TYPE.X5;
+            // globals.shadows.pcf = PCF_TYPE.X5;
         }
 
         // hack, TODO: remove when engine fixed dirty flag 

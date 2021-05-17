@@ -9501,7 +9501,7 @@
     },
     "_autoAdapt": false,
     "_pcf": 1,
-    "_bias": 0.002,
+    "_bias": 0.005,
     "_packing": false,
     "_linear": true,
     "_selfShadow": false,
