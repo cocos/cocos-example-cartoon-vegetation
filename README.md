@@ -19,6 +19,11 @@ Youtube : https://www.youtube.com/watch?v=AuXAnqPT1WE
 
 bilibili : https://www.bilibili.com/video/bv1xf4y1a71i
 
+Wechat Game : 
+
+<img src="https://user-images.githubusercontent.com/1862402/118585865-4db74580-b7cc-11eb-8ac7-d732d4974ce9.png" width="256" height="256"></img>
+
+
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/1862402/114335753-02cc6180-9b80-11eb-8a36-e55458de5ee9.png)
