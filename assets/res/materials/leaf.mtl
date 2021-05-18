@@ -35,7 +35,7 @@
     {
       "shadowIntensity": 0.3,
       "windMap": {
-        "__uuid__": "87d94e8a-74be-4f00-9b3b-b9e1b1e84022@6c48a",
+        "__uuid__": "2d64cd14-7d1f-4386-b977-c463d0ab085e@6c48a",
         "__expectedType__": "cc.Texture2D"
       },
       "windSpeed": 2,
