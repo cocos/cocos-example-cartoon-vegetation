@@ -1,1 +1,0 @@
-Models are from mixamo.com.
