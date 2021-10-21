@@ -1,9 +1,11 @@
 {
-  "ver": "2.0.14",
+  "ver": "2.1.7",
   "importer": "fbx",
   "imported": true,
   "uuid": "97f203d4-aaa4-4ede-86ad-7b06eb7f4431",
-  "files": [],
+  "files": [
+    "__original-animation-0.cconb"
+  ],
   "subMetas": {
     "30732": {
       "importer": "gltf-skeleton",
@@ -224,11 +226,10 @@
         },
         "events": []
       },
-      "ver": "1.0.14",
+      "ver": "1.0.16",
       "imported": true,
       "files": [
-        ".bin",
-        ".json"
+        ".cconb"
       ],
       "subMetas": {}
     },
