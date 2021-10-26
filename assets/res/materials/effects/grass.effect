@@ -119,6 +119,7 @@ CCProgram shared-funcs %{
 	  s.flattenStrength = bendFlattenStrength;
 	  s.perspectiveCorrection = bendPerspectiveCorrection;
     return s;
+
   }
   #endif
 
@@ -156,6 +157,7 @@ CCProgram shared-funcs %{
     //Apply bend offset
     wPos.xz += offsets.xz;
     wPos.y -= offsets.y;
+    
   }
 
   vec4 calcGrassVertexColor(in vec4 lPos, in vec4 wPos, float rand, float mask) {
@@ -258,10 +260,15 @@ CCProgram fs %{
 
     #if CC_RECEIVE_SHADOW
       float pcf = cc_shadowWHPBInfo.z + 0.001;
-      if (pcf > 3.0) {shadowAttenuation = CCGetShadowFactorX25(v_shadowPos);}
-      else if (3.0 > pcf && pcf > 2.0) {shadowAttenuation = CCGetShadowFactorX9(v_shadowPos);}
-      else if (2.0 > pcf && pcf > 1.0) {shadowAttenuation = CCGetShadowFactorX5(v_shadowPos);}
-      else {shadowAttenuation = CCGetShadowFactorX1(v_shadowPos);}
+      if (pcf > 3.0) {
+        shadowAttenuation = CCGetShadowFactorSoft2X(v_shadowPos);
+      } else if (3.0 > pcf && pcf > 2.0) {
+        shadowAttenuation = CCGetShadowFactorSoft2X(v_shadowPos);
+      } else if (2.0 > pcf && pcf > 1.0) {
+        shadowAttenuation = CCGetShadowFactorSoft(v_shadowPos);
+      } else {
+        shadowAttenuation = CCGetShadowFactorHard(v_shadowPos);
+      }
     #endif
 
     return shadowAttenuation;
