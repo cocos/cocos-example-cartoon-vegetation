@@ -24,10 +24,11 @@ CCProgram shared-ubo %{
 CCProgram grass-bend-vs %{
 
 precision highp float;
-#include <input-standard>
-#include <cc-global>
-#include <cc-local-batch>
-#include <input-standard>
+#include <legacy/input-standard>
+#include <builtin/uniforms/cc-global>
+#include <legacy/decode-base>
+#include <legacy/local-batch>
+#include <legacy/input-standard>
 
 #include <shared-ubo>
 

@@ -10,6 +10,7 @@ export const Config = {
 }
 
 game.on(Game.EVENT_ENGINE_INITED, () => {
+    // @ts-ignore
     if (director.root && director.root.device.hasFeature(gfx.Feature.TEXTURE_HALF_FLOAT)) {
         Config.supportBendGrass = true;
         if (!sys.isMobile) {

@@ -103,12 +103,12 @@ CCProgram get-rand %{
 }%
 
 CCProgram shared-funcs %{
-  #include <cc-global>
+  #include <builtin/uniforms/cc-global>
 
-  #define Mask_Channel_Color 1
-  #define Mask_Channel_Uv 2
+  #pragma define Mask_Channel_Color 1
+  #pragma define Mask_Channel_Uv 2
 
-  #pragma define Mask_Type options([Mask_Channel_Color, Mask_Channel_Uv])
+  #pragma define-meta Mask_Type options([Mask_Channel_Color, Mask_Channel_Uv])
 
   #if USE_BEND
   BendSettings getBendSettings (float mask) {
@@ -119,7 +119,6 @@ CCProgram shared-funcs %{
 	  s.flattenStrength = bendFlattenStrength;
 	  s.perspectiveCorrection = bendPerspectiveCorrection;
     return s;
-
   }
   #endif
 
@@ -157,7 +156,6 @@ CCProgram shared-funcs %{
     //Apply bend offset
     wPos.xz += offsets.xz;
     wPos.y -= offsets.y;
-    
   }
 
   vec4 calcGrassVertexColor(in vec4 lPos, in vec4 wPos, float rand, float mask) {
@@ -168,12 +166,13 @@ CCProgram shared-funcs %{
 
 CCProgram vs %{
   precision highp float;
-  #include <input-standard>
-  #include <cc-global>
-  #include <cc-local-batch>
-  #include <input-standard>
-  #include <cc-fog-vs>
-  #include <cc-shadow-map-vs>
+  #include <legacy/input-standard>
+  #include <builtin/uniforms/cc-global>
+  #include <legacy/decode-base>
+  #include <legacy/local-batch>
+  #include <legacy/input-standard>
+  #include <legacy/fog-vs>
+  #include <legacy/shadow-map-vs>
 
   in vec3 a_color;
 
@@ -233,12 +232,13 @@ CCProgram vs %{
 
 CCProgram fs %{
   precision highp float;
-  #include <output>
-  #include <cc-fog-fs>
-  #include <gamma>
+  #include <legacy/output>
+  #include <legacy/fog-fs>
+  #include <common/color/gamma>
+  #include <builtin/functionalities/shadow-map>
 
   #if CC_RECEIVE_SHADOW
-    #include <cc-shadow-map-fs>
+    #include <legacy/shadow-map-fs>
   #endif
 
   #include <shared-ubos>
@@ -260,15 +260,21 @@ CCProgram fs %{
 
     #if CC_RECEIVE_SHADOW
       float pcf = cc_shadowWHPBInfo.z + 0.001;
-      if (pcf > 3.0) {
-        shadowAttenuation = CCGetShadowFactorSoft2X(v_shadowPos);
-      } else if (3.0 > pcf && pcf > 2.0) {
-        shadowAttenuation = CCGetShadowFactorSoft2X(v_shadowPos);
-      } else if (2.0 > pcf && pcf > 1.0) {
-        shadowAttenuation = CCGetShadowFactorSoft(v_shadowPos);
+      if (pcf > 2.) {
+        shadowAttenuation = CCGetDirLightShadowFactorSoft3X(v_shadowPos);
+      } else if (pcf > 1.) {
+        shadowAttenuation = CCGetDirLightShadowFactorSoft(v_shadowPos);
       } else {
-        shadowAttenuation = CCGetShadowFactorHard(v_shadowPos);
+        shadowAttenuation = CCGetDirLightShadowFactorHard(v_shadowPos);
       }
+      shadowAttenuation = mix(shadowAttenuation, 1.0, cc_shadowNFLSInfo.w); 
+
+
+      // float pcf = cc_shadowWHPBInfo.z + 0.001;
+      // if (pcf > 3.0) {shadowAttenuation = CCGetShadowFactorX25(v_shadowPos);}
+      // else if (3.0 > pcf && pcf > 2.0) {shadowAttenuation = CCGetShadowFactorX9(v_shadowPos);}
+      // else if (2.0 > pcf && pcf > 1.0) {shadowAttenuation = CCGetShadowFactorX5(v_shadowPos);}
+      // else {shadowAttenuation = CCGetShadowFactorX1(v_shadowPos);}
     #endif
 
     return shadowAttenuation;
@@ -294,7 +300,8 @@ CCProgram fs %{
 
     // shadow
     float shadowAttenuation = getShadowAttenuation();
-    shadowAttenuation = 1. - min(shadowAttenuation, params.y);
+    // shadowAttenuation = 1. - min(shadowAttenuation, params.y);
+    shadowAttenuation = max(shadowAttenuation, params.y);
 
     // lighting
     vec3 viewDirection = normalize(cc_cameraPos.xyz - v_wPos);
@@ -333,7 +340,7 @@ CCProgram fs %{
     float gust = sampleGustMap(v_wPos, wind, windMap, 0.02, 2.);
     final += (gust * v_color.a * windGustTint);
 
-    final = CC_APPLY_FOG(final);
+    CC_APPLY_FOG(final);
 
     // debug
     // return vec4(s.normal, 1.);
@@ -345,9 +352,13 @@ CCProgram fs %{
 
 CCProgram shadow-caster-vs %{
   precision highp float;
-  #include <input-standard>
-  #include <cc-local-batch>
-  #include <cc-shadow>
+  #include <legacy/input-standard>
+  #include <legacy/decode-base>
+  #include <legacy/local-batch>
+  #include <builtin/uniforms/cc-shadow>
+#if CC_SUPPORT_CASCADED_SHADOW_MAP
+  #include <builtin/uniforms/cc-csm>
+#endif
 
   in vec3 a_color;
 
@@ -388,7 +399,7 @@ CCProgram shadow-caster-vs %{
 
 CCProgram shadow-caster-fs %{
   precision highp float;
-  #include <packing>
+  #include <common/data/packing>
 
   #include <shared-ubos>
 

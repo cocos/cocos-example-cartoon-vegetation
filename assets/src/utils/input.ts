@@ -1,4 +1,4 @@
-import { macro, systemEvent, SystemEventType, EventKeyboard, Game, game } from 'cc';
+import { macro, systemEvent, EventKeyboard, Game, game, SystemEvent } from 'cc';
 
 class Input {
     key = {
@@ -17,8 +17,8 @@ class Input {
 
     registerEvents () {
         // Your initialization goes here.
-        systemEvent.on(SystemEventType.KEY_DOWN, this.onKeyDown, this);
-        systemEvent.on(SystemEventType.KEY_UP, this.onKeyUp, this);
+        systemEvent.on(SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        systemEvent.on(SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
     }
 
     onKeyDown (event: EventKeyboard) {

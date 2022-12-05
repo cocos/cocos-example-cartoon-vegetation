@@ -70,11 +70,12 @@ CCEffect %{
 
 CCProgram unlit-vs %{
   precision highp float;
-  #include <input>
-  #include <cc-global>
-  #include <cc-local-batch>
-  #include <input>
-  #include <cc-fog-vs>
+  #include <legacy/input>
+  #include <builtin/uniforms/cc-global>
+  #include <legacy/decode-base>
+  #include <legacy/local-batch>
+  #include <legacy/input>
+  #include <legacy/fog-vs>
 
   #if USE_VERTEX_COLOR
     in lowp vec4 a_color;
@@ -113,11 +114,11 @@ CCProgram unlit-vs %{
 
 CCProgram unlit-fs %{
   precision highp float;
-  #include <output>
-  #include <cc-fog-fs>
+  #include <legacy/output>
+  #include <legacy/fog-fs>
 
   #if USE_ALPHA_TEST
-    #pragma define ALPHA_TEST_CHANNEL options([a, r, g, b])
+    #pragma define-meta ALPHA_TEST_CHANNEL options([a, r, g, b])
   #endif
 
   #if USE_TEXTURE
@@ -158,9 +159,13 @@ CCProgram unlit-fs %{
 
 CCProgram shadow-caster-vs %{
   precision highp float;
-  #include <input-standard>
-  #include <cc-local-batch>
-  #include <cc-shadow>
+  #include <legacy/input-standard>
+  #include <legacy/decode-base>
+  #include <legacy/local-batch>
+  #include <builtin/uniforms/cc-shadow>
+#if CC_SUPPORT_CASCADED_SHADOW_MAP
+  #include <builtin/uniforms/cc-csm>
+#endif
 
   out vec2 v_clip_depth;
   
@@ -184,7 +189,7 @@ CCProgram shadow-caster-vs %{
 
 CCProgram shadow-caster-fs %{
   precision highp float;
-  #include <packing>
+  #include <common/data/packing>
 
   in vec2 v_clip_depth;
 

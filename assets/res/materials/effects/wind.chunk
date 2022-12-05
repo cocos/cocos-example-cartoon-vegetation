@@ -1,4 +1,4 @@
-#include <cc-global>
+#include <builtin/uniforms/cc-global>
 
 uniform sampler2D windMap;
 uniform Wind {

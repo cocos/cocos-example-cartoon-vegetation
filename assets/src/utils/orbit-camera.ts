@@ -1,22 +1,20 @@
-import { Component, _decorator, systemEvent, SystemEvent, SystemEventType, Vec3, EventTouch, Touch, Quat, Vec2, Node, EventMouse, lerp, director, Canvas } from 'cc'
+import { Component, _decorator, systemEvent, SystemEvent, Vec3, EventTouch, Touch,
+    Quat, Vec2, Node, EventMouse, lerp, director, Canvas } from 'cc'
 import { EDITOR } from 'cc/env';
 const { ccclass, property, type } = _decorator;
 
-let tempVec3 = new Vec3
-let tempVec3_2 = new Vec3
-let tempQuat = new Quat
-const DeltaFactor = 1 / 200
-
+let tempVec3 = new Vec3();
+let tempVec3_2 = new Vec3();
+let tempQuat = new Quat();
+const DeltaFactor = 1 / 200;
 let PositiveForward = new Vec3(0, 0, 1);
 
 @ccclass('OrbitCamera')
 export default class OrbitCamera extends Component {
-
     @property
     enableTouch = true;
     @property
     enableScaleRadius = false;
-
 
     @property
     autoRotate = false;
@@ -71,15 +69,12 @@ export default class OrbitCamera extends Component {
     @property
     followTargetRotationY = true;
 
-    @type(Vec3)
-    private _startRotation = new Vec3;
-
-    private _center = new Vec3;
-    private _targetCenter = new Vec3;
-
+    private _startRotation = new Vec3();
+    private _center = new Vec3();
+    private _targetCenter = new Vec3();
     private _touched = false;
-    private _targetRotation = new Vec3;
-    private _rotation = new Quat
+    private _targetRotation = new Vec3();
+    private _rotation = new Quat();
 
     @property
     private _targetRadius = 10;
@@ -100,13 +95,13 @@ export default class OrbitCamera extends Component {
         }
         else {
             if (this.enableTouch) {
-                systemEvent.on(SystemEventType.TOUCH_START, this.onTouchStart, this)
-                systemEvent.on(SystemEventType.TOUCH_MOVE, this.onTouchMove, this)
-                systemEvent.on(SystemEventType.TOUCH_END, this.onTouchEnd, this)
+                systemEvent.on(SystemEvent.EventType.TOUCH_START, this.onTouchStart, this)
+                systemEvent.on(SystemEvent.EventType.TOUCH_MOVE, this.onTouchMove, this)
+                systemEvent.on(SystemEvent.EventType.TOUCH_END, this.onTouchEnd, this)
             }
 
             if (this.enableScaleRadius) {
-                systemEvent.on(SystemEventType.MOUSE_WHEEL, this.onMouseWhee, this)
+                systemEvent.on(SystemEvent.EventType.MOUSE_WHEEL, this.onMouseWhee, this)
             }
         }
 

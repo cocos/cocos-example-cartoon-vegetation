@@ -1,5 +1,5 @@
 {
-  "ver": "2.1.7",
+  "ver": "2.3.1",
   "importer": "fbx",
   "imported": true,
   "uuid": "2a969329-7b34-4e8d-a080-1f7a00a791ff",
@@ -469,6 +469,9 @@
         "2a969329-7b34-4e8d-a080-1f7a00a791ff@2da73"
       ]
     },
-    "legacyFbxImporter": true
+    "legacyFbxImporter": true,
+    "fbx": {
+      "smartMaterialEnabled": false
+    }
   }
 }
