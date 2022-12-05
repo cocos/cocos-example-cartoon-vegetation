@@ -14,7 +14,8 @@
       "Mask_Type": 2,
       "USE_MAIN_TXTURE": true,
       "USE_BEND": true,
-      "USE_FIXED_NORMAL": true
+      "USE_FIXED_NORMAL": true,
+      "USE_LIGHT": true
     },
     {}
   ],
@@ -30,11 +31,20 @@
         ]
       }
     },
-    {}
+    {
+      "rasterizerState": {},
+      "depthStencilState": {},
+      "blendState": {
+        "targets": [
+          {}
+        ]
+      }
+    }
   ],
   "_props": [
     {
       "alphaTest": 0.8,
+      "shadowIntensity": 0.6,
       "randMap": {
         "__uuid__": "2d64cd14-7d1f-4386-b977-c463d0ab085e@6c48a",
         "__expectedType__": "cc.Texture2D"

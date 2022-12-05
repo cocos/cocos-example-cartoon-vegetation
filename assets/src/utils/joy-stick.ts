@@ -1,10 +1,10 @@
 
-import { _decorator, Component, Node, Vec3, Vec2, EventTouch, UITransform, view, Widget, math } from 'cc';
+import { _decorator, Component, Node, Vec3, Vec2, EventTouch, UITransform, view, math } from 'cc';
 const { ccclass, property } = _decorator;
 
-let _tempVec3 = new Vec3;
-let _tempVec2 = new Vec2;
-let _tempSize = new math.Size;
+let _tempVec3 = new Vec3();
+let _tempVec2 = new Vec2();
+let _tempSize = new math.Size();
 
 @ccclass('JoyStick')
 export class JoyStick extends Component {

@@ -1,11 +1,11 @@
 
-import { _decorator, Component, Node, Mesh, MeshRenderer, Vec3, Camera, find } from 'cc';
+import { _decorator, Component, Node, Mesh, MeshRenderer, Vec3 } from 'cc';
 import { EDITOR } from 'cc/env';
 import { Config } from './config';
 const { ccclass, property, type, executeInEditMode } = _decorator;
 
-const vec3_tmp1 = new Vec3;
-const vec3_tmp2 = new Vec3;
+const vec3_tmp1 = new Vec3();
+const vec3_tmp2 = new Vec3();
 
 @ccclass('LodConfig')
 export class LodConfig {

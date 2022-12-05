@@ -1,4 +1,5 @@
-import { _decorator, Component, Node, Material, ModelComponent, Prefab, instantiate, CCObject, utils, Mesh, MeshRenderer } from 'cc';
+import { _decorator, Component, Node, Material, ModelComponent, Prefab, instantiate,
+    CCObject, Mesh, MeshRenderer } from 'cc';
 import { Lod, LodConfig } from './lod';
 const { ccclass, property, executeInEditMode, type } = _decorator;
 

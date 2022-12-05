@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, Vec3, Vec2, Animation, lerp, AnimationClip, AnimationState, animation, AnimationComponent, RigidBody, ColliderComponent, ICollisionEvent, BoxCollider, sys, systemEvent, SystemEventType, EventKeyboard, macro } from 'cc';
+import { _decorator, Component, Node, Vec3, Vec2, Animation, lerp, AnimationClip, AnimationState, animation, AnimationComponent, RigidBody, ColliderComponent, ICollisionEvent, BoxCollider, sys, systemEvent, SystemEventType, EventKeyboard, macro, KeyCode } from 'cc';
 import input from '../utils/input';
 import { JoyStick } from '../utils/joy-stick';
 import OrbitCamera from '../utils/orbit-camera';
@@ -65,10 +65,10 @@ export class Hero extends Component {
 
     onKeyDown (event: EventKeyboard) {
         switch (event.keyCode) {
-            case macro.KEY.up:
-            case macro.KEY.w:
-            case macro.KEY.down:
-            case macro.KEY.s: {
+            case KeyCode.ARROW_UP:
+            case KeyCode.KEY_W:
+            case KeyCode.ARROW_DOWN:
+            case KeyCode.KEY_S: {
                 if (this.orbitCamera) {
                     // this.orbitCamera.resetTargetRotation()
                 }
@@ -78,8 +78,8 @@ export class Hero extends Component {
     }
     onKeyUp (event: EventKeyboard) {
         switch (event.keyCode) {
-            case macro.KEY.down:
-            case macro.KEY.s:
+            case KeyCode.ARROW_DOWN:
+            case KeyCode.KEY_S:
                 this.targetRotation += 180;
                 break;
         }
