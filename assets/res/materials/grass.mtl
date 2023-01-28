@@ -11,7 +11,7 @@
   "_defines": [
     {
       "USE_INSTANCING": true,
-      "Mask_Type": 2,
+      "USE_MASK_CHANNEL_UV": true,
       "USE_MAIN_TXTURE": true,
       "USE_BEND": true,
       "USE_FIXED_NORMAL": true
