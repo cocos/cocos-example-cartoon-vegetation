@@ -73,12 +73,10 @@ CCProgram shared-ubos %{
 
 CCProgram get-mask %{
   float getMask () {
-    #if Mask_Type == Mask_Channel_Color
+    #if USE_MASK_CHANNEL_UV
     return a_color.r;
-    #elif Mask_Type == Mask_Channel_Uv
-    return 1. - a_texCoord.y;
     #else
-    return 0.;
+    return 1. - a_texCoord.y;
     #endif
   }
 }%
@@ -104,11 +102,6 @@ CCProgram get-rand %{
 
 CCProgram shared-funcs %{
   #include <cc-global>
-
-  #define Mask_Channel_Color 1
-  #define Mask_Channel_Uv 2
-
-  #pragma define Mask_Type options([Mask_Channel_Color, Mask_Channel_Uv])
 
   #if USE_BEND
   BendSettings getBendSettings (float mask) {

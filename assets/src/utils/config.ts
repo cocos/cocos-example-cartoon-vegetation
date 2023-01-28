@@ -10,10 +10,14 @@ export const Config = {
 }
 
 game.on(Game.EVENT_ENGINE_INITED, () => {
-    if (director.root && director.root.device.hasFeature(gfx.Feature.TEXTURE_HALF_FLOAT)) {
-        Config.supportBendGrass = true;
-        if (!sys.isMobile) {
-            Config.bendGrass = true
+    if (director.root) {
+        const halfFeatures = director.root.device.getFormatFeatures(gfx.Format.R16F);
+        const features = gfx.FormatFeatureBit.RENDER_TARGET | gfx.FormatFeatureBit.SAMPLED_TEXTURE;
+        if ((halfFeatures & features) === features) {
+            Config.supportBendGrass = true;
+            // if (!sys.isMobile) {
+            //     Config.bendGrass = true;
+            // }
         }
     }
 
