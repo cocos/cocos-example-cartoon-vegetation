@@ -287,7 +287,7 @@ CCProgram fs %{
 
     // shadow
     float shadowAttenuation = getShadowAttenuation();
-    shadowAttenuation = 1. - min(shadowAttenuation, params.y);
+    shadowAttenuation = max(shadowAttenuation, params.y);
 
     // lighting
     vec3 viewDirection = normalize(cc_cameraPos.xyz - v_wPos);
